@@ -5,13 +5,13 @@ import {
   Navigate,
 } from "react-router-dom";
 
-import Main from "./pages/main";
+import Home from "./pages/Home";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Main />} />
+        <Route path="/" element={<Home />} />
       </Routes>
     </Router>
   );

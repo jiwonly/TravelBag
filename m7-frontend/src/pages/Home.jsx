@@ -1,8 +1,8 @@
-const Main = () => {
+const Home = () => {
   return (
     <>
       <div>
-        <h1 className="flex justify-center text-blue-600">Main Page!</h1>
+        <h1 className="flex justify-center text-blue-700">Home Page!</h1>
       </div>
     </>
   );
@@ -20,4 +20,4 @@ const Main = () => {
 // 9. borderRadius(그룹) - 테두리: rounded-,,
 // 10. 기타 - 위에 언급되지 않은 나머지 속성들로 폰트의 관련 속성 이후에 선언하며, 기타 속성 내의 선언 순서는 무관함.
 
-export default Main;
+export default Home;
