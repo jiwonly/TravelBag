@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+}
+
+html,
+body {
+}
+
+#root {
+}
+@media() {
+  #root {
+  }
+}
