@@ -9,7 +9,7 @@ createRoot(document.getElementById("root")).render(
   </StrictMode>
 );
 
-// // 줄바꿈 동일하게 적용
+// 줄바꿈 동일하게 적용
 // 1. position - 위치(관련속성:top,right,bottom,left,z-index)
 // 2. flex - 흐름(관련속성:flex-col, justify-center, items-center, ...)
 // 3. margin & padding(그룹) & gap - 간격
