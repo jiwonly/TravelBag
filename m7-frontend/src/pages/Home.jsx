@@ -1,9 +1,17 @@
-const Home = () => {
+import { InputWithLabel } from "@/components/InputWithLabel";
+import { SideBar } from "@/components/SideBar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+
+const Home = ({ children }) => {
   return (
     <>
-      <div>
-        <h1 className="flex justify-center text-blue-700">Home Page!</h1>
-      </div>
+      <SidebarProvider>
+        <SideBar />
+        <main>
+          <SidebarTrigger />
+          {children}
+        </main>
+      </SidebarProvider>
     </>
   );
 };
