@@ -20,12 +20,12 @@ const items = [
   },
   {
     title: "챙길 것들",
-    url: "/",
+    url: "/template",
     icon: "home",
   },
   {
     title: "여행 팁",
-    url: "/",
+    url: "/tip",
     icon: "home",
   },
   {

@@ -1,6 +1,6 @@
 const Header = ({ icon, title, memo }) => {
   return (
-    <div className="flex items-center py-[16px] px-[24px] gap-[9px] self-stretch [border-bottom:1px]">
+    <div className="flex items-center py-[16px] px-[24px] gap-[9px] self-stretch border-b border-[#e5e6e8]">
       <section className="icon w-[30px] h-[30px] flex-shrink-0">
         <img src={`${icon}.png`} alt={title} />
       </section>
