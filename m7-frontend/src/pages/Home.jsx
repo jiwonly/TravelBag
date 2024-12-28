@@ -1,6 +1,9 @@
 import { InputWithLabel } from "@/components/InputWithLabel";
 import { SideBar } from "@/components/SideBar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { useState } from "react";
+import TemplateList from "@/components/TemplateList";
+import Header from "@/components/Header";
 
 const Home = ({ children }) => {
   return (
@@ -10,6 +13,8 @@ const Home = ({ children }) => {
         <main>
           <SidebarTrigger />
           {children}
+          <Header icon="home" title="홈" memo="어서오세요!" />
+          <TemplateList />
         </main>
       </SidebarProvider>
     </>
