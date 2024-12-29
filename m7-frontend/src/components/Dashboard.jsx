@@ -5,10 +5,12 @@ import TravelBag from "./TravelBag";
 
 const Dashboard = ({ icon, title, memo }) => {
   return (
-    <div className="Main flex px-[50px] flex-col items-start flex-[1_0_0] self-stretch rounded-[16px] border-[1px] bg-[var(--White,_#FFF)]">
+    <div>
       <Header icon={icon} title={title} memo={memo} />
-      <BagList />
-      <TemplateList />
+      <div className="Main flex px-[30px] flex-col items-start flex-[1_0_0] self-stretch rounded-b-[16px] border-[1px] bg-[var(--White,_#FFF)]">
+        <BagList />
+        <TemplateList />
+      </div>
     </div>
   );
 };
