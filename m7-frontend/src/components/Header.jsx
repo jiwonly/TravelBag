@@ -5,12 +5,19 @@ const Header = ({ icon, title, memo }) => {
         <img src={`${icon}.png`} alt={title} />
       </section>
       <div className="flex flex-col">
-        <section className="title text-[17px] font-[Pretendard] not-italic leading-[28px] mb-[0px] text-[#393940]">
+        <section className="title text-[17px] font-[Pretendard] font-semibold not-italic leading-[28px] mb-[0px] text-[#393940]">
           {title}
         </section>
         <section className="memo text-[14px] font-medium font-[Pretendard] not-italic leading-[20px] text-gray-500">
           {memo}
         </section>
+      </div>
+      <div>
+        <select>
+          <option>{title}</option>
+          <option>여자 혼자 여행</option>
+          <option>먹고 죽으러 가는 여행</option>
+        </select>
       </div>
     </div>
   );
