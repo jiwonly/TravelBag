@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { getTemplateImage } from "@/util/get-template-image";
 
 const TemplateItem = ({ title, id }) => {
   const nav = useNavigate();
@@ -10,7 +11,7 @@ const TemplateItem = ({ title, id }) => {
       <div className="img_container w-full aspect-[4/3] rounded-[16px] overflow-hidden bg-gray-100">
         <img
           className="template_img w-full h-full object-cover"
-          src={`TemplateImage_${id}.png`}
+          src={getTemplateImage(id)}
           alt="Template"
         />
       </div>

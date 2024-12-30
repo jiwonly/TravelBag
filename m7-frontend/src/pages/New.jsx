@@ -10,7 +10,11 @@ const New = ({ children }) => {
         <main>
           <SidebarTrigger />
           {children}
-          <CustomStart icon="bag" title="내 마음대로 시작하기" />
+          <CustomStart
+            isTemplate={false}
+            icon="bag"
+            title="내 마음대로 시작하기"
+          />
         </main>
       </SidebarProvider>
     </>
