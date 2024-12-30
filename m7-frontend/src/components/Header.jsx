@@ -1,31 +1,41 @@
+import { useContext, useState } from "react";
 import {
   Select,
-  SelectGroup,
-  SelectValue,
   SelectTrigger,
+  SelectValue,
   SelectContent,
-  SelectLabel,
   SelectItem,
-  SelectSeparator,
-  SelectScrollUpButton,
-  SelectScrollDownButton,
 } from "../components/ui/select";
+import { TemplateStateContext } from "@/App";
+import { SelectedDisplatchData, SelectedSateData } from "@/pages/Template";
 
 const Header = ({ isTemplate, icon, title, memo }) => {
+  const data = useContext(TemplateStateContext);
+  const dispatchContext = useContext(SelectedDisplatchData);
+  const onChange = dispatchContext?.onChange;
+  const [selectedTitle, setSelectedTitle] = useState(title); // 선택된 값을 useState에 보관!!!
+
+  const onSelected = (value) => {
+    onChange(value);
+    setSelectedTitle(value);
+  };
+
   return (
     <div className="flex items-center py-[12px] px-[23px] gap-[10px] self-stretch border-t border-l border-r rounded-t-[16px] border-[#e5e6e8] bg-[var(--White,_#FFF)]">
       <section className="icon w-[40px] h-[40px] flex-shrink-0">
-        <img src={`/${icon}.png`} />
+        <img src={`/${icon}.png`} alt="icon" />
       </section>
       {isTemplate ? (
-        <Select>
+        <Select onValueChange={(value) => onSelected(value)}>
           <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder={title} />
+            <SelectValue placeholder={selectedTitle} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="eat">먹고 죽으러 가는 여행</SelectItem>
-            <SelectItem value="female">여자 혼자 여행</SelectItem>
-            <SelectItem value="male">남자 혼자 여행</SelectItem>
+            {data.map((item) => (
+              <SelectItem key={item.id} value={item.title}>
+                {item.title}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       ) : (
