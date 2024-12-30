@@ -15,7 +15,7 @@ const Header = ({ isTemplate, icon, title, memo }) => {
   return (
     <div className="flex items-center py-[12px] px-[23px] gap-[10px] self-stretch border-t border-l border-r rounded-t-[16px] border-[#e5e6e8] bg-[var(--White,_#FFF)]">
       <section className="icon w-[40px] h-[40px] flex-shrink-0">
-        <img src={`${icon}.png`} />
+        <img src={`/${icon}.png`} />
       </section>
       {isTemplate ? (
         <Select>
