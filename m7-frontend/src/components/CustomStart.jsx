@@ -1,8 +1,7 @@
 import Header from "./Header";
 import { CheckList } from "./CheckList";
 
-const CustomStart = ({ icon, title }) => {
-  const isTemplate = true;
+const CustomStart = ({ isTemplate, icon, title }) => {
   return (
     <div>
       <Header isTemplate={isTemplate} icon={icon} title={title} />
