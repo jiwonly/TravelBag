@@ -32,6 +32,7 @@ function reducer(state, action) {
   return nextState;
 }
 const mockData = [
+  { id: 0, title: "내 마음대로 시작하기" },
   {
     id: 1,
     title: "여자 혼자 여행",
@@ -49,6 +50,8 @@ const mockData = [
 const custom = [
   { id: 4, title: "연인과 오사카" },
   { id: 5, title: "중학교 친구들과 여행" },
+  { id: 6, title: "먹고 죽으러 가는 여행" },
+  { id: 7, title: "휴식이 필요해 떠나요" },
 ];
 
 export const TemplateStateContext = createContext();
