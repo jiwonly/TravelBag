@@ -5,7 +5,7 @@ import CustomStart from "@/components/CustomStart";
 
 const New = ({ children }) => {
   return (
-    <>
+    <div className="flex">
       <SidebarProvider>
         <SideBar />
         <main>
@@ -19,7 +19,7 @@ const New = ({ children }) => {
         </main>
       </SidebarProvider>
       <RecommendBar icon="inventory" title="추천 준비물" />
-    </>
+    </div>
   );
 };
 

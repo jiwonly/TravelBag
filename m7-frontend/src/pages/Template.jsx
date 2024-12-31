@@ -27,7 +27,7 @@ const Template = ({ children }) => {
   };
 
   return (
-    <div>
+    <div className="flex">
       <SidebarProvider>
         <SideBar />
         <main>
