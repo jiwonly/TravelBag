@@ -16,6 +16,9 @@ const cleanData = [
   {
     title: "클렌징폼",
   },
+  {
+    title: "로션",
+  },
 ];
 
 const electronicData = [
