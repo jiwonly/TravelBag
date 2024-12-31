@@ -1,4 +1,4 @@
-import { templateList } from "@/util/TemplateList";
+import { templateList } from "@/util/get-template-list";
 import TemplateItem from "./TemplateItem";
 
 const TemplateList = () => {

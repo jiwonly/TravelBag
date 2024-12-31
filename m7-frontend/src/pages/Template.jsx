@@ -7,6 +7,7 @@ import { useState, useContext } from "react";
 import { TemplateStateContext } from "@/App";
 import { createContext } from "react";
 import RecommendBar from "@/components/RecommendBar";
+import { templateList } from "@/util/get-template-list";
 
 export const SelectedSateData = createContext();
 export const SelectedDisplatchData = createContext();
@@ -26,6 +27,14 @@ const Template = ({ children }) => {
     nav(`/template/${selectedId}`);
   };
 
+  let basicTitle;
+
+  if (params.id < 4) {
+    basicTitle = templateList.find(
+      (item) => String(item.id) === String(params.id)
+    ).title;
+  }
+
   return (
     <div className="flex">
       <SidebarProvider>
@@ -35,7 +44,11 @@ const Template = ({ children }) => {
           {children}
           <SelectedSateData.Provider value={input}>
             <SelectedDisplatchData.Provider value={{ onChange }}>
-              <CustomTemplate isTemplate={true} icon="bag" title={input} />
+              <CustomTemplate
+                isTemplate={params.id < 4 ? false : true}
+                icon="bag"
+                title={params.id < 4 ? basicTitle : input}
+              />
             </SelectedDisplatchData.Provider>
           </SelectedSateData.Provider>
         </main>

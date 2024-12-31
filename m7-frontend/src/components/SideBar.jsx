@@ -10,8 +10,10 @@ import {
   SidebarMenuAction,
   SidebarHeader,
 } from "@/components/ui/sidebar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LoginLogo from "@/assets/LoginLogo.svg";
+import { useContext } from "react";
+import { TemplateCurId } from "@/App";
 
 const items = [
   {
@@ -21,7 +23,7 @@ const items = [
   },
   {
     title: "챙길 것들",
-    url: "/template",
+    url: `/template`,
     icon: "home",
   },
   {
@@ -37,13 +39,20 @@ const items = [
 ];
 
 export function SideBar() {
+  const Id = useContext(TemplateCurId);
+  const curId = Id.current - 1;
+  const nav = useNavigate();
+
   return (
     <Sidebar>
       <SidebarHeader>
         <img
           src={LoginLogo}
           alt="loginLogo"
-          className="w-[130px] h-auto mt-5"
+          className="w-[130px] h-auto mt-5 cursor-pointer"
+          onClick={() => {
+            nav("/");
+          }}
         />
       </SidebarHeader>
       <SidebarContent>
@@ -53,7 +62,13 @@ export function SideBar() {
             {items.map((item) => (
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton asChild>
-                  <Link to={item.url}>
+                  <Link
+                    to={
+                      item.title === "챙길 것들"
+                        ? `${item.url}/${curId}`
+                        : item.url
+                    }
+                  >
                     {/* <item.icon /> */}
                     <span>{item.title}</span>
                   </Link>
