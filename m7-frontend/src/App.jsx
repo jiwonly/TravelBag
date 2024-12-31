@@ -31,21 +31,6 @@ function reducer(state, action) {
   }
   return nextState;
 }
-const mockData = [
-  { id: 0, title: "내 마음대로 시작하기" },
-  {
-    id: 1,
-    title: "여자 혼자 여행",
-  },
-  {
-    id: 2,
-    title: "남자 혼자 여행",
-  },
-  {
-    id: 3,
-    title: "비즈니스 여행",
-  },
-];
 
 const custom = [
   { id: 4, title: "연인과 오사카" },
@@ -55,12 +40,12 @@ const custom = [
 ];
 
 export const TemplateStateContext = createContext();
+export const TemplateCurId = createContext();
 export const TemplateDispatchContext = createContext();
 
 function App() {
-  const [basic, setBasic] = useState("");
   const [data, dispatch] = useReducer(reducer, custom);
-  const idRef = useRef(6);
+  const idRef = useRef(8);
 
   const onCreate = (title) => {
     dispatch({
@@ -89,18 +74,20 @@ function App() {
   return (
     <>
       <TemplateStateContext.Provider value={data}>
-        <TemplateDispatchContext.Provider
-          value={{ onCreate, onUpdate, onDelete }}
-        >
-          <Router>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/new" element={<New />} />
-              <Route path="/tip" element={<Tip />} />
-              <Route path="/template/:id" element={<Template />} />
-            </Routes>
-          </Router>
-        </TemplateDispatchContext.Provider>
+        <TemplateCurId.Provider value={idRef}>
+          <TemplateDispatchContext.Provider
+            value={{ onCreate, onUpdate, onDelete }}
+          >
+            <Router>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/new" element={<New />} />
+                <Route path="/tip" element={<Tip />} />
+                <Route path="/template/:id" element={<Template />} />
+              </Routes>
+            </Router>
+          </TemplateDispatchContext.Provider>
+        </TemplateCurId.Provider>
       </TemplateStateContext.Provider>
     </>
   );

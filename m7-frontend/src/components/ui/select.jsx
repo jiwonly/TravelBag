@@ -12,12 +12,14 @@ const SelectValue = React.forwardRef(({ className, ...props }, ref) => (
   <SelectPrimitive.Value
     ref={ref}
     {...props}
+    data-placeholder={props.children ? undefined : true} // placeholder일 때 true
     className={cn(
-      " text-gray-900 text-[17px] font-[Pretendard] !font-semibold data-[placeholder]:text-gray-900", // 기본 스타일과 placeholder 스타일
+      "text-gray-900 text-[17px] font-[Pretendard] !font-semibold data-[placeholder]:text-gray-900 data-[placeholder]:!font-semibold",
       className
     )}
   />
 ));
+
 SelectValue.displayName = SelectPrimitive.Value.displayName;
 
 const SelectTrigger = React.forwardRef(

@@ -1,7 +1,7 @@
 import Header from "./Header";
 import { CheckList } from "./CheckList";
 
-const CustomStart = ({ isTemplate, icon, title }) => {
+const CustomTemplate = ({ isTemplate, icon, title }) => {
   return (
     <div>
       <Header isTemplate={isTemplate} icon={icon} title={title} />
@@ -17,4 +17,4 @@ const CustomStart = ({ isTemplate, icon, title }) => {
   );
 };
 
-export default CustomStart;
+export default CustomTemplate;
