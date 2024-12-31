@@ -6,6 +6,7 @@ import CustomTemplate from "@/components/CustomTemplate";
 import { useState, useContext } from "react";
 import { TemplateStateContext } from "@/App";
 import { createContext } from "react";
+import RecommendBar from "@/components/RecommendBar";
 
 export const SelectedSateData = createContext();
 export const SelectedDisplatchData = createContext();
@@ -39,6 +40,7 @@ const Template = ({ children }) => {
           </SelectedSateData.Provider>
         </main>
       </SidebarProvider>
+      <RecommendBar icon="inventory" title="추천 준비물" />
     </div>
   );
 };
