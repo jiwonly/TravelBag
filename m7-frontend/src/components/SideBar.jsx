@@ -11,6 +11,7 @@ import {
   SidebarHeader,
 } from "@/components/ui/sidebar";
 import { Link } from "react-router-dom";
+import LoginLogo from "@/assets/LoginLogo.svg";
 
 const items = [
   {
@@ -29,7 +30,7 @@ const items = [
     icon: "home",
   },
   {
-    title: "로그인",
+    title: "로그아웃",
     url: "/",
     icon: "home",
   },
@@ -38,7 +39,13 @@ const items = [
 export function SideBar() {
   return (
     <Sidebar>
-      <SidebarHeader />
+      <SidebarHeader>
+        <img
+          src={LoginLogo}
+          alt="loginLogo"
+          className="w-[130px] h-auto mt-5"
+        />
+      </SidebarHeader>
       <SidebarContent>
         <SidebarGroup />
         <SidebarGroupContent>
