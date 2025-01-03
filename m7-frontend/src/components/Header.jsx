@@ -20,7 +20,7 @@ const Header = ({ isTemplate, icon, id, title, memo, updateButton }) => {
   const [selectedTitle, setSelectedTitle] = useState(title);
   const [isEditing, setIsEditing] = useState(id < 4);
   const [editedTitle, setEditedTitle] = useState(title);
-  const { onDelete, onUpdate } = useContext(TemplateDispatchContext);
+  const { onDelete, onUpdate, onCreate } = useContext(TemplateDispatchContext);
   const nav = useNavigate();
 
   useEffect(() => {
@@ -40,11 +40,15 @@ const Header = ({ isTemplate, icon, id, title, memo, updateButton }) => {
     } else {
       setIsEditing(true);
     }
+    if (id < 4) {
+      onCreate(editedTitle);
+      nav("/");
+    }
   };
 
   const onDeleteButton = () => {
     onDelete(id);
-    nav("/");
+    nav("/", { replace: true });
   };
 
   const updateStyle =
