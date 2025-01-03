@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/sidebar";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Logo from "@/assets/LoginLogo.svg";
-import { useContext, useState, createContext } from "react";
+import { useContext, useState } from "react";
 import { TemplateStateContext } from "@/App";
 import { pageStateContext } from "@/App";
 import bag from "./../assets/sidebar/bag.svg";
@@ -117,7 +117,7 @@ export function SideBar() {
       <SidebarContent>
         <SidebarGroup />
         <SidebarGroupContent>
-          <SidebarMenu className="sidebarMenu gap-[30px]">
+          <SidebarMenu className="sidebarMenu gap-[15px]">
             {items.map((item) => {
               const isActive = location.pathname === getLink(item.id);
               return (
@@ -125,7 +125,7 @@ export function SideBar() {
                   {item.id === 3 ? (
                     <div
                       onClick={onLogoutClick}
-                      className="logout flex ml-[10px] items-center gap-[10px] cursor-pointer"
+                      className="logout flex mt-[10px] ml-[10px] items-center gap-[10px] cursor-pointer"
                     >
                       <img
                         src={sidebarImage(item.id)}
@@ -139,7 +139,9 @@ export function SideBar() {
                       asChild
                       icon={item.icon}
                       className={
-                        isActive ? "button bg-white w-[200px] h-[45px]" : null
+                        isActive
+                          ? "button bg-white w-[200px] h-[45px] rounded-[10px] hover:bg-white"
+                          : "button w-[200px] h-[45px] rounded-[10px]"
                       }
                     >
                       <Link
