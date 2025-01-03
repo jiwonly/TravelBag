@@ -11,33 +11,34 @@ import {
   SidebarHeader,
 } from "@/components/ui/sidebar";
 import { Link, useNavigate } from "react-router-dom";
-import LoginLogo from "@/assets/LoginLogo.svg";
+import Logo from "@/assets/LoginLogo.svg";
 import { useContext } from "react";
 import { TemplateStateContext } from "@/App";
+import { sidebarImage } from "@/util/get-sidebar-image";
 const items = [
   {
     id: 0,
     title: "홈",
     url: "/",
-    icon: "home",
+    icon: sidebarImage(0),
   },
   {
     id: 1,
     title: "챙길 것들",
     url: `/template`,
-    icon: "home",
+    icon: sidebarImage(1),
   },
   {
     id: 2,
     title: "여행 팁",
     url: "/tip",
-    icon: "home",
+    icon: sidebarImage(2),
   },
   {
     id: 3,
     title: "로그아웃",
     url: "/",
-    icon: "home",
+    icon: sidebarImage(3),
   },
 ];
 
@@ -78,8 +79,8 @@ export function SideBar() {
     <Sidebar>
       <SidebarHeader>
         <img
-          src={LoginLogo}
-          alt="loginLogo"
+          src={Logo}
+          alt="Logo"
           className="w-[130px] h-auto mt-5 cursor-pointer"
           onClick={() => {
             nav("/");
@@ -95,11 +96,19 @@ export function SideBar() {
                 <SidebarMenuButton
                   onClick={item.id === 3 ? onLogoutClick : undefined}
                   asChild={item.id !== 3}
+                  icon={item.icon}
                 >
                   {item.id === 3 ? (
                     <button className="w-full text-left">{item.title}</button> // 로그아웃 버튼
                   ) : (
                     <Link to={getLink(item.id)}>
+                      {item.icon && (
+                        <img
+                          src={item.icon}
+                          alt="icon"
+                          className="h-4 w-4 mr-2"
+                        />
+                      )}
                       <span>{item.title}</span>
                     </Link>
                   )}
