@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 const Button = ({ id, title, style }) => {
   const nav = useNavigate();
+
   const onClick = () => (id === 0 ? nav("/new") : nav(`/template/${id}`));
   return (
     <div>

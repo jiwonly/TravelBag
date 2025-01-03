@@ -30,15 +30,19 @@ function reducer(state, action) {
       nextState = state.filter((item) => String(item.id) !== String(action.id));
       break;
     }
+    default: {
+      nextState = state;
+    }
   }
   return nextState;
 }
 
 const custom = [
-  { id: 4, title: "연인과 오사카" },
-  { id: 5, title: "중학교 친구들과 여행" },
-  { id: 6, title: "먹고 죽으러 가는 여행" },
+  { id: 8, title: "신나는 유럽 여행" },
   { id: 7, title: "휴식이 필요해 떠나요" },
+  { id: 6, title: "먹고 죽으러 가는 여행" },
+  { id: 5, title: "중학교 친구들과 여행" },
+  { id: 4, title: "연인과 오사카" },
 ];
 
 export const TemplateStateContext = createContext();

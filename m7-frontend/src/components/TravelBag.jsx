@@ -7,7 +7,7 @@ const TravelBag = () => {
   const style =
     "w-[240px] h-[53px] min-w-[240px] p-[20px] flex items-center rounded-[12px] border-[1px] bg-[var(--Gray-50,_#F5F5F6)] [box-shadow:0px] shadow-custom text-[16px] font-[Pretendard] text-gray-800";
   return (
-    <div className="TravelBag flex gap-[30px] ">
+    <div className="TravelBag grid grid-cols-4 gap-[30px] ">
       {data.map((item) => (
         <Button key={item.id} {...item} style={style} />
       ))}
