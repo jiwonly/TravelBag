@@ -19,10 +19,10 @@ export function CheckData({ id, content }) {
           className="cursor-pointer" // 클릭 가능한 스타일
           onClick={toggleCheckbox} // 클릭 이벤트 핸들러
         />
-        <p className="text-sm">{content}</p>
+        <p className="text-sm text-gray-800">{content}</p>
       </div>
       <button className="flex justify-center items-center rounded-md bg-white">
-        <img src={CheckData_minus} alt="delete" />
+        <img src={CheckData_minus} />
       </button>
     </div>
   );

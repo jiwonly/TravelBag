@@ -49,7 +49,7 @@ export function SideBar() {
         <img
           src={LoginLogo}
           alt="loginLogo"
-          className="w-[130px] h-auto mt-5 cursor-pointer"
+          className="w-[140px] h-auto mt-5 cursor-pointer"
           onClick={() => {
             nav("/");
           }}
