@@ -10,6 +10,8 @@ import Home from "./pages/Home";
 import New from "./pages/New";
 import Tip from "./pages/Tip";
 import Template from "./pages/Template";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function reducer(state, action) {
   let nextState;
@@ -83,6 +85,8 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/new" element={<New />} />
                 <Route path="/tip" element={<Tip />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
                 <Route path="/template/:id" element={<Template />} />
               </Routes>
             </Router>
