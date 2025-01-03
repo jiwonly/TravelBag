@@ -1,7 +1,7 @@
-import TemplateImage_0 from "./../assets/TemplateImage_0.png";
-import TemplateImage_1 from "./../assets/TemplateImage_1.png";
-import TemplateImage_2 from "./../assets/TemplateImage_2.png";
-import TemplateImage_3 from "./../assets/TemplateImage_3.png";
+import TemplateImage_0 from "./../assets/template/TemplateImage_0.svg";
+import TemplateImage_1 from "./../assets/template/TemplateImage_1.svg";
+import TemplateImage_2 from "./../assets/template/TemplateImage_2.svg";
+import TemplateImage_3 from "./../assets/template/TemplateImage_3.svg";
 
 export function getTemplateImage(templateId) {
   switch (templateId) {
