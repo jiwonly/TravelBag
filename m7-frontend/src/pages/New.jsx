@@ -2,8 +2,10 @@ import { SideBar } from "@/components/SideBar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import RecommendBar from "@/components/RecommendBar";
 import CustomStart from "@/components/CustomStart";
+import { templateList } from "@/util/get-template-list";
 
 const New = ({ children }) => {
+  const data = templateList.find((item) => item.id === 0);
   return (
     <div className="flex">
       <SidebarProvider>
@@ -12,9 +14,10 @@ const New = ({ children }) => {
           <SidebarTrigger />
           {children}
           <CustomStart
-            isTemplate={false}
+            isTemplate={true}
             icon="bag"
-            title="내 마음대로 시작하기"
+            id={data.id}
+            title={data.title}
           />
         </main>
       </SidebarProvider>

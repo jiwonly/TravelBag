@@ -45,8 +45,9 @@ const Template = ({ children }) => {
           <SelectedSateData.Provider value={input}>
             <SelectedDisplatchData.Provider value={{ onChange }}>
               <CustomTemplate
-                isTemplate={params.id < 4 ? false : true}
+                isTemplate={true}
                 icon="bag"
+                id={params.id}
                 title={params.id < 4 ? basicTitle : input}
               />
             </SelectedDisplatchData.Provider>
