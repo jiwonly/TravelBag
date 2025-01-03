@@ -13,8 +13,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import LoginLogo from "@/assets/LoginLogo.svg";
 import { useContext } from "react";
-import { TemplateCurId } from "@/App";
-
+import { TemplateStateContext } from "@/App";
 const items = [
   {
     title: "홈",
@@ -39,8 +38,9 @@ const items = [
 ];
 
 export function SideBar() {
-  const Id = useContext(TemplateCurId);
-  const curId = Id.current - 1;
+  const data = useContext(TemplateStateContext);
+  const curId =
+    data.length > 0 ? Math.max(...data.map((item) => item.id)) : null;
   const nav = useNavigate();
 
   return (
@@ -65,7 +65,9 @@ export function SideBar() {
                   <Link
                     to={
                       item.title === "챙길 것들"
-                        ? `${item.url}/${curId}`
+                        ? curId
+                          ? `${item.url}/${curId}`
+                          : "/new"
                         : item.url
                     }
                   >
