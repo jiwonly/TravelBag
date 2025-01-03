@@ -17,7 +17,11 @@ const HeaderButton = ({ id, title, style, imageSrc, onClick, isEditing }) => {
             }}
           />
         ) : isEditing ? (
-          "완료"
+          id < 4 ? (
+            "추가"
+          ) : (
+            "완료"
+          )
         ) : (
           "수정"
         )}
