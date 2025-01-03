@@ -69,7 +69,7 @@ const Header = ({ isTemplate, icon, id, title, memo, updateButton }) => {
               type="text"
               value={editedTitle}
               onChange={(e) => setEditedTitle(e.target.value)}
-              className="text-[17px] font-[Pretendard] font-semibold leading-[28px] text-[#393940] border border-gray-300 rounded px-2 py-1"
+              className="text-[17px] font-[Pretendard] leading-[28px] text-[#393940] border border-gray-300 rounded px-2 py-1"
             />
           ) : (
             <Select onValueChange={(value) => onSelected(value)}>
@@ -88,7 +88,7 @@ const Header = ({ isTemplate, icon, id, title, memo, updateButton }) => {
         </div>
       ) : (
         <div className="flex flex-col">
-          <section className="title text-[17px] font-[Pretendard] font-semibold not-italic leading-[28px] mb-[0px] text-[#393940]">
+          <section className="title text-[17px] font-[Pretendard] not-italic leading-[28px] mb-[0px] text-[#393940]">
             {title}
           </section>
           <section className="memo text-[14px] font-medium font-[Pretendard] not-italic leading-[20px] text-gray-500">

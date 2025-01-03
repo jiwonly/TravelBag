@@ -8,7 +8,6 @@ import { TemplateStateContext } from "@/App";
 import { createContext } from "react";
 import RecommendBar from "@/components/RecommendBar";
 import { templateList } from "@/util/get-template-list";
-import { pageDispatchContext } from "@/App";
 
 export const SelectedSateData = createContext();
 export const SelectedDisplatchData = createContext();
@@ -19,10 +18,6 @@ const Template = ({ children }) => {
   const data = useContext(TemplateStateContext);
   const template = data.find((item) => String(item.id) === String(params.id));
   const [input, setInput] = useState(template ? template.title : ""); // input state : 선택된 template의 제목 보관
-  const { onSetPage } = useContext(pageDispatchContext);
-  useEffect(() => {
-    onSetPage("1");
-  }, [onSetPage]);
 
   const onChange = (title) => {
     // 다른 template이 선택됐을 때 호출되는 함수
