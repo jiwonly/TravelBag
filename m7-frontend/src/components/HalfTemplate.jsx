@@ -1,6 +1,9 @@
 import LoginImage from "../assets/LoginImage.png";
 import LoginLogo from "../assets/LoginLogo.svg";
 import InfoInputButton from "./InfoInputButton";
+import LoginButton from "./LoginButton";
+import RegisterButton from "./RegisterButton";
+import pw from "../assets/icon/pw.svg";
 
 const HalfTemplate = ({ type }) => {
   return (
@@ -10,15 +13,18 @@ const HalfTemplate = ({ type }) => {
 
         {type === "login" ? (
           <div className="flex flex-col gap-[13px]">
-            <InfoInputButton content="아이디" />
-            <InfoInputButton content="비밀번호" />
+            <InfoInputButton content="아이디" type="text" />
+            <InfoInputButton content="비밀번호" type="password" />
+            <LoginButton />
+            <RegisterButton />
           </div>
         ) : (
           <div>
-            <InfoInputButton content="아이디" />
-            <InfoInputButton content="비밀번호" />
-            <InfoInputButton content="이메일" />
+            <InfoInputButton content="아이디" type="text" />
+            <InfoInputButton content="비밀번호" type="password" />
+            <InfoInputButton content="이메일" type="email"/>
             <InfoInputButton content="전화번호" />
+            <RegisterButton />
           </div>
         )}
       </div>
