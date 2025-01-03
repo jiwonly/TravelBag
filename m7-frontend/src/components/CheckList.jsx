@@ -7,7 +7,7 @@ export function CheckList({ title, data }) {
       <p className="font-bold ml-5 text-sm">{title}</p>
 
       <div className="flex flex-col items-center gap-[14px]">
-        <CheckData content="데이터1" />
+        {/* <CheckData content="데이터1" /> */}
         <CheckInput />
       </div>
     </div>

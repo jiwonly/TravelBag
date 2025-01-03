@@ -1,7 +1,10 @@
 import Header from "./Header";
 import { CheckList } from "./CheckList";
 
-const CustomStart = ({ isTemplate, icon, id, title }) => {
+
+
+const CustomStart = ({ isTemplate, icon, id, title, data }) => {
+
   return (
     <div>
       <Header
