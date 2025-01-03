@@ -1,9 +1,16 @@
 import { InputWithLabel } from "@/components/InputWithLabel";
 import { SideBar } from "@/components/SideBar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { useState } from "react";
+import { useEffect, useContext } from "react";
 import Dashboard from "@/components/Dashboard";
+import { pageDispatchContext } from "@/App";
+
 const Home = ({ children }) => {
+  const { onSetPage } = useContext(pageDispatchContext);
+  useEffect(() => {
+    onSetPage("0");
+  }, [onSetPage]);
+
   return (
     <>
       <SidebarProvider>

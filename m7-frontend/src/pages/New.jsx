@@ -3,9 +3,15 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import RecommendBar from "@/components/RecommendBar";
 import CustomStart from "@/components/CustomStart";
 import { templateList } from "@/util/get-template-list";
+import { useContext, useEffect } from "react";
+import { pageDispatchContext } from "@/App";
 
 const New = ({ children }) => {
   const data = templateList.find((item) => item.id === 0);
+  const { onSetPage } = useContext(pageDispatchContext);
+  useEffect(() => {
+    onSetPage("1");
+  }, [onSetPage]);
   return (
     <div className="flex">
       <SidebarProvider>

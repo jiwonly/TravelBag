@@ -46,8 +46,9 @@ const custom = [
 ];
 
 export const TemplateStateContext = createContext();
-export const TemplateCurId = createContext();
 export const TemplateDispatchContext = createContext();
+export const pageDispatchContext = createContext();
+export const pageStateContext = createContext();
 
 function PrivateRoute({ isAuthenticated, children }) {
   return isAuthenticated ? children : <Navigate to="/login" />;
@@ -86,58 +87,66 @@ function App() {
     setIsAuthenticated(true);
   };
 
+  const [page, setPage] = useState("");
+
+  const onSetPage = (ispage) => {
+    setPage(ispage);
+  };
+
   return (
     <>
-      <TemplateStateContext.Provider value={data}>
-        <TemplateCurId.Provider value={idRef}>
-          <TemplateDispatchContext.Provider
-            value={{ onCreate, onUpdate, onDelete }}
-          >
-            <Router>
-              <Routes>
-                <Route
-                  path="/login"
-                  element={<Login onLogin={handleLogin} />}
-                />
-                <Route path="/register" element={<Register />} />
-                {/* Protected Routes */}
-                <Route
-                  path="/"
-                  element={
-                    <PrivateRoute isAuthenticated={isAuthenticated}>
-                      <Home />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/new"
-                  element={
-                    <PrivateRoute isAuthenticated={isAuthenticated}>
-                      <New />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/tip"
-                  element={
-                    <PrivateRoute isAuthenticated={isAuthenticated}>
-                      <Tip />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/template/:id"
-                  element={
-                    <PrivateRoute isAuthenticated={isAuthenticated}>
-                      <Template />
-                    </PrivateRoute>
-                  }
-                />
-              </Routes>
-            </Router>
-          </TemplateDispatchContext.Provider>
-        </TemplateCurId.Provider>
-      </TemplateStateContext.Provider>
+      <pageStateContext.Provider value={page}>
+        <pageDispatchContext.Provider value={{ onSetPage }}>
+          <TemplateStateContext.Provider value={data}>
+            <TemplateDispatchContext.Provider
+              value={{ onCreate, onUpdate, onDelete }}
+            >
+              <Router>
+                <Routes>
+                  <Route
+                    path="/login"
+                    element={<Login onLogin={handleLogin} />}
+                  />
+                  <Route path="/register" element={<Register />} />
+                  {/* Protected Routes */}
+                  <Route
+                    path="/"
+                    element={
+                      <PrivateRoute isAuthenticated={isAuthenticated}>
+                        <Home />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/new"
+                    element={
+                      <PrivateRoute isAuthenticated={isAuthenticated}>
+                        <New />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/tip"
+                    element={
+                      <PrivateRoute isAuthenticated={isAuthenticated}>
+                        <Tip />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/template/:id"
+                    element={
+                      <PrivateRoute isAuthenticated={isAuthenticated}>
+                        <Template />
+                      </PrivateRoute>
+                    }
+                  />
+                </Routes>
+              </Router>
+            </TemplateDispatchContext.Provider>
+          </TemplateStateContext.Provider>
+        </pageDispatchContext.Provider>
+      </pageStateContext.Provider>
     </>
   );
 }
