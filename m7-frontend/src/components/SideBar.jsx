@@ -140,7 +140,7 @@ export function SideBar() {
                       icon={item.icon}
                       className={
                         isActive
-                          ? "button bg-white w-[200px] h-[45px] rounded-[10px] hover:bg-white"
+                          ? "button bg-white w-[200px] h-[45px] rounded-[10px] border-[1px] border-[#E5E7EB] hover:bg-white"
                           : "button w-[200px] h-[45px] rounded-[10px]"
                       }
                     >
