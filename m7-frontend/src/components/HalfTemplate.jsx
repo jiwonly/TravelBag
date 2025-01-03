@@ -5,8 +5,13 @@ import LoginButton from "./LoginButton";
 import RegisterButton from "./RegisterButton";
 import { useNavigate } from "react-router-dom";
 
-const HalfTemplate = ({ type }) => {
+const HalfTemplate = ({ type, onLogin }) => {
   const nav = useNavigate();
+
+  const handleLoginClick = () => {
+    onLogin();
+    nav("/");
+  };
 
   return (
     <div className="flex justify-center items-center gap-[30px] p-[28px] bg-white">
@@ -18,7 +23,7 @@ const HalfTemplate = ({ type }) => {
             <InfoInputButton content="아이디" type="text" />
             <InfoInputButton content="비밀번호" type="password" />
             <div></div>
-            <LoginButton content="로그인" />
+            <LoginButton content="로그인" onClick={handleLoginClick} />
             <RegisterButton
               onClick={() => {
                 nav("/register");
