@@ -1,10 +1,7 @@
-import { useNavigate } from "react-router-dom";
 import { getTemplateImage } from "@/util/get-template-image";
-import { useContext } from "react";
 import Button from "./Button";
 
 const TemplateItem = ({ title, id }) => {
-  const nav = useNavigate();
   const style =
     "flex p-[6.3px] w-full justify-center items-center gap-[4px] self-stretch rounded-[8px] bg-[var(--Primary-500,_#24A3B6)] text-white text-[20px]";
   return (
