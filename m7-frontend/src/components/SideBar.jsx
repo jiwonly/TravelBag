@@ -61,7 +61,7 @@ export function SideBar() {
         url = "/";
         break;
       case 1:
-        url = `template/${curId}`;
+        url = curId ? `template/${curId}` : "/new";
         break;
       case 2:
         url = "/tip";
