@@ -1,10 +1,11 @@
 import HalfTemplate from "@/components/HalfTemplate";
 
-const Login = () => {
-  return <div>
-    <HalfTemplate type="login" />
-
-  </div>;
+const Login = ({ onLogin }) => {
+  return (
+    <div>
+      <HalfTemplate type="login" onLogin={onLogin} />
+    </div>
+  );
 };
 
 export default Login;
