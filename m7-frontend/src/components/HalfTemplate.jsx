@@ -20,8 +20,8 @@ const HalfTemplate = ({ type, onLogin }) => {
 
         {type === "login" ? (
           <div className="flex flex-col gap-[13px]">
-            <InfoInputButton content="아이디" type="text" />
-            <InfoInputButton content="비밀번호" type="password" />
+            <InfoInputButton content="아이디" type="text" name="id" />
+            <InfoInputButton content="비밀번호" type="password" name="pwd" />
             <div></div>
             <LoginButton content="로그인" onClick={handleLoginClick} />
             <RegisterButton
