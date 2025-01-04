@@ -2,6 +2,7 @@ import LoginImage from "../assets/LoginImage.png";
 import LoginLogo from "../assets/LoginLogo.svg";
 import InfoInputButton from "./InfoInputButton";
 import LoginButton from "./LoginButton";
+import KakaoButton from "./KakaoButton";
 import RegisterButton from "./RegisterButton";
 import { useNavigate } from "react-router-dom";
 
@@ -20,8 +21,8 @@ const HalfTemplate = ({ type, onLogin }) => {
 
         {type === "login" ? (
           <div className="flex flex-col gap-[13px]">
-            <InfoInputButton content="아이디" type="text" />
-            <InfoInputButton content="비밀번호" type="password" />
+            <InfoInputButton content="아이디" type="text" name="id" />
+            <InfoInputButton content="비밀번호" type="password" name="pwd" />
             <div></div>
             <LoginButton content="로그인" onClick={handleLoginClick} />
             <RegisterButton
@@ -29,6 +30,7 @@ const HalfTemplate = ({ type, onLogin }) => {
                 nav("/register");
               }}
             />
+            <KakaoButton />
           </div>
         ) : (
           <div className="flex flex-col gap-[13px]">
