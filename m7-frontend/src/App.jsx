@@ -1,7 +1,154 @@
-import "./App.css";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import { useReducer, createContext, useRef, useState } from "react";
+
+import Home from "./pages/Home";
+import New from "./pages/New";
+import Tip from "./pages/Tip";
+import Template from "./pages/Template";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+
+function reducer(state, action) {
+  let nextState;
+  switch (action.type) {
+    case "CREATE": {
+      nextState = [action.data, ...state];
+      break;
+    }
+    case "UPDATE": {
+      nextState = state.map((item) =>
+        String(item.id) === String(action.data.id) ? action.data : item
+      );
+      break;
+    }
+    case "DELETE": {
+      nextState = state.filter((item) => String(item.id) !== String(action.id));
+      break;
+    }
+    default: {
+      nextState = state;
+    }
+  }
+  return nextState;
+}
+
+const custom = [
+  { id: 8, title: "신나는 유럽 여행" },
+  { id: 7, title: "휴식이 필요해 떠나요" },
+  { id: 6, title: "먹고 죽으러 가는 여행" },
+  { id: 5, title: "중학교 친구들과 여행" },
+  { id: 4, title: "연인과 오사카" },
+];
+
+export const TemplateStateContext = createContext();
+export const TemplateDispatchContext = createContext();
+export const pageDispatchContext = createContext();
+export const pageStateContext = createContext();
+
+function PrivateRoute({ isAuthenticated, children }) {
+  return isAuthenticated ? children : <Navigate to="/login" />;
+}
 
 function App() {
-  return <></>;
+  const [data, dispatch] = useReducer(reducer, custom);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const idRef = useRef(8);
+
+  const onCreate = (title) => {
+    dispatch({
+      type: "CREATE",
+      data: {
+        id: idRef.current++,
+        title,
+      },
+    });
+  };
+
+  const onUpdate = (id, title) => {
+    dispatch({
+      type: "UPDATE",
+      data: { id, title },
+    });
+  };
+
+  const onDelete = (id) => {
+    dispatch({
+      type: "DELETE",
+      id,
+    });
+  };
+
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+  };
+
+  const [page, setPage] = useState("");
+
+  const onSetPage = (ispage) => {
+    setPage(ispage);
+  };
+
+  return (
+    <>
+      <pageStateContext.Provider value={page}>
+        <pageDispatchContext.Provider value={{ onSetPage }}>
+          <TemplateStateContext.Provider value={data}>
+            <TemplateDispatchContext.Provider
+              value={{ onCreate, onUpdate, onDelete }}
+            >
+              <Router>
+                <Routes>
+                  <Route
+                    path="/login"
+                    element={<Login onLogin={handleLogin} />}
+                  />
+                  <Route path="/register" element={<Register />} />
+                  {/* Protected Routes */}
+                  <Route
+                    path="/"
+                    element={
+                      <PrivateRoute isAuthenticated={isAuthenticated}>
+                        <Home />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/new"
+                    element={
+                      <PrivateRoute isAuthenticated={isAuthenticated}>
+                        <New />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/tip"
+                    element={
+                      <PrivateRoute isAuthenticated={isAuthenticated}>
+                        <Tip />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/template/:id"
+                    element={
+                      <PrivateRoute isAuthenticated={isAuthenticated}>
+                        <Template />
+                      </PrivateRoute>
+                    }
+                  />
+                </Routes>
+              </Router>
+            </TemplateDispatchContext.Provider>
+          </TemplateStateContext.Provider>
+        </pageDispatchContext.Provider>
+      </pageStateContext.Provider>
+    </>
+  );
 }
 
 export default App;
