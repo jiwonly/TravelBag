@@ -2,6 +2,7 @@ import LoginImage from "../assets/LoginImage.png";
 import LoginLogo from "../assets/LoginLogo.svg";
 import InfoInputButton from "./InfoInputButton";
 import LoginButton from "./LoginButton";
+import KakaoButton from "./KakaoButton";
 import RegisterButton from "./RegisterButton";
 import { useNavigate } from "react-router-dom";
 
@@ -29,6 +30,7 @@ const HalfTemplate = ({ type, onLogin }) => {
                 nav("/register");
               }}
             />
+            <KakaoButton />
           </div>
         ) : (
           <div className="flex flex-col gap-[13px]">
