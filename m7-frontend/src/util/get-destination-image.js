@@ -6,15 +6,15 @@ import destinationImage_4 from "./../assets/destination/Tokyo.svg";
 
 export function getDestinationImage(destinationId) {
   switch (destinationId) {
-    case 0:
-      return destinationImage_0;
     case 1:
-      return destinationImage_1;
+      return destinationImage_0;
     case 2:
-      return destinationImage_2;
+      return destinationImage_1;
     case 3:
-      return destinationImage_3;
+      return destinationImage_2;
     case 4:
+      return destinationImage_3;
+    case 5:
       return destinationImage_4;
   }
 }
