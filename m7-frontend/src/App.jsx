@@ -17,6 +17,12 @@ function reducer(state, action) {
   let nextState;
   switch (action.type) {
     case "CREATE": {
+      const existingTemplate = state.find(
+        (item) => String(item.id) === String(action.data.id)
+      );
+      if (existingTemplate) {
+        return state;
+      }
       nextState = [action.data, ...state];
       break;
     }
@@ -57,7 +63,9 @@ function PrivateRoute({ isAuthenticated, children }) {
 function App() {
   const [data, dispatch] = useReducer(reducer, custom);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const idRef = useRef(8);
+  const idRef = useRef(
+    custom.length > 0 ? Math.max(...custom.map((item) => item.id)) + 1 : 1
+  );
 
   const onCreate = (title) => {
     dispatch({
