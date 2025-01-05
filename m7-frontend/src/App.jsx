@@ -17,6 +17,12 @@ function reducer(state, action) {
   let nextState;
   switch (action.type) {
     case "CREATE": {
+      const existingTemplate = state.find(
+        (item) => String(item.id) === String(action.data.id)
+      );
+      if (existingTemplate) {
+        return state;
+      }
       nextState = [action.data, ...state];
       break;
     }
