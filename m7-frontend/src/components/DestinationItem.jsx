@@ -1,11 +1,9 @@
-import { useState } from "react";
 import { getDestinationImage } from "@/util/get-destination-image";
 
-const DestinationItem = ({ title, id, showContent}) => {
-  const [isSelected, setIsSelected] = useState(false);
+const DestinationItem = ({ title, id, selectedId, showContent }) => {
+  const isSelected = selectedId; // 상위 컴포넌트에서 전달받은 선택 상태
 
   const handleClick = () => {
-    setIsSelected(!isSelected);
     showContent(id);
   };
 
