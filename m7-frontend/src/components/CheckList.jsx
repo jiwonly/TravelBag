@@ -1,9 +1,11 @@
 import { CheckData } from "./CheckData";
 import { CheckInput } from "./CheckInput";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import "../styles/scrollbar.css";
+import { EditStateData } from "@/App";
 
 export function CheckList({ title, isEdit, contents }) {
+  const isEditing = useContext(EditStateData);
   const [listData, setListData] = useState(contents);
   const handleDelete = (id) => {
     setListData(listData.filter((item) => item.id !== id));
@@ -22,7 +24,8 @@ export function CheckList({ title, isEdit, contents }) {
             onDelete={handleDelete}
           />
         ))}
-        <CheckInput setListData={setListData} />
+
+        {isEditing ? <CheckInput setListData={setListData} /> : null}
       </div>
     </div>
   );
