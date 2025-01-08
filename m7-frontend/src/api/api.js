@@ -59,7 +59,60 @@ const TravelAPI = () => {
     fetchExchangeRates();
     fetchAirlines();
   }, []);
+
+  // 데이터 확인을 위한 UI
+  return (
+    <div>
+      <h1>Travel API Example</h1>
+
+      {/* 여행지 목록 */}
+      <section>
+        <h2>Travel Locations</h2>
+        <ul>
+          {locations.map((location) => (
+            <li key={location.id}>
+              {location.name} ({location.country}) - Currency:{" "}
+              {location.currency_unit}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* 여행지 환율 */}
+      <section>
+        <h2>Exchange Rates</h2>
+        <ul>
+          {exchangeRates.map((rate, index) => (
+            <li key={index}>
+              {rate.country} - {rate.currency_unit} : {rate.exchange_rate}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* 주요 항공사 */}
+      <section>
+        <h2>Airlines</h2>
+        <ul>
+          {airlines.map((airline) => (
+            <li key={airline.id}>
+              {airline.name} (<a href={airline.url}>Website</a>)
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* 회원가입 */}
+      <section>
+        <h2>Signup</h2>
+        <button onClick={() => signup("홍길동")}>Signup as 홍길동</button>
+        {signupMessage && <p>{signupMessage}</p>}
+      </section>
+    </div>
+  );
 };
+
+export default TravelAPI;
 
 // 피오리니 복붙
 

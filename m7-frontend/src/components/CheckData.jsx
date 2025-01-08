@@ -3,11 +3,15 @@ import Checkbox_Yes from "../assets/Checkbox_Yes.svg";
 import Checkbox_No from "../assets/Checkbox_No.svg";
 import CheckData_minus from "../assets/CheckData_minus.svg";
 
-export function CheckData({ id, content, isEdit }) {
+export function CheckData({ id, content, isEdit, onDelete }) {
   const [checked, setChecked] = useState(false);
 
   const toggleCheckbox = () => {
     setChecked(!checked);
+  };
+
+  const handleDelete = () => {
+    onDelete(id);
   };
 
   return (
@@ -21,7 +25,10 @@ export function CheckData({ id, content, isEdit }) {
         />
         <p className="text-sm text-gray-800">{content}</p>
       </div>
-      <button className="flex justify-center items-center rounded-md bg-white invisible">
+      <button
+        onClick={handleDelete}
+        className="flex justify-center items-center rounded-md bg-white"
+      >
         <img src={CheckData_minus} />
       </button>
     </div>
