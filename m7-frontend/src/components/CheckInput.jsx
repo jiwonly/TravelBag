@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Checkbox_No from "../assets/Checkbox_No.svg";
 import CheckData_plus from "../assets/CheckData_plus.svg";
-import { CheckData } from "./CheckData";
+import { addItemToData } from "@/util/addItemToData";
 
-export function CheckInput({ setData, isEdit }) {
+export function CheckInput({ setListData, isEdit }) {
   const [inputValue, setInputValue] = useState("");
 
   const handleChange = (e) => {
@@ -11,16 +11,8 @@ export function CheckInput({ setData, isEdit }) {
   };
 
   const handleAdd = () => {
-    if (inputValue.trim()) {
-      setData((prevData) => [
-        ...prevData,
-        {
-          id: prevData.length + 1,
-          content: inputValue,
-        },
-      ]);
-      setInputValue(""); // 입력창 초기화
-    }
+    addItemToData(inputValue, setListData);
+    setInputValue(""); // 입력창 초기화
   };
 
   // enter 키 입력 시 추가
