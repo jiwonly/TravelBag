@@ -8,6 +8,8 @@ import { TemplateStateContext } from "@/App";
 import { createContext } from "react";
 import RecommendBar from "@/components/RecommendBar";
 import { templateList } from "@/util/get-template-list";
+import { EditStateData } from "@/App";
+import { EditDispatchData } from "@/App";
 
 export const SelectedSateData = createContext();
 export const SelectedDisplatchData = createContext();
@@ -56,6 +58,7 @@ const Template = ({ children }) => {
         <main>
           <SidebarTrigger />
           {children}
+
           <SelectedSateData.Provider value={input}>
             <SelectedDisplatchData.Provider value={{ onChange }}>
               <CustomTemplate

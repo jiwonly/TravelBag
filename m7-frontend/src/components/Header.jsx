@@ -12,19 +12,22 @@ import trashIcon from "../assets/icon/trash.svg";
 import HeaderButton from "./HeaderButton";
 import { TemplateDispatchContext } from "@/App";
 import { useNavigate } from "react-router-dom";
+import { EditDispatchData } from "@/App";
+import { EditStateData } from "@/App";
 
 const Header = ({ isTemplate, icon, id, title, memo, updateButton }) => {
   const data = useContext(TemplateStateContext);
   const dispatchContext = useContext(SelectedDisplatchData);
   const onChange = dispatchContext?.onChange;
   const [selectedTitle, setSelectedTitle] = useState(title);
-  const [isEditing, setIsEditing] = useState(id < 4);
   const [editedTitle, setEditedTitle] = useState(title);
   const { onDelete, onUpdate, onCreate } = useContext(TemplateDispatchContext);
-  const nav = useNavigate();
+  const isEditing = useContext(EditStateData);
+  const { onEditing } = useContext(EditDispatchData);
 
+  const nav = useNavigate();
   useEffect(() => {
-    setIsEditing(id < 4);
+    onEditing(id < 4);
   }, [id]);
 
   const onSelected = (value) => {
@@ -37,9 +40,9 @@ const Header = ({ isTemplate, icon, id, title, memo, updateButton }) => {
     if (isEditing) {
       onUpdate(id, editedTitle);
       setSelectedTitle(editedTitle);
-      setIsEditing(false);
+      onEditing(false);
     } else {
-      setIsEditing(true);
+      onEditing(true);
     }
     if (id < 4) {
       onCreate(editedTitle);
