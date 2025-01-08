@@ -23,7 +23,7 @@ export function CheckInput({ setListData, isEdit }) {
   };
 
   return (
-    <div className="flex justify-between items-center border bg-white w-[300px] px-3 py-1.5 rounded-lg">
+    <div className="flex justify-between items-center border bg-white w-[300px] h-[45px] px-3 py-1.5 rounded-lg">
       <div className="flex items-center gap-3">
         <img src={Checkbox_No} />
         <input
