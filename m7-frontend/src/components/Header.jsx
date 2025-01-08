@@ -30,6 +30,7 @@ const Header = ({ isTemplate, icon, id, title, memo, updateButton }) => {
   const onSelected = (value) => {
     onChange(value);
     setSelectedTitle(value);
+    setEditedTitle(value);
   };
 
   const onUpdateButton = () => {
@@ -68,7 +69,9 @@ const Header = ({ isTemplate, icon, id, title, memo, updateButton }) => {
             <input
               type="text"
               value={editedTitle}
-              onChange={(e) => setEditedTitle(e.target.value)}
+              onChange={(e) => {
+                setEditedTitle(e.target.value);
+              }}
               className="text-[17px] font-[Pretendard] leading-[28px] text-[#393940] border border-gray-300 rounded px-2 py-1"
             />
           ) : (
