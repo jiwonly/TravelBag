@@ -9,7 +9,7 @@ import RecommendAccordionList from "./RecommendAccordionList";
 
 const RecommendBar = ({ icon, title }) => {
   return (
-    <aside className="absolute right-8 top-[29px] w-[350px] h-full">
+    <aside className="absolute right-8 top-[29px] w-[350px] h-full invisible">
       <div className="flex items-center py-[12px] px-[23px] gap-[10px] self-stretch border-t border-l border-r rounded-t-[16px] border-[#e5e6e8] bg-gray-100">
         <section className="">
           <img src={`/${icon}.png`} alt="icon" />

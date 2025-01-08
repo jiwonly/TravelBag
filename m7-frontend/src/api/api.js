@@ -1,4 +1,65 @@
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+
+const API_BASE_URL = "http://localhost:8080";
+
+const TravelAPI = () => {
+  const [locations, setLocations] = useState([]);
+  const [exchangeRates, setExchangeRates] = useState([]);
+  const [airlines, setAirlines] = useState([]);
+  const [signupMessage, setSignupMessage] = useState("");
+
+  // 1. 여행지 목록 조회
+  const fetchLocations = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/location`);
+      setLocations(response.data);
+    } catch (error) {
+      console.error("Error fetching locations:", error);
+    }
+  };
+
+  // 2. 여행지별 환율 조회
+  const fetchExchangeRates = async () => {
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/location/exchange-rate`
+      );
+      setExchangeRates(response.data);
+    } catch (error) {
+      console.error("Error fetching exchange rates:", error);
+    }
+  };
+
+  // 3. 여행지별 주요 항공사 조회
+  const fetchAirlines = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/location/airline`);
+      setAirlines(response.data);
+    } catch (error) {
+      console.error("Error fetching airlines:", error);
+    }
+  };
+
+  // 4. 회원가입
+  const signup = async (name) => {
+    try {
+      const response = await axios.post(`${API_BASE_URL}/api/member`, {
+        name: name,
+      });
+      setSignupMessage(response.data);
+    } catch (error) {
+      console.error("Error during signup:", error);
+    }
+  };
+
+  // 자동으로 데이터를 가져오기 위한 useEffect
+  useEffect(() => {
+    fetchLocations();
+    fetchExchangeRates();
+    fetchAirlines();
+  }, []);
+};
 
 // 피오리니 복붙
 
