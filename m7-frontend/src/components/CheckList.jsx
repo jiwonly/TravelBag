@@ -3,10 +3,10 @@ import { CheckInput } from "./CheckInput";
 import { useState } from "react";
 import "../styles/scrollbar.css";
 
-export function CheckList({ title, isEdit }) {
-  const [data, setData] = useState([{ id: 1, content: "데이터1" }]);
+export function CheckList({ title, isEdit, contents }) {
+  const [listData, setListData] = useState(contents);
   const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+    setListData(listData.filter((item) => item.id !== id));
   };
 
   return (
@@ -14,7 +14,7 @@ export function CheckList({ title, isEdit }) {
       <p className="font-bold mb-1 ml-6 text-sm">{title}</p>
 
       <div className="flex flex-col items-center gap-[14px] max-h-[400px] overflow-y-auto scrollbar-thin">
-        {data.map((item) => (
+        {listData.map((item) => (
           <CheckData
             key={item.id}
             id={item.id}
@@ -22,7 +22,7 @@ export function CheckList({ title, isEdit }) {
             onDelete={handleDelete}
           />
         ))}
-        <CheckInput setData={setData} />
+        <CheckInput setListData={setListData} />
       </div>
     </div>
   );

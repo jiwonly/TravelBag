@@ -42,10 +42,14 @@ const otherData = [
   },
 ];
 
-const RecommendAccordionList = ({ title, data }) => {
+const RecommendAccordionList = ({ title, data, setListData }) => {
   return (
     <div className="flex flex-col w-full">
-      <RecommendAccordionItem title="의류 추가" data={clothData} />
+      <RecommendAccordionItem
+        title="의류 추가"
+        data={clothData}
+        setListData={setListData}
+      />
       <RecommendAccordionItem title="세면도구 추가" data={cleanData} />
       <RecommendAccordionItem title="전자기기 추가" data={electronicData} />
       <RecommendAccordionItem title="기타 추가" data={otherData} />
