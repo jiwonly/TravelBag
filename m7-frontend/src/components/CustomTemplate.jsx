@@ -2,6 +2,7 @@ import Header from "./Header";
 import { CheckList } from "./CheckList";
 
 const CustomTemplate = ({ isTemplate, icon, id, title, data }) => {
+  
   return (
     <div>
       <Header

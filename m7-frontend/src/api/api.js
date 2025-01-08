@@ -60,6 +60,7 @@ const TravelAPI = () => {
     fetchAirlines();
   }, []);
 
+  // 데이터 확인을 위한 UI
   return (
     <div>
       <h1>Travel API Example</h1>
