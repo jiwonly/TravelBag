@@ -1,10 +1,11 @@
 import Header from "./Header";
 import { CheckList } from "./CheckList";
-import { useState } from "react";
+import { templateList } from "@/util/get-template-list";
 
 const CustomTemplate = ({ isTemplate, icon, id, title, data }) => {
-  const template = data.find((item) => String(item.id) === String(id));
-
+  const template =
+    data.find((item) => String(item.id) === String(id)) ||
+    templateList.find((item) => String(item.id) === String(id));
   return (
     <div>
       <Header
