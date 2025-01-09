@@ -66,7 +66,7 @@ const Template = ({ children }) => {
                 icon="bag"
                 id={params.id}
                 title={params.id < 4 ? basicTitle : input}
-                data={mockData}
+                data={data}
               />
             </SelectedDisplatchData.Provider>
           </SelectedSateData.Provider>
