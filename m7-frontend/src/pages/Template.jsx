@@ -64,7 +64,7 @@ const Template = ({ children }) => {
               <CustomTemplate
                 isTemplate={true}
                 icon="bag"
-                id={params.id}
+                id={template.id}
                 title={params.id < 4 ? basicTitle : input}
                 data={data}
               />

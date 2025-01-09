@@ -6,17 +6,26 @@ import { EditStateData } from "@/App";
 import { TemplateDispatchContext } from "@/App";
 import { TemplateStateContext } from "@/App";
 
-export function CheckList({ templateId, listId, title, contents }) {
+export function CheckList({ templateId, listId, title }) {
   const data = useContext(TemplateStateContext);
   const template = data.find((item) => String(item.id) === String(templateId));
   const [supplyList, setSupplyList] = useState(template.supplies);
   const { onUpdateSupplies } = useContext(TemplateDispatchContext);
   const isEditing = useContext(EditStateData);
 
+  useEffect(() => {
+    setSupplyList(template.supplies);
+  }, [template]);
+
   const listContent = supplyList.find(
     (item) => String(item.id) === String(listId)
-  );
+  ) || { contents: [] };
+
   const [listData, setListData] = useState(listContent.contents);
+
+  useEffect(() => {
+    setListData(listContent.contents);
+  }, [listContent.contents]);
 
   const handleDelete = (id) => {
     // listData에서 아이템 삭제
@@ -36,10 +45,6 @@ export function CheckList({ templateId, listId, title, contents }) {
 
     // Context에 반영
     onUpdateSupplies(templateId, updatedSupplyList);
-
-    console.log("listData", listData);
-    console.log("updatedContents", updatedContents);
-    console.log("supplyList", updatedSupplyList);
   };
 
   return (
