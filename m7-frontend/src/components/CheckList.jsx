@@ -6,17 +6,26 @@ import { EditStateData } from "@/App";
 import { TemplateDispatchContext } from "@/App";
 import { TemplateStateContext } from "@/App";
 
-export function CheckList({ templateId, listId, title, contents }) {
+export function CheckList({ templateId, listId, title }) {
   const data = useContext(TemplateStateContext);
   const template = data.find((item) => String(item.id) === String(templateId));
   const [supplyList, setSupplyList] = useState(template.supplies);
   const { onUpdateSupplies } = useContext(TemplateDispatchContext);
   const isEditing = useContext(EditStateData);
 
+  useEffect(() => {
+    setSupplyList(template.supplies);
+  }, [template]);
+
   const listContent = supplyList.find(
     (item) => String(item.id) === String(listId)
-  );
+  ) || { contents: [] };
+
   const [listData, setListData] = useState(listContent.contents);
+
+  useEffect(() => {
+    setListData(listContent.contents);
+  }, [listContent.contents]);
 
   const handleDelete = (id) => {
     // listData에서 아이템 삭제
@@ -36,10 +45,24 @@ export function CheckList({ templateId, listId, title, contents }) {
 
     // Context에 반영
     onUpdateSupplies(templateId, updatedSupplyList);
+  };
 
-    console.log("listData", listData);
-    console.log("updatedContents", updatedContents);
-    console.log("supplyList", updatedSupplyList);
+  const handleAdd = (inputValue) => {
+    const updatedContents = [
+      ...listData,
+      { id: listData.length + 1, content: inputValue },
+    ];
+
+    const updatedSupplyList = supplyList.map((item) => {
+      if (String(item.id) === String(listId)) {
+        return { ...item, contents: updatedContents };
+      }
+      return item;
+    });
+
+    setListData(updatedContents);
+    setSupplyList(updatedSupplyList);
+    onUpdateSupplies(templateId, updatedSupplyList);
   };
 
   return (
@@ -56,7 +79,9 @@ export function CheckList({ templateId, listId, title, contents }) {
           />
         ))}
 
-        {isEditing ? <CheckInput setListData={setListData} /> : null}
+        {isEditing ? (
+          <CheckInput setListData={setListData} onAdd={handleAdd} />
+        ) : null}
       </div>
     </div>
   );

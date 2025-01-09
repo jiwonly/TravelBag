@@ -1,24 +1,22 @@
 import { useState, useContext } from "react";
 import Checkbox_No from "../assets/Checkbox_No.svg";
 import CheckData_plus from "../assets/CheckData_plus.svg";
-import { addItemToData } from "@/util/addItemToData";
 
-export function CheckInput({ setListData, isEdit }) {
+export function CheckInput({ onAdd }) {
   const [inputValue, setInputValue] = useState("");
 
   const handleChange = (e) => {
     setInputValue(e.target.value);
   };
-
-  const handleAdd = () => {
-    addItemToData(inputValue, setListData);
-    setInputValue(""); // 입력창 초기화
+  const onClickAdd = () => {
+    onAdd(inputValue);
+    setInputValue("");
   };
 
   // enter 키 입력 시 추가
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
-      handleAdd();
+      onAdd();
     }
   };
 
@@ -35,7 +33,7 @@ export function CheckInput({ setListData, isEdit }) {
         />
       </div>
       <button
-        onClick={handleAdd}
+        onClick={onClickAdd}
         className="flex justify-center items-center rounded-md bg-white"
       >
         <img src={CheckData_plus} />
