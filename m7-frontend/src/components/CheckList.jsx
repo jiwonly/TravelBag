@@ -15,7 +15,7 @@ export function CheckList({ templateId, listId, title }) {
   const data = useContext(TemplateStateContext);
   const template =
     data.find((item) => String(item.id) === String(templateId)) ||
-    templateList.find((item) => item.id === 0);
+    templateList.find((item) => String(item.id) === String(templateId));
   const [supplyList, setSupplyList] = useState(template.supplies);
   const { onUpdateSupplies } = useContext(TemplateDispatchContext);
   const isEditing = useContext(EditStateData);
@@ -24,7 +24,7 @@ export function CheckList({ templateId, listId, title }) {
     if (templateId < 4) setNewSupplyList(template.supplies);
   }, []);
   useEffect(() => {
-    if (templateId === 0) {
+    if (templateId < 4) {
       setSupplyList(newSupplyList);
     } else {
       setSupplyList(template.supplies);
@@ -57,7 +57,7 @@ export function CheckList({ templateId, listId, title }) {
     setListData(updatedContents);
     setSupplyList(updatedSupplyList);
 
-    if (templateId === 0) {
+    if (templateId < 4) {
       setNewSupplyList(updatedSupplyList);
     } else {
       onUpdateSupplies(templateId, updatedSupplyList);
