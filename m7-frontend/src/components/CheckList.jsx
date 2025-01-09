@@ -47,6 +47,24 @@ export function CheckList({ templateId, listId, title }) {
     onUpdateSupplies(templateId, updatedSupplyList);
   };
 
+  const handleAdd = (inputValue) => {
+    const updatedContents = [
+      ...listData,
+      { id: listData.length + 1, content: inputValue },
+    ];
+
+    const updatedSupplyList = supplyList.map((item) => {
+      if (String(item.id) === String(listId)) {
+        return { ...item, contents: updatedContents };
+      }
+      return item;
+    });
+
+    setListData(updatedContents);
+    setSupplyList(updatedSupplyList);
+    onUpdateSupplies(templateId, updatedSupplyList);
+  };
+
   return (
     <div className="flex flex-col bg-gray-100 py-4 px-1 rounded-md w-[340px] h-auto gap-[14px] shadow-[0px_4px_12px_0px_rgba(0,0,0,0.12)]">
       <p className="font-bold mb-1 ml-6 text-sm">{title}</p>
@@ -61,7 +79,9 @@ export function CheckList({ templateId, listId, title }) {
           />
         ))}
 
-        {isEditing ? <CheckInput setListData={setListData} /> : null}
+        {isEditing ? (
+          <CheckInput setListData={setListData} onAdd={handleAdd} />
+        ) : null}
       </div>
     </div>
   );
