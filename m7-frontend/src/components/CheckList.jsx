@@ -21,8 +21,15 @@ export function CheckList({ templateId, listId, title }) {
   const isEditing = useContext(EditStateData);
 
   useEffect(() => {
-    setSupplyList(template.supplies);
-  }, [template]);
+    if (templateId < 4) setNewSupplyList(template.supplies);
+  }, []);
+  useEffect(() => {
+    if (templateId === 0) {
+      setSupplyList(newSupplyList);
+    } else {
+      setSupplyList(template.supplies);
+    }
+  }, [template, newSupplyList]);
 
   const listContent = supplyList.find(
     (item) => String(item.id) === String(listId)
@@ -48,15 +55,13 @@ export function CheckList({ templateId, listId, title }) {
 
     // 상태 업데이트
     setListData(updatedContents);
-    if (templateId < 4) {
-      setSupplyList(updatedSupplyList);
-      setNewSupplyList(updatedSupplyList);
-    } else setSupplyList(updatedSupplyList);
-    console.log("newSupplyList", newSupplyList);
-    console.log("supplyList", supplyList);
+    setSupplyList(updatedSupplyList);
 
-    // Context에 반영
-    onUpdateSupplies(templateId, updatedSupplyList);
+    if (templateId === 0) {
+      setNewSupplyList(updatedSupplyList);
+    } else {
+      onUpdateSupplies(templateId, updatedSupplyList);
+    }
   };
 
   const handleAdd = (inputValue) => {
@@ -73,14 +78,13 @@ export function CheckList({ templateId, listId, title }) {
     });
 
     setListData(updatedContents);
-    if (templateId < 4) {
-      setSupplyList(updatedSupplyList);
-      setNewSupplyList(updatedSupplyList);
-    } else setSupplyList(updatedSupplyList);
-    console.log("newSupplyList", newSupplyList);
-    console.log("supplyList", supplyList);
-
-    onUpdateSupplies(templateId, updatedSupplyList);
+    setSupplyList(updatedSupplyList);
+    setNewSupplyList(updatedSupplyList);
+    {
+      templateId < 4
+        ? setNewSupplyList(updatedSupplyList)
+        : onUpdateSupplies(templateId, updatedSupplyList);
+    }
   };
 
   return (
