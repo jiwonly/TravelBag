@@ -13,6 +13,7 @@ import Template from "./pages/Template";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { supplies } from "./util/get-supplies-list";
+import { templateList } from "./util/get-template-list";
 
 function reducer(state, action) {
   let nextState;
@@ -68,12 +69,16 @@ export const pageDispatchContext = createContext();
 export const pageStateContext = createContext();
 export const EditStateData = createContext();
 export const EditDispatchData = createContext();
+export const supplyStateContext = createContext();
+export const supplyDispatchContext = createContext();
 
 function PrivateRoute({ isAuthenticated, children }) {
   return isAuthenticated ? children : <Navigate to="/login" />;
 }
 
 function App() {
+  const addTemplate = templateList.find((item) => item.id === 0);
+  const [newSupplyList, setNewSupplyList] = useState(addTemplate.supplies);
   const [data, dispatch] = useReducer(reducer, custom);
   const [isAuthenticated, setIsAuthenticated] = useState(true);
   const idRef = useRef(
@@ -85,7 +90,7 @@ function App() {
     setIsEditing(value);
   };
 
-  const onCreate = (title) => {
+  const onCreate = (title, supplies) => {
     dispatch({
       type: "CREATE",
       data: {
@@ -137,48 +142,54 @@ function App() {
             >
               <EditStateData.Provider value={isEditing}>
                 <EditDispatchData.Provider value={{ onEditing }}>
-                  <Router>
-                    <Routes>
-                      <Route
-                        path="/login"
-                        element={<Login onLogin={handleLogin} />}
-                      />
-                      <Route path="/register" element={<Register />} />
-                      {/* Protected Routes */}
-                      <Route
-                        path="/"
-                        element={
-                          <PrivateRoute isAuthenticated={isAuthenticated}>
-                            <Home />
-                          </PrivateRoute>
-                        }
-                      />
-                      <Route
-                        path="/new"
-                        element={
-                          <PrivateRoute isAuthenticated={isAuthenticated}>
-                            <New />
-                          </PrivateRoute>
-                        }
-                      />
-                      <Route
-                        path="/tip"
-                        element={
-                          <PrivateRoute isAuthenticated={isAuthenticated}>
-                            <Tip />
-                          </PrivateRoute>
-                        }
-                      />
-                      <Route
-                        path="/template/:id"
-                        element={
-                          <PrivateRoute isAuthenticated={isAuthenticated}>
-                            <Template />
-                          </PrivateRoute>
-                        }
-                      />
-                    </Routes>
-                  </Router>
+                  <supplyStateContext.Provider value={newSupplyList}>
+                    <supplyDispatchContext.Provider
+                      value={{ setNewSupplyList }}
+                    >
+                      <Router>
+                        <Routes>
+                          <Route
+                            path="/login"
+                            element={<Login onLogin={handleLogin} />}
+                          />
+                          <Route path="/register" element={<Register />} />
+                          {/* Protected Routes */}
+                          <Route
+                            path="/"
+                            element={
+                              <PrivateRoute isAuthenticated={isAuthenticated}>
+                                <Home />
+                              </PrivateRoute>
+                            }
+                          />
+                          <Route
+                            path="/new"
+                            element={
+                              <PrivateRoute isAuthenticated={isAuthenticated}>
+                                <New />
+                              </PrivateRoute>
+                            }
+                          />
+                          <Route
+                            path="/tip"
+                            element={
+                              <PrivateRoute isAuthenticated={isAuthenticated}>
+                                <Tip />
+                              </PrivateRoute>
+                            }
+                          />
+                          <Route
+                            path="/template/:id"
+                            element={
+                              <PrivateRoute isAuthenticated={isAuthenticated}>
+                                <Template />
+                              </PrivateRoute>
+                            }
+                          />
+                        </Routes>
+                      </Router>
+                    </supplyDispatchContext.Provider>
+                  </supplyStateContext.Provider>
                 </EditDispatchData.Provider>
               </EditStateData.Provider>
             </TemplateDispatchContext.Provider>

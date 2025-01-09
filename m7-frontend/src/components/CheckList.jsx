@@ -6,8 +6,12 @@ import { EditStateData } from "@/App";
 import { TemplateDispatchContext } from "@/App";
 import { TemplateStateContext } from "@/App";
 import { templateList } from "@/util/get-template-list";
+import { supplyDispatchContext } from "@/App";
+import { supplyStateContext } from "@/App";
 
 export function CheckList({ templateId, listId, title }) {
+  const { setNewSupplyList } = useContext(supplyDispatchContext);
+  const newSupplyList = useContext(supplyStateContext);
   const data = useContext(TemplateStateContext);
   const template =
     data.find((item) => String(item.id) === String(templateId)) ||
@@ -44,7 +48,12 @@ export function CheckList({ templateId, listId, title }) {
 
     // 상태 업데이트
     setListData(updatedContents);
-    setSupplyList(updatedSupplyList);
+    if (templateId < 4) {
+      setSupplyList(updatedSupplyList);
+      setNewSupplyList(updatedSupplyList);
+    } else setSupplyList(updatedSupplyList);
+    console.log("newSupplyList", newSupplyList);
+    console.log("supplyList", supplyList);
 
     // Context에 반영
     onUpdateSupplies(templateId, updatedSupplyList);
@@ -64,7 +73,13 @@ export function CheckList({ templateId, listId, title }) {
     });
 
     setListData(updatedContents);
-    setSupplyList(updatedSupplyList);
+    if (templateId < 4) {
+      setSupplyList(updatedSupplyList);
+      setNewSupplyList(updatedSupplyList);
+    } else setSupplyList(updatedSupplyList);
+    console.log("newSupplyList", newSupplyList);
+    console.log("supplyList", supplyList);
+
     onUpdateSupplies(templateId, updatedSupplyList);
   };
 

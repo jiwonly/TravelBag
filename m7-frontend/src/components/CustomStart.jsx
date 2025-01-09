@@ -1,8 +1,10 @@
 import Header from "./Header";
 import { CheckList } from "./CheckList";
+import { createContext, useState } from "react";
 
 const CustomStart = ({ isTemplate, icon, id, title, data }) => {
   const addTemplate = data.find((item) => item.id === 0);
+
   return (
     <div>
       <Header
