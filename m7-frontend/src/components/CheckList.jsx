@@ -5,10 +5,13 @@ import "../styles/scrollbar.css";
 import { EditStateData } from "@/App";
 import { TemplateDispatchContext } from "@/App";
 import { TemplateStateContext } from "@/App";
+import { templateList } from "@/util/get-template-list";
 
 export function CheckList({ templateId, listId, title }) {
   const data = useContext(TemplateStateContext);
-  const template = data.find((item) => String(item.id) === String(templateId));
+  const template =
+    data.find((item) => String(item.id) === String(templateId)) ||
+    templateList.find((item) => item.id === 0);
   const [supplyList, setSupplyList] = useState(template.supplies);
   const { onUpdateSupplies } = useContext(TemplateDispatchContext);
   const isEditing = useContext(EditStateData);
