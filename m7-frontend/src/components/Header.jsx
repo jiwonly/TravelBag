@@ -14,8 +14,10 @@ import { TemplateDispatchContext } from "@/App";
 import { useNavigate } from "react-router-dom";
 import { EditDispatchData } from "@/App";
 import { EditStateData } from "@/App";
+import { supplyStateContext } from "@/App";
 
 const Header = ({ isTemplate, icon, id, title, memo, updateButton }) => {
+  const newSupplyList = useContext(supplyStateContext);
   const data = useContext(TemplateStateContext);
   const dispatchContext = useContext(SelectedDisplatchData);
   const onChange = dispatchContext?.onChange;
@@ -45,7 +47,7 @@ const Header = ({ isTemplate, icon, id, title, memo, updateButton }) => {
       onEditing(true);
     }
     if (id < 4) {
-      onCreate(editedTitle);
+      onCreate(editedTitle, newSupplyList);
       nav("/");
     }
   };
