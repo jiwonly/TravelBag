@@ -1,21 +1,4 @@
 import axios from "axios";
-import React, { useEffect } from "react";
-import {
-  atom,
-  selector,
-  useRecoilState,
-  useRecoilValue,
-  useSetRecoilState,
-} from "recoil";
-import {
-  locationsState,
-  exchangeRatesState,
-  airlinesState,
-  restaurantsState,
-  attractionsState,
-  souvenirsState,
-  signupMessageState,
-} from "./atom";
 
 export const API_BASE_URL = "http://localhost:8080";
 

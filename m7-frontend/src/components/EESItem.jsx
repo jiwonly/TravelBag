@@ -1,8 +1,9 @@
 import { getEatImage5 } from "@/util/get-eat-image";
-import {getEnjoyImage5} from "@/util/get-enjoy-image";
+import { getEnjoyImage5 } from "@/util/get-enjoy-image";
+import { getShopImage } from "@/util/get-shop-image";
 
-const EESItem = ({ location_id, content, id, title, memo }) => {
-  const getImage = (location_id, content) => {
+const EESItem = ({ location_id, content, id, name, signature, url }) => {
+  const getImage = (location_id, content, id) => {
     if (content === "eat") {
       if (location_id === 1) return getEatImage5(id);
       if (location_id === 2) return getEatImage5(id);
@@ -20,11 +21,7 @@ const EESItem = ({ location_id, content, id, title, memo }) => {
     }
 
     if (content === "shop") {
-      if (location_id === 1) return getEatImage5(id);
-      if (location_id === 2) return getEatImage5(id);
-      if (location_id === 3) return getEatImage5(id);
-      if (location_id === 4) return getEatImage5(id);
-      if (location_id === 5) return getEatImage5(id);
+      return getShopImage(location_id, id);
     }
   };
   return (
@@ -33,15 +30,15 @@ const EESItem = ({ location_id, content, id, title, memo }) => {
         <div className="flex justify-center">
           <img
             className="flex justify-center items-start shrink-0 rounded-2xl"
-            src={getImage(location_id, content)}
+            src={getImage(location_id, content, id)}
           />
         </div>
         <div>
           <div className="items-center self-stretch text-black text-center [font-family:Pretendard] text-xs font-medium leading-[13px]">
-            {title}
+            {name}
           </div>
           <div className="items-center self-stretch text-black text-center [font-family:Pretendard] text-xs font-medium leading-[13px]">
-            {memo}
+            {signature}
           </div>
         </div>
       </div>

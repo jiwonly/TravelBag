@@ -41,22 +41,32 @@ export const exchangeRatesState = atom({
   key: "exchangeRatesState",
   default: [
     {
+      location_id: 1,
       country: "일본",
       currency_unit: "JPY",
       exchange_rate: 900,
     },
     {
+      location_id: 2,
       country: "미국",
       currency_unit: "USD",
       exchange_rate: 1400,
     },
     {
+      location_id: 3,
       country: "베트남",
       currency_unit: "JPY",
       exchange_rate: 900,
     },
     {
+      location_id: 4,
       country: "태국",
+      currency_unit: "JPY",
+      exchange_rate: 900,
+    },
+    {
+      location_id: 5,
+      country: "일본",
       currency_unit: "JPY",
       exchange_rate: 900,
     },
@@ -130,8 +140,37 @@ export const restaurantsState = atom({
   default: [
     {
       id: 1,
-      name: "string",
-      signature: "string",
+      location_id: 5,
+      name: "츠케멘 야스베에 아키하바라점",
+      signature: "대표 메뉴: 츠케멘",
+      url: "string",
+    },
+    {
+      id: 2,
+      location_id: 5,
+      name: "규카츠 모토무라 아키하바라점",
+      signature: "대표 메뉴: 규카츠",
+      url: "string",
+    },
+    {
+      id: 3,
+      location_id: 5,
+      name: "멘야 쇼오 본점",
+      signature: "대표 메뉴: 시오 라멘",
+      url: "string",
+    },
+    {
+      id: 4,
+      location_id: 5,
+      name: "돈카츠 마이센 아오야마 본점",
+      signature: "대표 메뉴: 흑돼지 돈카츠, 카츠산도",
+      url: "string",
+    },
+    {
+      id: 5,
+      location_id: 5,
+      name: "Harbs LUMINE Ikebukuro",
+      signature: "대표 메뉴: 밀 크레이프",
       url: "string",
     },
   ],
@@ -142,7 +181,32 @@ export const attractionsState = atom({
   default: [
     {
       id: 1,
-      name: "string",
+      location_id: 5,
+      name: "도쿄 도청사",
+      url: "string",
+    },
+    {
+      id: 2,
+      location_id: 5,
+      name: "시부야 스크램블 스퀘어",
+      url: "string",
+    },
+    {
+      id: 3,
+      location_id: 5,
+      name: "도쿄 타워",
+      url: "string",
+    },
+    {
+      id: 4,
+      location_id: 5,
+      name: "롯폰기 힐스",
+      url: "string",
+    },
+    {
+      id: 5,
+      location_id: 5,
+      name: "도쿄 스카이트리",
       url: "string",
     },
   ],
@@ -153,7 +217,14 @@ export const souvenirsState = atom({
   default: [
     {
       id: 1,
-      name: "string",
+      location_id: 5,
+      name: "도쿄 바나나",
+      url: "string",
+    },
+    {
+      id: 2,
+      location_id: 5,
+      name: "로이스 초콜릿",
       url: "string",
     },
   ],
