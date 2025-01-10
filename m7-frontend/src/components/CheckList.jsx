@@ -65,25 +65,27 @@ export function CheckList({ templateId, listId, title }) {
   };
 
   const handleAdd = (inputValue) => {
-    const updatedContents = [
-      ...listData,
-      { id: listData.length + 1, content: inputValue },
-    ];
+    if (inputValue !== "") {
+      const updatedContents = [
+        ...listData,
+        { id: listData.length + 1, content: inputValue },
+      ];
 
-    const updatedSupplyList = supplyList.map((item) => {
-      if (String(item.id) === String(listId)) {
-        return { ...item, contents: updatedContents };
+      const updatedSupplyList = supplyList.map((item) => {
+        if (String(item.id) === String(listId)) {
+          return { ...item, contents: updatedContents };
+        }
+        return item;
+      });
+
+      setListData(updatedContents);
+      setSupplyList(updatedSupplyList);
+      setNewSupplyList(updatedSupplyList);
+      {
+        templateId < 4
+          ? setNewSupplyList(updatedSupplyList)
+          : onUpdateSupplies(templateId, updatedSupplyList);
       }
-      return item;
-    });
-
-    setListData(updatedContents);
-    setSupplyList(updatedSupplyList);
-    setNewSupplyList(updatedSupplyList);
-    {
-      templateId < 4
-        ? setNewSupplyList(updatedSupplyList)
-        : onUpdateSupplies(templateId, updatedSupplyList);
     }
   };
 

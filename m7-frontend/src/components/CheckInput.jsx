@@ -4,6 +4,7 @@ import CheckData_plus from "../assets/CheckData_plus.svg";
 
 export function CheckInput({ onAdd }) {
   const [inputValue, setInputValue] = useState("");
+  const [isComposing, setIsComposing] = useState(false);
 
   const handleChange = (e) => {
     setInputValue(e.target.value);
@@ -13,10 +14,18 @@ export function CheckInput({ onAdd }) {
     setInputValue("");
   };
 
-  // enter 키 입력 시 추가
+  const handleCompositionStart = () => {
+    setIsComposing(true);
+  };
+
+  const handleCompositionEnd = (e) => {
+    setIsComposing(false);
+    setInputValue(e.target.value);
+  };
+
   const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      onAdd();
+    if (e.key === "Enter" && !isComposing) {
+      onClickAdd();
     }
   };
 
@@ -29,6 +38,8 @@ export function CheckInput({ onAdd }) {
           placeholder="원하는 물품을 입력하세요"
           value={inputValue}
           onChange={handleChange}
+          onCompositionStart={handleCompositionStart}
+          onCompositionEnd={handleCompositionEnd}
           onKeyDown={handleKeyDown}
         />
       </div>
