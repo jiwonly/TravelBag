@@ -94,7 +94,7 @@ export const signupAPI = async (name) => {
 // const TravelAPI = ({ location_id }) => {
 //   const [locations, setLocations] = useRecoilState(locationsState);
 //   const [exchangeRates, setExchangeRates] = useRecoilState(exchangeRatesState);
-//   // const [airlines, setAirlines] = useRecoilState(airlinesState);
+//   const [airlines, setAirlines] = useRecoilState(airlinesState);
 //   const [restaurants, setRestaurants] = useRecoilState(restaurantsState);
 //   const [attractions, setAttractions] = useRecoilState(attractionsState);
 //   const [souvenirs, setSouvenirs] = useRecoilState(souvenirsState);

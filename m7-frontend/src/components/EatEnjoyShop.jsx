@@ -1,5 +1,4 @@
 import EESItem from "./EESItem";
-import { AirlineList } from "@/util/get-airline-list";
 import { useRecoilState } from "recoil";
 import {
   restaurantsState,
