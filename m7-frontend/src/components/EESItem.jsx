@@ -1,23 +1,15 @@
-import { getEatImage5 } from "@/util/get-eat-image";
-import { getEnjoyImage5 } from "@/util/get-enjoy-image";
+import { getEatImage } from "@/util/get-eat-image";
+import { getEnjoyImage } from "@/util/get-enjoy-image";
 import { getShopImage } from "@/util/get-shop-image";
 
 const EESItem = ({ location_id, content, id, name, signature, url }) => {
   const getImage = (location_id, content, id) => {
     if (content === "eat") {
-      if (location_id === 1) return getEatImage5(id);
-      if (location_id === 2) return getEatImage5(id);
-      if (location_id === 3) return getEatImage5(id);
-      if (location_id === 4) return getEatImage5(id);
-      if (location_id === 5) return getEatImage5(id);
+      return getEatImage(location_id, id);
     }
 
     if (content === "enjoy") {
-      if (location_id === 1) return getEnjoyImage5(id);
-      if (location_id === 2) return getEnjoyImage5(id);
-      if (location_id === 3) return getEnjoyImage5(id);
-      if (location_id === 4) return getEnjoyImage5(id);
-      if (location_id === 5) return getEnjoyImage5(id);
+      return getEnjoyImage(location_id, id);
     }
 
     if (content === "shop") {
