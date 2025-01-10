@@ -17,6 +17,16 @@ const EatEnjoyShop = ({ location_id }) => {
   const [attractions, setAttractions] = useRecoilState(attractionsState);
   const [souvenirs, setSouvenirs] = useRecoilState(souvenirsState);
 
+  const filteredRestaurants = restaurants.filter(
+    (item) => item.location_id === location_id
+  );
+  const filteredAttractions = attractions.filter(
+    (item) => item.location_id === location_id
+  );
+  const filteredSouvenirs = souvenirs.filter(
+    (item) => item.location_id === location_id
+  );
+
   useEffect(() => {
     const fetchRestaurants = async () => {
       try {
@@ -61,19 +71,19 @@ const EatEnjoyShop = ({ location_id }) => {
       <div className="flex flex-col items-start">
         <li className="text-[17px] font-bold py-5">맛집</li>
         <div className="flex flex-row gap-5 mb-[20px]">
-          {restaurants.map((item) => (
+          {filteredRestaurants.map((item) => (
             <EESItem content="eat" key={item.id} {...item} />
           ))}
         </div>
         <li className="text-[17px] font-bold py-5">관광지</li>
         <div className="flex flex-row gap-5 mb-[20px]">
-          {attractions.map((item) => (
+          {filteredAttractions.map((item) => (
             <EESItem content="enjoy" key={item.id} {...item} />
           ))}
         </div>
         <li className="text-[17px] font-bold py-5">기념품</li>
         <div className="flex flex-row gap-5 mb-[20px]">
-          {souvenirs.map((item) => (
+          {filteredSouvenirs.map((item) => (
             <EESItem content="shop" key={item.id} {...item} />
           ))}
         </div>

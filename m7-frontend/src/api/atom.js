@@ -1,6 +1,5 @@
 import { atom } from "recoil";
 
-// Define Recoil atoms
 export const locationsState = atom({
   key: "locationsState",
   default: [
@@ -109,11 +108,27 @@ export const airlinesState = atom({
       },
     },
     {
+      location: 2,
+      airline: {
+        id: 3,
+        name: "아시아나항공",
+        url: "https://www.flyasiana.com",
+      },
+    },
+    {
       location: 3,
       airline: {
         id: 1,
         name: "대한항공",
         url: "https://www.koreanair.com",
+      },
+    },
+    {
+      location: 3,
+      airline: {
+        id: 2,
+        name: "에어서울",
+        url: "https://www.airseoul.com",
       },
     },
     {
@@ -226,6 +241,24 @@ export const souvenirsState = atom({
       location_id: 5,
       name: "로이스 초콜릿",
       url: "string",
+    },
+  ],
+});
+
+export const registersState = atom({
+  key: "registersState",
+  default: [
+    {
+      id: 1,
+      name: "김철수",
+      email: "string",
+      phone: "string",
+    },
+    {
+      id: 2,
+      name: "홍길동",
+      email: "string",
+      phone: "string",
     },
   ],
 });
