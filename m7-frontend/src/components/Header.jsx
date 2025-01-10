@@ -26,11 +26,17 @@ const Header = ({ isTemplate, icon, id, title, memo, updateButton }) => {
   const { onDelete, onUpdate, onCreate } = useContext(TemplateDispatchContext);
   const isEditing = useContext(EditStateData);
   const { onEditing } = useContext(EditDispatchData);
+  const [edit, setEdit] = useState(false);
 
   const nav = useNavigate();
   useEffect(() => {
     onEditing(id < 4);
   }, [id]);
+
+  const onSetEdit = (value) => {
+    setEdit(value);
+    console.log(edit);
+  };
 
   const onSelected = (value) => {
     onChange(value);
@@ -43,13 +49,14 @@ const Header = ({ isTemplate, icon, id, title, memo, updateButton }) => {
       (item) => String(item.title) === String(editedTitle)
     );
     if (isEditing) {
-      if (existingTemplate && title != editedTitle) {
+      if (existingTemplate && edit) {
         alert("이미 존재하는 템플릿입니다!");
         return;
       } else {
         onUpdate(id, editedTitle);
         setSelectedTitle(editedTitle);
         onEditing(false);
+        onSetEdit(false);
       }
     } else {
       onEditing(true);
@@ -61,6 +68,7 @@ const Header = ({ isTemplate, icon, id, title, memo, updateButton }) => {
         return;
       } else {
         onCreate(editedTitle, newSupplyList);
+        onSetEdit;
         nav("/");
       }
     }
@@ -90,6 +98,7 @@ const Header = ({ isTemplate, icon, id, title, memo, updateButton }) => {
               value={editedTitle}
               onChange={(e) => {
                 setEditedTitle(e.target.value);
+                onSetEdit(true);
               }}
               className="text-[16px] font-[Pretendard] leading-[28px] text-[#393940] border border-gray-300 rounded px-2 py-1"
             />
