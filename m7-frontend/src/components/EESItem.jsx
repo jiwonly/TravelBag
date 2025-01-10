@@ -19,7 +19,7 @@ const EESItem = ({ location_id, content, id, name, signature, url }) => {
 
   const onURL = () => {
     if (url) {
-      window.location.href = url; // props로 받은 url로 이동
+      window.open(url, "_blank"); // 새 창에서 열기
     }
   };
 
