@@ -17,7 +17,7 @@ import {
   signupMessageState,
 } from "./atom";
 
-const API_BASE_URL = "http://localhost:8080";
+export const API_BASE_URL = "http://localhost:8080";
 
 // CORS 설정하기!! -> 백엔드
 

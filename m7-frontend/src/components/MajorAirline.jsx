@@ -1,5 +1,8 @@
 import AirlineItem from "./AirlineItem";
 import { AirlineList } from "@/util/get-airline-list";
+import React from "react";
+
+
 
 const MajorAirline = ({ location_id }) => {
   const airlines =
