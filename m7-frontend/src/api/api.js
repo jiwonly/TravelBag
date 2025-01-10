@@ -1,13 +1,98 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import {
+  atom,
+  useRecoilState,
+  useRecoilValue,
+  useSetRecoilState,
+} from "recoil";
 
-const API_BASE_URL = "http://localhost:8080";
+export const API_BASE_URL = "http://localhost:8080";
+
+// CORS 설정하기!! -> 백엔드
+
+// Define Recoil atoms
+export const locationsState = atom({
+  key: "locationsState",
+  default: [
+    {
+      id: 1,
+      name: "string",
+      country: "string",
+      currency_unit: "string",
+    },
+  ],
+});
+
+export const exchangeRatesState = atom({
+  key: "exchangeRatesState",
+  default: [
+    {
+      country: "string",
+      currency_unit: "string",
+      exchange_rate: 0,
+    },
+  ],
+});
+
+export const airlinesState = atom({
+  key: "airlinesState",
+  default: [
+    {
+      id: 1,
+      name: "string",
+      url: "string",
+    },
+  ],
+});
+
+export const restaurantsState = atom({
+  key: "restaurantsState",
+  default: [
+    {
+      id: 1,
+      name: "string",
+      signature: "string",
+      url: "string",
+    },
+  ],
+});
+
+export const attractionsState = atom({
+  key: "attractionsState",
+  default: [
+    {
+      id: 1,
+      name: "string",
+      url: "string",
+    },
+  ],
+});
+
+export const souvenirsState = atom({
+  key: "souvenirsState",
+  default: [
+    {
+      id: 1,
+      name: "string",
+      url: "string",
+    },
+  ],
+});
+
+export const signupMessageState = atom({
+  key: "signupMessageState",
+  default: "",
+});
 
 const TravelAPI = () => {
-  const [locations, setLocations] = useState([]);
-  const [exchangeRates, setExchangeRates] = useState([]);
-  const [airlines, setAirlines] = useState([]);
-  const [signupMessage, setSignupMessage] = useState("");
+  const [locations, setLocations] = useRecoilState(locationsState);
+  const [exchangeRates, setExchangeRates] = useRecoilState(exchangeRatesState);
+  const [airlines, setAirlines] = useRecoilState(airlinesState);
+  const [restaurants, setRestaurants] = useRecoilState(restaurantsState);
+  const [attractions, setAttractions] = useRecoilState(attractionsState);
+  const [souvenirs, setSouvenirs] = useRecoilState(souvenirsState);
+  const setSignupMessage = useSetRecoilState(signupMessageState);
 
   // 1. 여행지 목록 조회
   const fetchLocations = async () => {
@@ -23,7 +108,7 @@ const TravelAPI = () => {
   const fetchExchangeRates = async () => {
     try {
       const response = await axios.get(
-        `${API_BASE_URL}/location/exchange-rate`
+        `${API_BASE_URL}/location/exchange-rate/{location_id}`
       );
       setExchangeRates(response.data);
     } catch (error) {
@@ -34,14 +119,48 @@ const TravelAPI = () => {
   // 3. 여행지별 주요 항공사 조회
   const fetchAirlines = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/location/airline`);
+      const response = await axios.get(
+        `${API_BASE_URL}/location/airline/{location_id}`
+      );
       setAirlines(response.data);
     } catch (error) {
       console.error("Error fetching airlines:", error);
     }
   };
 
-  // 4. 회원가입
+  const fetchRestaurants = async () => {
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/location/restaurant/{location_id}`
+      );
+      setRestaurants(response.data);
+    } catch (error) {
+      console.error("Error fetching restaurants:", error);
+    }
+  };
+
+  const fetchAttractions = async () => {
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/location/attraction/{location_id}`
+      );
+      setAttractions(response.data);
+    } catch (error) {
+      console.error("Error fetching attractions:", error);
+    }
+  };
+
+  const fetchSouvenirs = async () => {
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/location/souvenir/{location_id}`
+      );
+      setSouvenirs(response.data);
+    } catch (error) {
+      console.error("Error fetching souvenirs:", error);
+    }
+  };
+
   const signup = async (name) => {
     try {
       const response = await axios.post(`${API_BASE_URL}/api/member`, {
@@ -60,56 +179,7 @@ const TravelAPI = () => {
     fetchAirlines();
   }, []);
 
-  // 데이터 확인을 위한 UI
-  return (
-    <div>
-      <h1>Travel API Example</h1>
-
-      {/* 여행지 목록 */}
-      <section>
-        <h2>Travel Locations</h2>
-        <ul>
-          {locations.map((location) => (
-            <li key={location.id}>
-              {location.name} ({location.country}) - Currency:{" "}
-              {location.currency_unit}
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* 여행지 환율 */}
-      <section>
-        <h2>Exchange Rates</h2>
-        <ul>
-          {exchangeRates.map((rate, index) => (
-            <li key={index}>
-              {rate.country} - {rate.currency_unit} : {rate.exchange_rate}
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* 주요 항공사 */}
-      <section>
-        <h2>Airlines</h2>
-        <ul>
-          {airlines.map((airline) => (
-            <li key={airline.id}>
-              {airline.name} (<a href={airline.url}>Website</a>)
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* 회원가입 */}
-      <section>
-        <h2>Signup</h2>
-        <button onClick={() => signup("홍길동")}>Signup as 홍길동</button>
-        {signupMessage && <p>{signupMessage}</p>}
-      </section>
-    </div>
-  );
+  return null;
 };
 
 export default TravelAPI;
