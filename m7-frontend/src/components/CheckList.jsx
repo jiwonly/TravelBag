@@ -1,6 +1,6 @@
 import { CheckData } from "./CheckData";
 import { CheckInput } from "./CheckInput";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import "../styles/scrollbar.css";
 import { EditStateData } from "@/App";
 import { TemplateDispatchContext } from "@/App";
@@ -8,6 +8,7 @@ import { TemplateStateContext } from "@/App";
 import { templateList } from "@/util/get-template-list";
 import { supplyDispatchContext } from "@/App";
 import { supplyStateContext } from "@/App";
+import { recommendSupplies } from "@/util/get-recomment-supplies-list";
 
 export function CheckList({ templateId, listId, title }) {
   const { setNewSupplyList } = useContext(supplyDispatchContext);
@@ -19,6 +20,10 @@ export function CheckList({ templateId, listId, title }) {
   const [supplyList, setSupplyList] = useState(template.supplies);
   const { onUpdateSupplies } = useContext(TemplateDispatchContext);
   const isEditing = useContext(EditStateData);
+  const selectedRecoomendSupplies = recommendSupplies.filter(
+    (item) => String(item.id) === String(listId)
+  );
+  const idRef = useRef(100);
 
   useEffect(() => {
     if (templateId < 4) setNewSupplyList(template.supplies);
@@ -40,6 +45,28 @@ export function CheckList({ templateId, listId, title }) {
   useEffect(() => {
     setListData(listContent.contents);
   }, [listContent.contents]);
+
+  const handleToggle = (id) => {
+    const updatedContents = listData.map((item) =>
+      item.id === id ? { ...item, isChecked: !item.isChecked } : item
+    );
+
+    const updatedSupplyList = supplyList.map((item) => {
+      if (String(item.id) === String(listId)) {
+        return { ...item, contents: updatedContents };
+      }
+      return item;
+    });
+
+    setListData(updatedContents);
+    setSupplyList(updatedSupplyList);
+
+    if (templateId < 4) {
+      setNewSupplyList(updatedSupplyList);
+    } else {
+      onUpdateSupplies(templateId, updatedSupplyList);
+    }
+  };
 
   const handleDelete = (id) => {
     // listData에서 아이템 삭제
@@ -68,7 +95,7 @@ export function CheckList({ templateId, listId, title }) {
     if (inputValue !== "") {
       const updatedContents = [
         ...listData,
-        { id: listData.length + 1, content: inputValue },
+        { id: idRef.current++, isChecked: false, content: inputValue },
       ];
 
       const updatedSupplyList = supplyList.map((item) => {
@@ -97,8 +124,11 @@ export function CheckList({ templateId, listId, title }) {
         {listData.map((item) => (
           <CheckData
             key={item.id}
+            templateId={templateId}
             id={item.id}
+            isChecked={item.isChecked}
             content={item.content}
+            onToggle={handleToggle}
             onDelete={handleDelete}
           />
         ))}

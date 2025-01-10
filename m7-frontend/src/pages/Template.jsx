@@ -63,8 +63,8 @@ const Template = ({ children }) => {
         </main>
       </SidebarProvider>
       <RecommendBar
+        id={template.id}
         icon="inventory"
-        title="추천 준비물"
         setListData={setListData}
       />
     </div>
