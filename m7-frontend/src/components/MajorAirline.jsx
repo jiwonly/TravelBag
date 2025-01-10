@@ -1,10 +1,37 @@
 import AirlineItem from "./AirlineItem";
-import { AirlineList } from "@/util/get-airline-list";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import React, { useEffect } from "react";
+import { airlinesState } from "../api/atom";
+import { fetchAirlinesAPI } from "../api/api";
 
-const MajorAirline = ({ destinationId }) => {
-  const airlines =
-    AirlineList.find((item) => item.destinationId === destinationId)
-      ?.airlines || [];
+const MajorAirline = ({ location_id }) => {
+  const airlines = useRecoilValue(airlinesState);
+  const setAirlines = useSetRecoilState(airlinesState);
+
+  const filteredAirlines = airlines.filter(
+    (item) => item.location === location_id
+  );
+
+  useEffect(() => {
+    const fetchAirlines = async () => {
+      try {
+        if (location_id) {
+          const data = await fetchAirlinesAPI(location_id);
+          setAirlines((prev) => [
+            ...prev.filter((item) => item.location !== location_id),
+            ...data.map((airline) => ({
+              location: location_id,
+              airline,
+            })),
+          ]);
+        }
+      } catch (error) {
+        console.error("Failed to fetch airlines:", error);
+      }
+    };
+
+    fetchAirlines();
+  }, [location_id, setAirlines]);
 
   return (
     <div className="mt-[20px] mb-[50px] ">
@@ -14,8 +41,13 @@ const MajorAirline = ({ destinationId }) => {
         정보를 얻어보세요.
       </div>
       <div className="flex flex-row gap-5">
-        {airlines.map((item) => (
-          <AirlineItem key={item.id} {...item} />
+        {filteredAirlines.map((item) => (
+          <AirlineItem
+            key={item.airline.id}
+            id={item.airline.id}
+            name={item.airline.name}
+            url={item.airline.url}
+          />
         ))}
       </div>
     </div>

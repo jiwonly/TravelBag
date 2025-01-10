@@ -4,8 +4,8 @@ import airseoul from "../assets/airline/airseoul.svg";
 import tway from "../assets/airline/tway.svg";
 import asiana from "../assets/airline/asiana.svg";
 
-export function getAirlineImage(airlineId) {
-  switch (airlineId) {
+export function getAirlineImage(id) {
+  switch (id) {
     case 1:
       return daehan;
     case 2:

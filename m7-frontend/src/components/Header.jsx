@@ -12,37 +12,57 @@ import trashIcon from "../assets/icon/trash.svg";
 import HeaderButton from "./HeaderButton";
 import { TemplateDispatchContext } from "@/App";
 import { useNavigate } from "react-router-dom";
+import { EditDispatchData } from "@/App";
+import { EditStateData } from "@/App";
+import { supplyStateContext } from "@/App";
 
 const Header = ({ isTemplate, icon, id, title, memo, updateButton }) => {
+  const newSupplyList = useContext(supplyStateContext);
   const data = useContext(TemplateStateContext);
   const dispatchContext = useContext(SelectedDisplatchData);
   const onChange = dispatchContext?.onChange;
   const [selectedTitle, setSelectedTitle] = useState(title);
-  const [isEditing, setIsEditing] = useState(id < 4);
   const [editedTitle, setEditedTitle] = useState(title);
   const { onDelete, onUpdate, onCreate } = useContext(TemplateDispatchContext);
-  const nav = useNavigate();
+  const isEditing = useContext(EditStateData);
+  const { onEditing } = useContext(EditDispatchData);
 
+  const nav = useNavigate();
   useEffect(() => {
-    setIsEditing(id < 4);
+    onEditing(id < 4);
   }, [id]);
 
   const onSelected = (value) => {
     onChange(value);
     setSelectedTitle(value);
+    setEditedTitle(value);
   };
 
   const onUpdateButton = () => {
+    const existingTemplate = data.find(
+      (item) => String(item.title) === String(editedTitle)
+    );
     if (isEditing) {
-      onUpdate(id, editedTitle);
-      setSelectedTitle(editedTitle);
-      setIsEditing(false);
+      if (existingTemplate && title != editedTitle) {
+        alert("이미 존재하는 템플릿입니다!");
+        return;
+      } else {
+        onUpdate(id, editedTitle);
+        setSelectedTitle(editedTitle);
+        onEditing(false);
+      }
     } else {
-      setIsEditing(true);
+      onEditing(true);
     }
     if (id < 4) {
-      onCreate(editedTitle);
-      nav("/");
+      if (existingTemplate) {
+        alert("이미 존재하는 템플릿입니다!");
+        onEditing(true);
+        return;
+      } else {
+        onCreate(editedTitle, newSupplyList);
+        nav("/");
+      }
     }
   };
 
@@ -68,8 +88,10 @@ const Header = ({ isTemplate, icon, id, title, memo, updateButton }) => {
             <input
               type="text"
               value={editedTitle}
-              onChange={(e) => setEditedTitle(e.target.value)}
-              className="text-[17px] font-[Pretendard] leading-[28px] text-[#393940] border border-gray-300 rounded px-2 py-1"
+              onChange={(e) => {
+                setEditedTitle(e.target.value);
+              }}
+              className="text-[16px] font-[Pretendard] leading-[28px] text-[#393940] border border-gray-300 rounded px-2 py-1"
             />
           ) : (
             <Select onValueChange={(value) => onSelected(value)}>
