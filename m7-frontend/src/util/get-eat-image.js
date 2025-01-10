@@ -1,20 +1,25 @@
-import crepe_Tokyo from "../assets/eat/crepe_Tokyo.svg";
-import donkatsu_Tokyo from "../assets/eat/donkatsu_Tokyo.svg";
-import gyukatsu_Tokyo from "../assets/eat/gyukatsu_Tokyo.svg";
-import sioramen_Tokyo from "../assets/eat/sioramen_Tokyo.svg";
-import tsukemen_Tokyo from "../assets/eat/tsukemen_Tokyo.svg";
+import eat_ToKyo_1 from "../assets/eat/eat_ToKyo_1.svg";
+import eat_ToKyo_2 from "../assets/eat/eat_ToKyo_2.svg";
+import eat_ToKyo_3 from "../assets/eat/eat_ToKyo_3.svg";
+import eat_ToKyo_4 from "../assets/eat/eat_ToKyo_4.svg";
+import eat_ToKyo_5 from "../assets/eat/eat_ToKyo_5.svg";
 
-export function getEatImage5(id) {
-  switch (id) {
+export function getEatImage(location_id, id) {
+  switch (location_id) {
     case 1:
-      return crepe_Tokyo;
+      return `enjoy_Osaka_${id}.svg`;
     case 2:
-      return donkatsu_Tokyo;
+      return `enjoy_NewYork_${id}.svg`;
     case 3:
-      return gyukatsu_Tokyo;
+      return `enjoy_DaNang_${id}.svg`;
     case 4:
-      return sioramen_Tokyo;
+      return `enjoy_BangKok_${id}.svg`;
     case 5:
-      return tsukemen_Tokyo;
+      if (id === 1) return eat_ToKyo_1;
+      if (id === 2) return eat_ToKyo_2;
+      if (id === 3) return eat_ToKyo_3;
+      if (id === 4) return eat_ToKyo_4;
+      if (id === 5) return eat_ToKyo_5;
+      break;
   }
 }

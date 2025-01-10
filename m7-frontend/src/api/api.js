@@ -1,129 +1,146 @@
 import axios from "axios";
-import React, { useEffect } from "react";
-import {
-  atom,
-  selector,
-  useRecoilState,
-  useRecoilValue,
-  useSetRecoilState,
-} from "recoil";
-import {
-  locationsState,
-  exchangeRatesState,
-  airlinesState,
-  restaurantsState,
-  attractionsState,
-  souvenirsState,
-  signupMessageState,
-} from "./atom";
 
 export const API_BASE_URL = "http://localhost:8080";
 
 // CORS 설정하기!! -> 백엔드
-
-const TravelAPI = () => {
-  const [locations, setLocations] = useRecoilState(locationsState);
-  const [exchangeRates, setExchangeRates] = useRecoilState(exchangeRatesState);
-  const [airlines, setAirlines] = useRecoilState(airlinesState);
-  const [restaurants, setRestaurants] = useRecoilState(restaurantsState);
-  const [attractions, setAttractions] = useRecoilState(attractionsState);
-  const [souvenirs, setSouvenirs] = useRecoilState(souvenirsState);
-  const setSignupMessage = useSetRecoilState(signupMessageState);
-
-  // 1. 여행지 목록 조회
-  const fetchLocations = async () => {
-    try {
-      const response = await axios.get(`${API_BASE_URL}/location`);
-      setLocations(response.data);
-      console.log("Locations:", locations);
-    } catch (error) {
-      console.error("Error fetching locations:", error);
-    }
-  };
-
-  // 2. 여행지별 환율 조회
-  const fetchExchangeRates = async (location_id) => {
-    try {
-      const response = await axios.get(
-        `${API_BASE_URL}/location/exchange-rate/${location_id}`
-      );
-      setExchangeRates(response.data);
-      console.log(`Exchange Rate for Location ${location_id}:`, exchangeRates);
-    } catch (error) {
-      console.error("Error fetching exchange rates:", error);
-    }
-  };
-
-  // 3. 여행지별 주요 항공사 조회
-  const fetchAirlines = async (location_id) => {
-    try {
-      const response = await axios.get(
-        `${API_BASE_URL}/location/airline/${location_id}`
-      );
-      setAirlines(response.data);
-    } catch (error) {
-      console.error("Error fetching airlines:", error);
-    }
-  };
-
-  const fetchRestaurants = async (location_id) => {
-    try {
-      const response = await axios.get(
-        `${API_BASE_URL}/location/restaurant/${location_id}`
-      );
-      setRestaurants(response.data);
-    } catch (error) {
-      console.error("Error fetching restaurants:", error);
-    }
-  };
-
-  const fetchAttractions = async (location_id) => {
-    try {
-      const response = await axios.get(
-        `${API_BASE_URL}/location/attraction/${location_id}`
-      );
-      setAttractions(response.data);
-    } catch (error) {
-      console.error("Error fetching attractions:", error);
-    }
-  };
-
-  const fetchSouvenirs = async (location_id) => {
-    try {
-      const response = await axios.get(
-        `${API_BASE_URL}/location/souvenir/${location_id}`
-      );
-      setSouvenirs(response.data);
-    } catch (error) {
-      console.error("Error fetching souvenirs:", error);
-    }
-  };
-
-  const signup = async (name) => {
-    try {
-      const response = await axios.post(`${API_BASE_URL}/api/member`, {
-        name: name,
-      });
-      setSignupMessage(response.data);
-    } catch (error) {
-      console.error("Error during signup:", error);
-    }
-  };
-
-  // 자동으로 데이터를 가져오기 위한 useEffect
-  useEffect(() => {
-    fetchLocations();
-    fetchExchangeRates();
-    fetchAirlines();
-    fetchRestaurants();
-    fetchAttractions();
-    fetchSouvenirs();
-  }, []);
-
-  return null;
+// 1. 여행지 목록 조회
+export const fetchLocationsAPI = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/location`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching locations:", error);
+    throw error;
+  }
 };
 
-export default TravelAPI;
+// 2. 여행지별 환율 조회
+export const fetchExchangeRatesAPI = async (location_id) => {
+  try {
+    const response = await axios.get(
+      `${API_BASE_URL}/location/exchange-rate/${location_id}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching exchange rates:", error);
+    throw error;
+  }
+};
+
+// 3. 여행지별 주요 항공사 조회
+export const fetchAirlinesAPI = async (location_id) => {
+  try {
+    const response = await axios.get(
+      `${API_BASE_URL}/location/airline/${location_id}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching airlines:", error);
+    throw error;
+  }
+};
+
+// 4. 여행지별 레스토랑 조회
+export const fetchRestaurantsAPI = async (location_id) => {
+  try {
+    const response = await axios.get(
+      `${API_BASE_URL}/location/restaurant/${location_id}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching restaurants:", error);
+    throw error;
+  }
+};
+
+// 5. 여행지별 관광지 조회
+export const fetchAttractionsAPI = async (location_id) => {
+  try {
+    const response = await axios.get(
+      `${API_BASE_URL}/location/attraction/${location_id}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching attractions:", error);
+    throw error;
+  }
+};
+
+// 6. 여행지별 기념품 조회
+export const fetchSouvenirsAPI = async (location_id) => {
+  try {
+    const response = await axios.get(
+      `${API_BASE_URL}/location/souvenir/${location_id}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching souvenirs:", error);
+    throw error;
+  }
+};
+
+// 7. 회원가입
+export const signupAPI = async (name) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/api/member`, { name });
+    return response.data;
+  } catch (error) {
+    console.error("Error during signup:", error);
+    throw error;
+  }
+};
+
+// // component 사용 예시
+// const TravelAPI = ({ location_id }) => {
+//   const [locations, setLocations] = useRecoilState(locationsState);
+//   const [exchangeRates, setExchangeRates] = useRecoilState(exchangeRatesState);
+//   const [airlines, setAirlines] = useRecoilState(airlinesState);
+//   const [restaurants, setRestaurants] = useRecoilState(restaurantsState);
+//   const [attractions, setAttractions] = useRecoilState(attractionsState);
+//   const [souvenirs, setSouvenirs] = useRecoilState(souvenirsState);
+//   const setSignupMessage = useSetRecoilState(signupMessageState);
+
+//   useEffect(() => {
+//     const fetchLocations = async () => {
+//       try {
+//         const data = await fetchLocationsAPI();
+//         setLocations(data);
+//       } catch (error) {
+//         console.error(error);
+//       }
+//     };
+
+//     fetchLocations();
+//   }, []);
+
+//   useEffect(() => {
+//     if (location_id) {
+//       const fetchDataForLocation = async () => {
+//         try {
+//           const exchangeRates = await fetchExchangeRatesAPI(location_id);
+//           const airlines = await fetchAirlinesAPI(location_id);
+//           const restaurants = await fetchRestaurantsAPI(location_id);
+//           const attractions = await fetchAttractionsAPI(location_id);
+//           const souvenirs = await fetchSouvenirsAPI(location_id);
+
+//           setExchangeRates(exchangeRates);
+//           setAirlines(airlines);
+//           setRestaurants(restaurants);
+//           setAttractions(attractions);
+//           setSouvenirs(souvenirs);
+//         } catch (error) {
+//           console.error(error);
+//         }
+//       };
+
+//       fetchDataForLocation();
+//     }
+//   }, [location_id]);
+
+//   return null;
+// };
+
+// export default TravelAPI;
 
 // 피오리니 복붙
 

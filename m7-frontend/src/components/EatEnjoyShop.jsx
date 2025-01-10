@@ -1,15 +1,54 @@
 import EESItem from "./EESItem";
-import { AirlineList } from "@/util/get-airline-list";
+import { useRecoilState } from "recoil";
+import {
+  restaurantsState,
+  attractionsState,
+  souvenirsState,
+} from "../api/atom";
+import {
+  fetchRestaurantsAPI,
+  fetchAttractionsAPI,
+  fetchSouvenirsAPI,
+} from "../api/api";
+import { useEffect } from "react";
 
 const EatEnjoyShop = ({ location_id }) => {
-  const eats =
-    AirlineList.find((item) => item.location_id === location_id)?.eat || [];
+  const [restaurants, setRestaurants] = useRecoilState(restaurantsState);
+  const [attractions, setAttractions] = useRecoilState(attractionsState);
+  const [souvenirs, setSouvenirs] = useRecoilState(souvenirsState);
 
-  const enjoys =
-    AirlineList.find((item) => item.location_id === location_id)?.enjoy || [];
+  useEffect(() => {
+    const fetchRestaurants = async () => {
+      try {
+        const response = await fetchRestaurantsAPI(location_id);
+        setRestaurants(response);
+      } catch (error) {
+        console.error("Error fetching restaurants:", error);
+      }
+    };
 
-  const shops =
-    AirlineList.find((item) => item.location_id === location_id)?.shop || [];
+    const fetchAttractions = async () => {
+      try {
+        const response = await fetchAttractionsAPI(location_id);
+        setAttractions(response);
+      } catch (error) {
+        console.error("Error fetching attractions:", error);
+      }
+    };
+
+    const fetchSouvenirs = async () => {
+      try {
+        const response = await fetchSouvenirsAPI(location_id);
+        setSouvenirs(response);
+      } catch (error) {
+        console.error("Error fetching souvenirs:", error);
+      }
+    };
+
+    fetchRestaurants();
+    fetchAttractions();
+    fetchSouvenirs();
+  }, [location_id]);
 
   return (
     <div className="mt-[20px] mb-[50px] ">
@@ -22,35 +61,20 @@ const EatEnjoyShop = ({ location_id }) => {
       <div className="flex flex-col items-start">
         <li className="text-[17px] font-bold py-5">맛집</li>
         <div className="flex flex-row gap-5 mb-[20px]">
-          {eats.map((item) => (
-            <EESItem
-              content="eat"
-              location_id={location_id}
-              key={item.id}
-              {...item}
-            />
+          {restaurants.map((item) => (
+            <EESItem content="eat" key={item.id} {...item} />
           ))}
         </div>
         <li className="text-[17px] font-bold py-5">관광지</li>
         <div className="flex flex-row gap-5 mb-[20px]">
-          {enjoys.map((item) => (
-            <EESItem
-              content="enjoy"
-              location_id={location_id}
-              key={item.id}
-              {...item}
-            />
+          {attractions.map((item) => (
+            <EESItem content="enjoy" key={item.id} {...item} />
           ))}
         </div>
         <li className="text-[17px] font-bold py-5">기념품</li>
         <div className="flex flex-row gap-5 mb-[20px]">
-          {shops.map((item) => (
-            <EESItem
-              content="shop"
-              location_id={location_id}
-              key={item.id}
-              {...item}
-            />
+          {souvenirs.map((item) => (
+            <EESItem content="shop" key={item.id} {...item} />
           ))}
         </div>
       </div>

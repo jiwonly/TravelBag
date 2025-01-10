@@ -1,20 +1,25 @@
-import dochungsa_Tokyo from "../assets/enjoy/dochungsa_Tokyo.svg";
-import hills_Tokyo from "../assets/enjoy/hills_Tokyo.svg";
-import scramble_Tokyo from "../assets/enjoy/scramble_Tokyo.svg";
-import skytree_Tokyo from "../assets/enjoy/skytree_Tokyo.svg";
-import tower_Tokyo from "../assets/enjoy/tower_Tokyo.svg";
+import enjoy_ToKyo_1 from "../assets/enjoy/enjoy_ToKyo_1.svg";
+import enjoy_ToKyo_2 from "../assets/enjoy/enjoy_ToKyo_2.svg";
+import enjoy_ToKyo_3 from "../assets/enjoy/enjoy_ToKyo_3.svg";
+import enjoy_ToKyo_4 from "../assets/enjoy/enjoy_ToKyo_4.svg";
+import enjoy_ToKyo_5 from "../assets/enjoy/enjoy_ToKyo_5.svg";
 
-export function getEnjoyImage5(id) {
-  switch (id) {
+export function getEnjoyImage(location_id, id) {
+  switch (location_id) {
     case 1:
-      return dochungsa_Tokyo;
+      return `enjoy_Osaka_${id}.svg`;
     case 2:
-      return hills_Tokyo;
+      return `enjoy_NewYork_${id}.svg`;
     case 3:
-      return scramble_Tokyo;
+      return `enjoy_DaNang_${id}.svg`;
     case 4:
-      return skytree_Tokyo;
+      return `enjoy_BangKok_${id}.svg`;
     case 5:
-      return tower_Tokyo;
+      if (id === 1) return enjoy_ToKyo_1;
+      if (id === 2) return enjoy_ToKyo_2;
+      if (id === 3) return enjoy_ToKyo_3;
+      if (id === 4) return enjoy_ToKyo_4;
+      if (id === 5) return enjoy_ToKyo_5;
+      break;
   }
 }

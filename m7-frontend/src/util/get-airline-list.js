@@ -99,7 +99,7 @@ export const AirlineList = [
 
       {
         title: "멘야 쇼오 본점",
-        memo: "대표 메뉴: 시오 라멘",
+        memo: "c",
         id: 3,
       },
       {
