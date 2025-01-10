@@ -62,7 +62,11 @@ const Template = ({ children }) => {
           </SelectedSateData.Provider>
         </main>
       </SidebarProvider>
-      <RecommendBar icon="inventory" setListData={setListData} />
+      <RecommendBar
+        id={template.id}
+        icon="inventory"
+        setListData={setListData}
+      />
     </div>
   );
 };

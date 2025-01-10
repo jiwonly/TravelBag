@@ -4,7 +4,14 @@ import Checkbox_No from "../assets/Checkbox_No.svg";
 import CheckData_minus from "../assets/CheckData_minus.svg";
 import { EditStateData } from "@/App";
 
-export function CheckData({ id, isChecked, content, onToggle, onDelete }) {
+export function CheckData({
+  templateId,
+  id,
+  isChecked,
+  content,
+  onToggle,
+  onDelete,
+}) {
   const isEditing = useContext(EditStateData);
 
   const handleDelete = () => {

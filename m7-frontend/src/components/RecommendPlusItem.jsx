@@ -4,12 +4,20 @@ import { TemplateDispatchContext } from "@/App";
 import { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { EditStateData } from "@/App";
+import { templateList } from "@/util/get-template-list";
+import { supplyDispatchContext } from "@/App";
+import { supplyStateContext } from "@/App";
 
-const RecommendPlusItem = ({ listId, id, content }) => {
+const RecommendPlusItem = ({ templateId, listId, id, content }) => {
+  const { setNewSupplyList } = useContext(supplyDispatchContext);
+  const newSupplyList = useContext(supplyStateContext);
   const isEditing = useContext(EditStateData);
   const data = useContext(TemplateStateContext);
   const params = useParams();
-  const template = data.find((item) => String(item.id) === String(params.id));
+  const template =
+    data.find((item) => String(item.id) === String(templateId)) ||
+    templateList.find((item) => String(item.id) === String(templateId));
+
   const [supplyList, setSupplyList] = useState(template.supplies);
   const { onUpdateSupplies } = useContext(TemplateDispatchContext);
 
@@ -18,17 +26,20 @@ const RecommendPlusItem = ({ listId, id, content }) => {
   ) || { contents: [] };
 
   const [listData, setListData] = useState(listContent.contents);
-  useEffect(() => {
-    if (template) {
-      setSupplyList(template.supplies);
-    }
-  }, [template]);
 
   useEffect(() => {
-    if (listContent.contents) {
-      setListData(listContent.contents);
+    if (templateId < 4) setNewSupplyList(template.supplies);
+  }, []);
+  useEffect(() => {
+    if (templateId < 4) {
+      setSupplyList(newSupplyList);
+    } else {
+      setSupplyList(template.supplies);
     }
-  }, [listContent]);
+  }, [template, newSupplyList]);
+  useEffect(() => {
+    setListData(listContent.contents);
+  }, [listContent.contents]);
 
   const handleAdd = (content) => {
     const updatedContents = [
@@ -45,7 +56,11 @@ const RecommendPlusItem = ({ listId, id, content }) => {
     setListData(updatedContents);
     setSupplyList(updatedSupplyList);
 
-    onUpdateSupplies(template.id, updatedSupplyList);
+    if (templateId < 4) {
+      setNewSupplyList(updatedSupplyList);
+    } else {
+      onUpdateSupplies(templateId, updatedSupplyList);
+    }
   };
 
   return (

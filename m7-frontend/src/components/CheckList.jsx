@@ -24,7 +24,6 @@ export function CheckList({ templateId, listId, title }) {
     (item) => String(item.id) === String(listId)
   );
   const idRef = useRef(100);
-  console.log(idRef);
 
   useEffect(() => {
     if (templateId < 4) setNewSupplyList(template.supplies);
@@ -125,6 +124,7 @@ export function CheckList({ templateId, listId, title }) {
         {listData.map((item) => (
           <CheckData
             key={item.id}
+            templateId={templateId}
             id={item.id}
             isChecked={item.isChecked}
             content={item.content}

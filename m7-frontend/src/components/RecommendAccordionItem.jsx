@@ -6,7 +6,13 @@ import {
 } from "@/components/ui/accordion";
 import RecommendPlusList from "./RecommendPlusList";
 
-const RecommendAccordionItem = ({ listId, title, data, setListData }) => {
+const RecommendAccordionItem = ({
+  templateId,
+  listId,
+  title,
+  data,
+  setListData,
+}) => {
   return (
     <div className="flex w-full">
       <Accordion type="single" collapsible className="w-full">
@@ -14,6 +20,7 @@ const RecommendAccordionItem = ({ listId, title, data, setListData }) => {
           <AccordionTrigger>{title}</AccordionTrigger>
           <AccordionContent>
             <RecommendPlusList
+              templateId={templateId}
               listId={listId}
               data={data}
               setListData={setListData}

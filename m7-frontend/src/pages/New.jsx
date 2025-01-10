@@ -24,7 +24,7 @@ const New = ({ children }) => {
           />
         </main>
       </SidebarProvider>
-      <RecommendBar icon="inventory" />
+      <RecommendBar id={0} icon="inventory" />
     </div>
   );
 };
