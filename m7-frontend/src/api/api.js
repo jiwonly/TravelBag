@@ -16,17 +16,8 @@ import {
   souvenirsState,
   signupMessageState,
 } from "./atom";
-// import {
-//   selectLocations,
-//   selectExchangeRates,
-//   selectAirlines,
-//   selectRestaurants,
-//   selectAttractions,
-//   selectSouvenirs,
-//   selectSignupMessage,
-// } from "./selector";
 
-export const API_BASE_URL = "http://localhost:8080";
+const API_BASE_URL = "http://localhost:8080";
 
 // CORS 설정하기!! -> 백엔드
 
@@ -44,28 +35,30 @@ const TravelAPI = () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/location`);
       setLocations(response.data);
+      console.log("Locations:", locations);
     } catch (error) {
       console.error("Error fetching locations:", error);
     }
   };
 
   // 2. 여행지별 환율 조회
-  const fetchExchangeRates = async () => {
+  const fetchExchangeRates = async (location_id) => {
     try {
       const response = await axios.get(
-        `${API_BASE_URL}/location/exchange-rate/{location_id}`
+        `${API_BASE_URL}/location/exchange-rate/${location_id}`
       );
       setExchangeRates(response.data);
+      console.log(`Exchange Rate for Location ${location_id}:`, exchangeRates);
     } catch (error) {
       console.error("Error fetching exchange rates:", error);
     }
   };
 
   // 3. 여행지별 주요 항공사 조회
-  const fetchAirlines = async () => {
+  const fetchAirlines = async (location_id) => {
     try {
       const response = await axios.get(
-        `${API_BASE_URL}/location/airline/{location_id}`
+        `${API_BASE_URL}/location/airline/${location_id}`
       );
       setAirlines(response.data);
     } catch (error) {
@@ -73,10 +66,10 @@ const TravelAPI = () => {
     }
   };
 
-  const fetchRestaurants = async () => {
+  const fetchRestaurants = async (location_id) => {
     try {
       const response = await axios.get(
-        `${API_BASE_URL}/location/restaurant/{location_id}`
+        `${API_BASE_URL}/location/restaurant/${location_id}`
       );
       setRestaurants(response.data);
     } catch (error) {
@@ -84,10 +77,10 @@ const TravelAPI = () => {
     }
   };
 
-  const fetchAttractions = async () => {
+  const fetchAttractions = async (location_id) => {
     try {
       const response = await axios.get(
-        `${API_BASE_URL}/location/attraction/{location_id}`
+        `${API_BASE_URL}/location/attraction/${location_id}`
       );
       setAttractions(response.data);
     } catch (error) {
@@ -95,10 +88,10 @@ const TravelAPI = () => {
     }
   };
 
-  const fetchSouvenirs = async () => {
+  const fetchSouvenirs = async (location_id) => {
     try {
       const response = await axios.get(
-        `${API_BASE_URL}/location/souvenir/{location_id}`
+        `${API_BASE_URL}/location/souvenir/${location_id}`
       );
       setSouvenirs(response.data);
     } catch (error) {

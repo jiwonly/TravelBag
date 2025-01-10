@@ -6,6 +6,7 @@ import MajorAirline from "./MajorAirline";
 import ExchangeRate from "./ExchangeRate";
 import EatEnjoyShop from "./EatEnjoyShop";
 
+
 const Tipboard = ({ icon, title, memo }) => {
   const isTemplate = false;
   const [selectedDestination, setSelectedDestination] = useState(null);

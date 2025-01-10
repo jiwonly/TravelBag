@@ -1,6 +1,6 @@
 import { getDestinationImage } from "@/util/get-destination-image";
 
-const DestinationItem = ({ title, id, selectedId, showContent }) => {
+const DestinationItem = ({ id, name, selectedId, showContent }) => {
   const isSelected = selectedId; // 상위 컴포넌트에서 전달받은 선택 상태
 
   const handleClick = () => {
@@ -26,7 +26,7 @@ const DestinationItem = ({ title, id, selectedId, showContent }) => {
         />
       </div>
       <div className="title flex-[1_0_0] text-[16px] font-[Pretendard] font-semibold not-italic leading-[24px] text-center self-stretch ">
-        {title}
+        {name}
       </div>
     </button>
   );

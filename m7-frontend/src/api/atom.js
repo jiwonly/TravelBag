@@ -6,9 +6,33 @@ export const locationsState = atom({
   default: [
     {
       id: 1,
-      name: "string",
-      country: "string",
-      currency_unit: "string",
+      name: "오사카",
+      country: "일본",
+      currency_unit: "JPY",
+    },
+    {
+      id: 2,
+      name: "뉴욕",
+      country: "미국",
+      currency_unit: "USD",
+    },
+    {
+      id: 3,
+      name: "다낭",
+      country: "베트남",
+      currency_unit: "JPY",
+    },
+    {
+      id: 4,
+      name: "방콕",
+      country: "태국",
+      currency_unit: "JPY",
+    },
+    {
+      id: 5,
+      name: "도쿄",
+      country: "일본",
+      currency_unit: "JPY",
     },
   ],
 });
@@ -17,9 +41,24 @@ export const exchangeRatesState = atom({
   key: "exchangeRatesState",
   default: [
     {
-      country: "string",
-      currency_unit: "string",
-      exchange_rate: 0,
+      country: "일본",
+      currency_unit: "JPY",
+      exchange_rate: 900,
+    },
+    {
+      country: "미국",
+      currency_unit: "USD",
+      exchange_rate: 1400,
+    },
+    {
+      country: "베트남",
+      currency_unit: "JPY",
+      exchange_rate: 900,
+    },
+    {
+      country: "태국",
+      currency_unit: "JPY",
+      exchange_rate: 900,
     },
   ],
 });
@@ -29,7 +68,7 @@ export const airlinesState = atom({
   default: [
     {
       id: 1,
-      name: "string",
+      name: "대한항공",
       url: "string",
     },
   ],
