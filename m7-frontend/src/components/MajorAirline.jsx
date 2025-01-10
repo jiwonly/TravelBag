@@ -1,9 +1,12 @@
 import AirlineItem from "./AirlineItem";
 import { AirlineList } from "@/util/get-airline-list";
+import React from "react";
 
-const MajorAirline = ({ destinationId }) => {
+
+
+const MajorAirline = ({ location_id }) => {
   const airlines =
-    AirlineList.find((item) => item.destinationId === destinationId)
+    AirlineList.find((item) => item.location_id === location_id)
       ?.airlines || [];
 
   return (

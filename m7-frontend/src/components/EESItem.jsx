@@ -1,27 +1,30 @@
 import { getEatImage5 } from "@/util/get-eat-image";
-import { getEnjoyImage5 } from "@/util/get-enjoy-image";
-import { getShopImage } from "@/util/get-shop-image";
+import {getEnjoyImage5} from "@/util/get-enjoy-image";
 
-const EESItem = ({ destinationId, content, id, title, memo }) => {
-  const getImage = (destinationId, content) => {
+const EESItem = ({ location_id, content, id, title, memo }) => {
+  const getImage = (location_id, content) => {
     if (content === "eat") {
-      if (destinationId === 1) return getEatImage5(id);
-      if (destinationId === 2) return getEatImage5(id);
-      if (destinationId === 3) return getEatImage5(id);
-      if (destinationId === 4) return getEatImage5(id);
-      if (destinationId === 5) return getEatImage5(id);
+      if (location_id === 1) return getEatImage5(id);
+      if (location_id === 2) return getEatImage5(id);
+      if (location_id === 3) return getEatImage5(id);
+      if (location_id === 4) return getEatImage5(id);
+      if (location_id === 5) return getEatImage5(id);
     }
 
     if (content === "enjoy") {
-      if (destinationId === 1) return getEnjoyImage5(id);
-      if (destinationId === 2) return getEnjoyImage5(id);
-      if (destinationId === 3) return getEnjoyImage5(id);
-      if (destinationId === 4) return getEnjoyImage5(id);
-      if (destinationId === 5) return getEnjoyImage5(id);
+      if (location_id === 1) return getEnjoyImage5(id);
+      if (location_id === 2) return getEnjoyImage5(id);
+      if (location_id === 3) return getEnjoyImage5(id);
+      if (location_id === 4) return getEnjoyImage5(id);
+      if (location_id === 5) return getEnjoyImage5(id);
     }
 
     if (content === "shop") {
-      return getShopImage(destinationId, id);
+      if (location_id === 1) return getEatImage5(id);
+      if (location_id === 2) return getEatImage5(id);
+      if (location_id === 3) return getEatImage5(id);
+      if (location_id === 4) return getEatImage5(id);
+      if (location_id === 5) return getEatImage5(id);
     }
   };
   return (
@@ -30,7 +33,7 @@ const EESItem = ({ destinationId, content, id, title, memo }) => {
         <div className="flex justify-center">
           <img
             className="flex justify-center items-start shrink-0 rounded-2xl"
-            src={getImage(destinationId, content)}
+            src={getImage(location_id, content)}
           />
         </div>
         <div>

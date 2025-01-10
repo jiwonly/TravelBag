@@ -4,8 +4,8 @@ import destinationImage_2 from "./../assets/destination/DaNang.svg";
 import destinationImage_3 from "./../assets/destination/Bangkok.svg";
 import destinationImage_4 from "./../assets/destination/Tokyo.svg";
 
-export function getDestinationImage(destinationId) {
-  switch (destinationId) {
+export function getDestinationImage(location_id) {
+  switch (location_id) {
     case 1:
       return destinationImage_0;
     case 2:

@@ -1,47 +1,104 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import {
+  atom,
+  selector,
+  useRecoilState,
+  useRecoilValue,
+  useSetRecoilState,
+} from "recoil";
+import {
+  locationsState,
+  exchangeRatesState,
+  airlinesState,
+  restaurantsState,
+  attractionsState,
+  souvenirsState,
+  signupMessageState,
+} from "./atom";
 
-const API_BASE_URL = "http://localhost:8080";
+export const API_BASE_URL = "http://localhost:8080";
+
+// CORS 설정하기!! -> 백엔드
 
 const TravelAPI = () => {
-  const [locations, setLocations] = useState([]);
-  const [exchangeRates, setExchangeRates] = useState([]);
-  const [airlines, setAirlines] = useState([]);
-  const [signupMessage, setSignupMessage] = useState("");
+  const [locations, setLocations] = useRecoilState(locationsState);
+  const [exchangeRates, setExchangeRates] = useRecoilState(exchangeRatesState);
+  const [airlines, setAirlines] = useRecoilState(airlinesState);
+  const [restaurants, setRestaurants] = useRecoilState(restaurantsState);
+  const [attractions, setAttractions] = useRecoilState(attractionsState);
+  const [souvenirs, setSouvenirs] = useRecoilState(souvenirsState);
+  const setSignupMessage = useSetRecoilState(signupMessageState);
 
   // 1. 여행지 목록 조회
   const fetchLocations = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/location`);
       setLocations(response.data);
+      console.log("Locations:", locations);
     } catch (error) {
       console.error("Error fetching locations:", error);
     }
   };
 
   // 2. 여행지별 환율 조회
-  const fetchExchangeRates = async () => {
+  const fetchExchangeRates = async (location_id) => {
     try {
       const response = await axios.get(
-        `${API_BASE_URL}/location/exchange-rate`
+        `${API_BASE_URL}/location/exchange-rate/${location_id}`
       );
       setExchangeRates(response.data);
+      console.log(`Exchange Rate for Location ${location_id}:`, exchangeRates);
     } catch (error) {
       console.error("Error fetching exchange rates:", error);
     }
   };
 
   // 3. 여행지별 주요 항공사 조회
-  const fetchAirlines = async () => {
+  const fetchAirlines = async (location_id) => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/location/airline`);
+      const response = await axios.get(
+        `${API_BASE_URL}/location/airline/${location_id}`
+      );
       setAirlines(response.data);
     } catch (error) {
       console.error("Error fetching airlines:", error);
     }
   };
 
-  // 4. 회원가입
+  const fetchRestaurants = async (location_id) => {
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/location/restaurant/${location_id}`
+      );
+      setRestaurants(response.data);
+    } catch (error) {
+      console.error("Error fetching restaurants:", error);
+    }
+  };
+
+  const fetchAttractions = async (location_id) => {
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/location/attraction/${location_id}`
+      );
+      setAttractions(response.data);
+    } catch (error) {
+      console.error("Error fetching attractions:", error);
+    }
+  };
+
+  const fetchSouvenirs = async (location_id) => {
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/location/souvenir/${location_id}`
+      );
+      setSouvenirs(response.data);
+    } catch (error) {
+      console.error("Error fetching souvenirs:", error);
+    }
+  };
+
   const signup = async (name) => {
     try {
       const response = await axios.post(`${API_BASE_URL}/api/member`, {
@@ -58,58 +115,12 @@ const TravelAPI = () => {
     fetchLocations();
     fetchExchangeRates();
     fetchAirlines();
+    fetchRestaurants();
+    fetchAttractions();
+    fetchSouvenirs();
   }, []);
 
-  // 데이터 확인을 위한 UI
-  return (
-    <div>
-      <h1>Travel API Example</h1>
-
-      {/* 여행지 목록 */}
-      <section>
-        <h2>Travel Locations</h2>
-        <ul>
-          {locations.map((location) => (
-            <li key={location.id}>
-              {location.name} ({location.country}) - Currency:{" "}
-              {location.currency_unit}
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* 여행지 환율 */}
-      <section>
-        <h2>Exchange Rates</h2>
-        <ul>
-          {exchangeRates.map((rate, index) => (
-            <li key={index}>
-              {rate.country} - {rate.currency_unit} : {rate.exchange_rate}
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* 주요 항공사 */}
-      <section>
-        <h2>Airlines</h2>
-        <ul>
-          {airlines.map((airline) => (
-            <li key={airline.id}>
-              {airline.name} (<a href={airline.url}>Website</a>)
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* 회원가입 */}
-      <section>
-        <h2>Signup</h2>
-        <button onClick={() => signup("홍길동")}>Signup as 홍길동</button>
-        {signupMessage && <p>{signupMessage}</p>}
-      </section>
-    </div>
-  );
+  return null;
 };
 
 export default TravelAPI;

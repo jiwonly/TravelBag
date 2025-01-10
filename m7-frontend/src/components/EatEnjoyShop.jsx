@@ -1,17 +1,15 @@
 import EESItem from "./EESItem";
 import { AirlineList } from "@/util/get-airline-list";
 
-const EatEnjoyShop = ({ destinationId }) => {
+const EatEnjoyShop = ({ location_id }) => {
   const eats =
-    AirlineList.find((item) => item.destinationId === destinationId)?.eat || [];
+    AirlineList.find((item) => item.location_id === location_id)?.eat || [];
 
   const enjoys =
-    AirlineList.find((item) => item.destinationId === destinationId)?.enjoy ||
-    [];
+    AirlineList.find((item) => item.location_id === location_id)?.enjoy || [];
 
   const shops =
-    AirlineList.find((item) => item.destinationId === destinationId)?.shop ||
-    [];
+    AirlineList.find((item) => item.location_id === location_id)?.shop || [];
 
   return (
     <div className="mt-[20px] mb-[50px] ">
@@ -27,7 +25,7 @@ const EatEnjoyShop = ({ destinationId }) => {
           {eats.map((item) => (
             <EESItem
               content="eat"
-              destinationId={destinationId}
+              location_id={location_id}
               key={item.id}
               {...item}
             />
@@ -38,7 +36,7 @@ const EatEnjoyShop = ({ destinationId }) => {
           {enjoys.map((item) => (
             <EESItem
               content="enjoy"
-              destinationId={destinationId}
+              location_id={location_id}
               key={item.id}
               {...item}
             />
@@ -49,7 +47,7 @@ const EatEnjoyShop = ({ destinationId }) => {
           {shops.map((item) => (
             <EESItem
               content="shop"
-              destinationId={destinationId}
+              location_id={location_id}
               key={item.id}
               {...item}
             />
