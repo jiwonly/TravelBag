@@ -1,5 +1,5 @@
 import { getEatImage5 } from "@/util/get-eat-image";
-import { getEnjoyImage5 } from "@/util/get-enjoy-image";
+import {getEnjoyImage5} from "@/util/get-enjoy-image";
 
 const EESItem = ({ location_id, content, id, title, memo }) => {
   const getImage = (location_id, content) => {
