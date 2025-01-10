@@ -19,7 +19,10 @@ export function CheckData({
   };
 
   return (
-    <div className="flex justify-between items-center border bg-white w-[300px] h-[45px] px-3 py-1.5 rounded-lg">
+    <div
+      className="flex justify-between items-center border bg-white w-[300px] h-[45px] px-3 py-1.5 rounded-lg"
+      style={{ height: "45px", minHeight: "45px", maxHeight: "45px" }}
+    >
       <div className="flex items-center gap-3">
         <img
           src={isChecked ? Checkbox_Yes : Checkbox_No} // 상태에 따라 이미지 변경
