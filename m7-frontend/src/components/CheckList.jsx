@@ -41,6 +41,28 @@ export function CheckList({ templateId, listId, title }) {
     setListData(listContent.contents);
   }, [listContent.contents]);
 
+  const handleToggle = (id) => {
+    const updatedContents = listData.map((item) =>
+      item.id === id ? { ...item, isChecked: !item.isChecked } : item
+    );
+
+    const updatedSupplyList = supplyList.map((item) => {
+      if (String(item.id) === String(listId)) {
+        return { ...item, contents: updatedContents };
+      }
+      return item;
+    });
+
+    setListData(updatedContents);
+    setSupplyList(updatedSupplyList);
+
+    if (templateId < 4) {
+      setNewSupplyList(updatedSupplyList);
+    } else {
+      onUpdateSupplies(templateId, updatedSupplyList);
+    }
+  };
+
   const handleDelete = (id) => {
     // listData에서 아이템 삭제
     const updatedContents = listData.filter((item) => item.id !== id);
@@ -68,7 +90,7 @@ export function CheckList({ templateId, listId, title }) {
     if (inputValue !== "") {
       const updatedContents = [
         ...listData,
-        { id: listData.length + 1, content: inputValue },
+        { id: listData.length + 1, isChecked: false, content: inputValue },
       ];
 
       const updatedSupplyList = supplyList.map((item) => {
@@ -98,7 +120,9 @@ export function CheckList({ templateId, listId, title }) {
           <CheckData
             key={item.id}
             id={item.id}
+            isChecked={item.isChecked}
             content={item.content}
+            onToggle={handleToggle}
             onDelete={handleDelete}
           />
         ))}

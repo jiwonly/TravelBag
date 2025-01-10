@@ -31,7 +31,10 @@ const RecommendPlusItem = ({ listId, id, content }) => {
   }, [listContent]);
 
   const handleAdd = (content) => {
-    const updatedContents = [...listData, { id: id, content: content }];
+    const updatedContents = [
+      ...listData,
+      { id: id, isChecked: false, content: content },
+    ];
 
     const updatedSupplyList = supplyList.map((item) => {
       if (String(item.id) === String(listId)) {

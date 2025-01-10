@@ -3,27 +3,27 @@ export const recommendSupplies = [
     id: 1,
     title: "필수품",
     contents: [
-      { id: 1, content: "여권" },
-      { id: 2, content: "e-티켓" },
-      { id: 3, content: "숙소 바우처" },
+      { id: 1, isChecked: false, content: "여권" },
+      { id: 2, isChecked: false, content: "e-티켓" },
+      { id: 3, isChecked: false, content: "숙소 바우처" },
     ],
   },
   {
     id: 2,
     title: "의류",
     contents: [
-      { id: 1, content: "패딩" },
-      { id: 2, content: "반바지" },
+      { id: 1, isChecked: false, content: "패딩" },
+      { id: 2, isChecked: false, content: "반바지" },
     ],
   },
   {
     id: 3,
     title: "위생용품",
     contents: [
-      { id: 1, content: "파운데이션" },
-      { id: 2, content: "아이라이너" },
-      { id: 3, content: "블러셔" },
-      { id: 4, content: "쿠션" },
+      { id: 1, isChecked: false, content: "파운데이션" },
+      { id: 2, isChecked: false, content: "아이라이너" },
+      { id: 3, isChecked: false, content: "블러셔" },
+      { id: 4, isChecked: false, content: "쿠션" },
     ],
   },
   {
