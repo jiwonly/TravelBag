@@ -44,7 +44,7 @@ const Template = ({ children }) => {
   return (
     <div className="flex">
       <SidebarProvider>
-        <SideBar />
+        <SideBar isTemplate={true} />
         <main>
           <SidebarTrigger />
           {children}
