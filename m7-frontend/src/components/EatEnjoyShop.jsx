@@ -35,7 +35,7 @@ const EatEnjoyShop = ({ destinationId }) => {
         </div>
         <li className="text-[17px] font-bold py-5">관광지</li>
         <div className="flex flex-row gap-5 mb-[20px]">
-          {eats.map((item) => (
+          {enjoys.map((item) => (
             <EESItem
               content="enjoy"
               destinationId={destinationId}
@@ -46,7 +46,7 @@ const EatEnjoyShop = ({ destinationId }) => {
         </div>
         <li className="text-[17px] font-bold py-5">기념품</li>
         <div className="flex flex-row gap-5 mb-[20px]">
-          {eats.map((item) => (
+          {shops.map((item) => (
             <EESItem
               content="shop"
               destinationId={destinationId}

@@ -1,5 +1,6 @@
 import { getEatImage5 } from "@/util/get-eat-image";
-import {getEnjoyImage5} from "@/util/get-enjoy-image";
+import { getEnjoyImage5 } from "@/util/get-enjoy-image";
+import { getShopImage } from "@/util/get-shop-image";
 
 const EESItem = ({ destinationId, content, id, title, memo }) => {
   const getImage = (destinationId, content) => {
@@ -20,11 +21,7 @@ const EESItem = ({ destinationId, content, id, title, memo }) => {
     }
 
     if (content === "shop") {
-      if (destinationId === 1) return getEatImage5(id);
-      if (destinationId === 2) return getEatImage5(id);
-      if (destinationId === 3) return getEatImage5(id);
-      if (destinationId === 4) return getEatImage5(id);
-      if (destinationId === 5) return getEatImage5(id);
+      return getShopImage(destinationId, id);
     }
   };
   return (

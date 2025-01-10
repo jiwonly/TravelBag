@@ -75,7 +75,7 @@ const items = [
   },
 ];
 
-export function SideBar() {
+export function SideBar({ isTemplate }) {
   const page = useContext(pageStateContext);
   const data = useContext(TemplateStateContext);
   const curId =
@@ -119,7 +119,10 @@ export function SideBar() {
         <SidebarGroupContent>
           <SidebarMenu className="sidebarMenu gap-[15px]">
             {items.map((item) => {
-              const isActive = location.pathname === getLink(item.id);
+              const isActive =
+                item.id != 1
+                  ? location.pathname === getLink(item.id)
+                  : isTemplate;
               return (
                 <SidebarMenuItem key={item.title}>
                   {item.id === 3 ? (
