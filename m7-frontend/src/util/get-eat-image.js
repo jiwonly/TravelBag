@@ -7,7 +7,7 @@ import eat_ToKyo_5 from "../assets/eat/eat_ToKyo_5.svg";
 export function getEatImage(location_id, id) {
   switch (location_id) {
     case 1:
-      return `enjoy_Osaka_${id}.svg`;
+      break;
     case 2:
       return `enjoy_NewYork_${id}.svg`;
     case 3:
