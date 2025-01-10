@@ -39,16 +39,24 @@ const Header = ({ isTemplate, icon, id, title, memo, updateButton }) => {
   };
 
   const onUpdateButton = () => {
-    if (isEditing) {
-      onUpdate(id, editedTitle);
-      setSelectedTitle(editedTitle);
-      onEditing(false);
+    const existingTemplate = data.find(
+      (item) => String(item.title) === String(editedTitle)
+    );
+    if (existingTemplate) {
+      alert("이미 존재하는 템플릿입니다!");
+      return;
     } else {
-      onEditing(true);
-    }
-    if (id < 4) {
-      onCreate(editedTitle, newSupplyList);
-      nav("/");
+      if (isEditing) {
+        onUpdate(id, editedTitle);
+        setSelectedTitle(editedTitle);
+        onEditing(false);
+      } else {
+        onEditing(true);
+      }
+      if (id < 4) {
+        onCreate(editedTitle, newSupplyList);
+        nav("/");
+      }
     }
   };
 
