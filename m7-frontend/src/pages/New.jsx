@@ -24,7 +24,7 @@ const New = ({ children }) => {
           />
         </main>
       </SidebarProvider>
-      <RecommendBar icon="inventory" title="추천 준비물" />
+      <RecommendBar icon="inventory" />
     </div>
   );
 };
