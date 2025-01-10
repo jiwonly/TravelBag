@@ -1,10 +1,17 @@
 import RecommendPlusItem from "./RecommendPlusItem";
 
-const RecommendPlusList = ({ data, setListData }) => {
+const RecommendPlusList = ({ templateId, listId, data, setListData }) => {
   return (
     <div className="flex flex-col gap-3">
       {data.map((item) => (
-        <RecommendPlusItem key={item.id} title={item.title} setListData={setListData} />
+        <RecommendPlusItem
+          key={item.id}
+          templateId={templateId}
+          listId={listId}
+          id={item.id}
+          content={item.content}
+          setListData={setListData}
+        />
       ))}
     </div>
   );

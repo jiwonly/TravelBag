@@ -91,7 +91,7 @@ const Header = ({ isTemplate, icon, id, title, memo, updateButton }) => {
               onChange={(e) => {
                 setEditedTitle(e.target.value);
               }}
-              className="text-[17px] font-[Pretendard] leading-[28px] text-[#393940] border border-gray-300 rounded px-2 py-1"
+              className="text-[16px] font-[Pretendard] leading-[28px] text-[#393940] border border-gray-300 rounded px-2 py-1"
             />
           ) : (
             <Select onValueChange={(value) => onSelected(value)}>
