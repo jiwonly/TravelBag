@@ -67,9 +67,60 @@ export const airlinesState = atom({
   key: "airlinesState",
   default: [
     {
-      id: 1,
-      name: "대한항공",
-      url: "string",
+      location: 1,
+      airline: {
+        id: 1,
+        name: "대한항공",
+        url: "https://www.koreanair.com",
+      },
+    },
+    {
+      location: 1,
+      airline: {
+        id: 2,
+        name: "에어서울",
+        url: "https://www.airseoul.com",
+      },
+    },
+    {
+      location: 1,
+      airline: {
+        id: 3,
+        name: "아시아나항공",
+        url: "https://www.flyasiana.com",
+      },
+    },
+    {
+      location: 2,
+      airline: {
+        id: 1,
+        name: "대한항공",
+        url: "https://www.koreanair.com",
+      },
+    },
+    {
+      location: 3,
+      airline: {
+        id: 1,
+        name: "대한항공",
+        url: "https://www.koreanair.com",
+      },
+    },
+    {
+      location: 4,
+      airline: {
+        id: 1,
+        name: "대한항공",
+        url: "https://www.koreanair.com",
+      },
+    },
+    {
+      location: 5,
+      airline: {
+        id: 1,
+        name: "대한항공",
+        url: "https://www.koreanair.com",
+      },
     },
   ],
 });
