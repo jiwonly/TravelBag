@@ -1,6 +1,6 @@
 export const AirlineList = [
   {
-    destinationId: 1,
+    location_id: 1,
     airlines: [
       {
         title: "대한항공",
@@ -13,7 +13,7 @@ export const AirlineList = [
     ],
   },
   {
-    destinationId: 2,
+    location_id: 2,
     airlines: [
       {
         title: "아시아나항공",
@@ -30,7 +30,7 @@ export const AirlineList = [
     ],
   },
   {
-    destinationId: 3,
+    location_id: 3,
     airlines: [
       {
         title: "아시아나항공",
@@ -43,7 +43,7 @@ export const AirlineList = [
     ],
   },
   {
-    destinationId: 4,
+    location_id: 4,
     airlines: [
       {
         title: "대한항공",
@@ -68,7 +68,7 @@ export const AirlineList = [
     ],
   },
   {
-    destinationId: 5,
+    location_id: 5,
     airlines: [
       {
         title: "대한항공",

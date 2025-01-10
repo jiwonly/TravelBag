@@ -26,9 +26,9 @@ const Tipboard = ({ icon, title, memo }) => {
 
         {selectedDestination && (
           <>
-            <MajorAirline destinationId={selectedDestination} />
-            <ExchangeRate destinationId={selectedDestination} />
-            <EatEnjoyShop destinationId={selectedDestination} />
+            <MajorAirline location_id={selectedDestination} />
+            <ExchangeRate location_id={selectedDestination} />
+            <EatEnjoyShop location_id={selectedDestination} />
           </>
         )}
       </div>
