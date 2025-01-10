@@ -42,18 +42,24 @@ const Header = ({ isTemplate, icon, id, title, memo, updateButton }) => {
     const existingTemplate = data.find(
       (item) => String(item.title) === String(editedTitle)
     );
-    if (existingTemplate) {
-      alert("이미 존재하는 템플릿입니다!");
-      return;
-    } else {
-      if (isEditing) {
+    if (isEditing) {
+      if (existingTemplate && title != editedTitle) {
+        alert("이미 존재하는 템플릿입니다!");
+        return;
+      } else {
         onUpdate(id, editedTitle);
         setSelectedTitle(editedTitle);
         onEditing(false);
-      } else {
-        onEditing(true);
       }
-      if (id < 4) {
+    } else {
+      onEditing(true);
+    }
+    if (id < 4) {
+      if (existingTemplate) {
+        alert("이미 존재하는 템플릿입니다!");
+        onEditing(true);
+        return;
+      } else {
         onCreate(editedTitle, newSupplyList);
         nav("/");
       }
