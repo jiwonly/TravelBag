@@ -9,8 +9,12 @@ import { templateList } from "@/util/get-template-list";
 import { supplyDispatchContext } from "@/App";
 import { supplyStateContext } from "@/App";
 import { recommendSupplies } from "@/util/get-recomment-supplies-list";
+import { AddStateContext } from "@/App";
+import { AddDispatchContext } from "@/App";
 
 export function CheckList({ templateId, listId, title }) {
+  const added = useContext(AddStateContext);
+  const { onSetAdded } = useContext(AddDispatchContext);
   const { setNewSupplyList } = useContext(supplyDispatchContext);
   const newSupplyList = useContext(supplyStateContext);
   const data = useContext(TemplateStateContext);
@@ -25,6 +29,9 @@ export function CheckList({ templateId, listId, title }) {
   );
   const idRef = useRef(100);
 
+  useEffect(() => {
+    onSetAdded(true);
+  }, []);
   useEffect(() => {
     if (templateId < 4) setNewSupplyList(template.supplies);
   }, []);

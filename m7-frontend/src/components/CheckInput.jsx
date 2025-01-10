@@ -1,8 +1,12 @@
 import { useState, useContext } from "react";
 import Checkbox_No from "../assets/Checkbox_No.svg";
 import CheckData_plus from "../assets/CheckData_plus.svg";
+import { AddDispatchContext } from "@/App";
+import { AddStateContext } from "@/App";
 
 export function CheckInput({ onAdd }) {
+  const added = useContext(AddStateContext);
+  const { onSetAdded } = useContext(AddDispatchContext);
   const [inputValue, setInputValue] = useState("");
   const [isComposing, setIsComposing] = useState(false);
 
@@ -11,8 +15,11 @@ export function CheckInput({ onAdd }) {
   };
   const onClickAdd = () => {
     onAdd(inputValue);
+    onSetAdded(true);
     setInputValue("");
   };
+
+  console.log(added);
 
   const handleCompositionStart = () => {
     setIsComposing(true);
@@ -37,7 +44,10 @@ export function CheckInput({ onAdd }) {
           className="text-gray-800 text-sm outline-none"
           placeholder="원하는 물품을 입력하세요"
           value={inputValue}
-          onChange={handleChange}
+          onChange={(e) => {
+            handleChange(e);
+            onSetAdded(false);
+          }}
           onCompositionStart={handleCompositionStart}
           onCompositionEnd={handleCompositionEnd}
           onKeyDown={handleKeyDown}
