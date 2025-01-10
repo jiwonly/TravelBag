@@ -2,7 +2,6 @@ import CheckData_plus from "../assets/CheckData_plus.svg";
 import { TemplateStateContext } from "@/App";
 import { TemplateDispatchContext } from "@/App";
 import { useContext, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { EditStateData } from "@/App";
 import { templateList } from "@/util/get-template-list";
 import { supplyDispatchContext } from "@/App";
@@ -13,7 +12,6 @@ const RecommendPlusItem = ({ templateId, listId, id, content }) => {
   const newSupplyList = useContext(supplyStateContext);
   const isEditing = useContext(EditStateData);
   const data = useContext(TemplateStateContext);
-  const params = useParams();
   const template =
     data.find((item) => String(item.id) === String(templateId)) ||
     templateList.find((item) => String(item.id) === String(templateId));
@@ -42,25 +40,28 @@ const RecommendPlusItem = ({ templateId, listId, id, content }) => {
   }, [listContent.contents]);
 
   const handleAdd = (content) => {
-    const updatedContents = [
-      ...listData,
-      { id: id, isChecked: false, content: content },
-    ];
+    const existingItem = listData.find((item) => item.id === id);
+    if (!existingItem) {
+      const updatedContents = [
+        ...listData,
+        { id: id, isChecked: false, content: content },
+      ];
 
-    const updatedSupplyList = supplyList.map((item) => {
-      if (String(item.id) === String(listId)) {
-        return { ...item, contents: updatedContents };
+      const updatedSupplyList = supplyList.map((item) => {
+        if (String(item.id) === String(listId)) {
+          return { ...item, contents: updatedContents };
+        }
+        return item;
+      });
+      setListData(updatedContents);
+      setSupplyList(updatedSupplyList);
+
+      if (templateId < 4) {
+        setNewSupplyList(updatedSupplyList);
+      } else {
+        onUpdateSupplies(templateId, updatedSupplyList);
       }
-      return item;
-    });
-    setListData(updatedContents);
-    setSupplyList(updatedSupplyList);
-
-    if (templateId < 4) {
-      setNewSupplyList(updatedSupplyList);
-    } else {
-      onUpdateSupplies(templateId, updatedSupplyList);
-    }
+    } else return;
   };
 
   return (
