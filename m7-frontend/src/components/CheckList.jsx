@@ -1,6 +1,6 @@
 import { CheckData } from "./CheckData";
 import { CheckInput } from "./CheckInput";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import "../styles/scrollbar.css";
 import { EditStateData } from "@/App";
 import { TemplateDispatchContext } from "@/App";
@@ -8,6 +8,7 @@ import { TemplateStateContext } from "@/App";
 import { templateList } from "@/util/get-template-list";
 import { supplyDispatchContext } from "@/App";
 import { supplyStateContext } from "@/App";
+import { recommendSupplies } from "@/util/get-recomment-supplies-list";
 
 export function CheckList({ templateId, listId, title }) {
   const { setNewSupplyList } = useContext(supplyDispatchContext);
@@ -19,6 +20,11 @@ export function CheckList({ templateId, listId, title }) {
   const [supplyList, setSupplyList] = useState(template.supplies);
   const { onUpdateSupplies } = useContext(TemplateDispatchContext);
   const isEditing = useContext(EditStateData);
+  const selectedRecoomendSupplies = recommendSupplies.filter(
+    (item) => String(item.id) === String(listId)
+  );
+  const idRef = useRef(100);
+  console.log(idRef);
 
   useEffect(() => {
     if (templateId < 4) setNewSupplyList(template.supplies);
@@ -90,7 +96,7 @@ export function CheckList({ templateId, listId, title }) {
     if (inputValue !== "") {
       const updatedContents = [
         ...listData,
-        { id: listData.length + 1, isChecked: false, content: inputValue },
+        { id: idRef.current++, isChecked: false, content: inputValue },
       ];
 
       const updatedSupplyList = supplyList.map((item) => {
