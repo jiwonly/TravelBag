@@ -244,6 +244,55 @@ export const restaurantsState = atom({
     },
     {
       id: 1,
+      location_id: 2,
+      name: "츠케멘 야스베에 아키하바라점",
+      signature: "대표 메뉴: 츠케멘",
+    },
+    {
+      id: 2,
+      location_id: 2,
+      name: "규카츠 모토무라 아키하바라점",
+      signature: "대표 메뉴: 규카츠",
+    },
+    {
+      id: 3,
+      location_id: 2,
+      name: "멘야 쇼오 본점",
+      signature: "대표 메뉴: 시오 라멘",
+    },
+    {
+      id: 4,
+      location_id: 2,
+      name: "돈카츠 마이센 아오야마 본점",
+      signature: "대표 메뉴: 흑돼지 돈카츠, 카츠산도",
+    },
+
+    {
+      id: 1,
+      location_id: 3,
+      name: "츠케멘 야스베에 아키하바라점",
+      signature: "대표 메뉴: 츠케멘",
+    },
+    {
+      id: 2,
+      location_id: 3,
+      name: "규카츠 모토무라 아키하바라점",
+      signature: "대표 메뉴: 규카츠",
+    },
+    {
+      id: 3,
+      location_id: 3,
+      name: "멘야 쇼오 본점",
+      signature: "대표 메뉴: 시오 라멘",
+    },
+    {
+      id: 4,
+      location_id: 3,
+      name: "돈카츠 마이센 아오야마 본점",
+      signature: "대표 메뉴: 흑돼지 돈카츠",
+    },
+    {
+      id: 1,
       location_id: 5,
       name: "츠케멘 야스베에 아키하바라점",
       signature: "대표 메뉴: 츠케멘",
@@ -285,6 +334,36 @@ export const attractionsState = atom({
   default: [
     {
       id: 1,
+      location_id: 1,
+      name: "도쿄 도청사",
+      url: "string",
+    },
+    {
+      id: 2,
+      location_id: 1,
+      name: "시부야 스크램블 스퀘어",
+      url: "string",
+    },
+    {
+      id: 3,
+      location_id: 1,
+      name: "도쿄 타워",
+      url: "string",
+    },
+    {
+      id: 4,
+      location_id: 1,
+      name: "롯폰기 힐스",
+      url: "string",
+    },
+    {
+      id: 5,
+      location_id: 1,
+      name: "도쿄 스카이트리",
+      url: "string",
+    },
+    {
+      id: 1,
       location_id: 5,
       name: "도쿄 도청사",
       url: "string",
@@ -319,6 +398,42 @@ export const attractionsState = atom({
 export const souvenirsState = atom({
   key: "souvenirsState",
   default: [
+    {
+      id: 1,
+      location_id: 1,
+      name: "도쿄 바나나",
+      url: "string",
+    },
+    {
+      id: 2,
+      location_id: 1,
+      name: "로이스 초콜릿",
+      url: "string",
+    },
+    {
+      id: 1,
+      location_id: 2,
+      name: "도쿄 바나나",
+      url: "string",
+    },
+    {
+      id: 2,
+      location_id: 2,
+      name: "로이스 초콜릿",
+      url: "string",
+    },
+    {
+      id: 1,
+      location_id: 3,
+      name: "도쿄 바나나",
+      url: "string",
+    },
+    {
+      id: 2,
+      location_id: 3,
+      name: "로이스 초콜릿",
+      url: "string",
+    },
     {
       id: 1,
       location_id: 5,
