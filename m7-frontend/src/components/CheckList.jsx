@@ -12,15 +12,15 @@ import { recommendSupplies } from "@/util/get-recomment-supplies-list";
 import { AddStateContext } from "@/App";
 import { AddDispatchContext } from "@/App";
 
-export function CheckList({ templateId, listId, title }) {
+export function CheckList({ isBasic, templateId, listId, title }) {
   const added = useContext(AddStateContext);
   const { onSetAdded } = useContext(AddDispatchContext);
   const { setNewSupplyList } = useContext(supplyDispatchContext);
   const newSupplyList = useContext(supplyStateContext);
   const data = useContext(TemplateStateContext);
-  const template =
-    data.find((item) => String(item.id) === String(templateId)) ||
-    templateList.find((item) => String(item.id) === String(templateId));
+  const template = isBasic
+    ? templateList.find((item) => String(item.id) === String(templateId))
+    : data.find((item) => String(item.id) === String(templateId));
   const [supplyList, setSupplyList] = useState(template.supplies);
   const { onUpdateSupplies } = useContext(TemplateDispatchContext);
   const isEditing = useContext(EditStateData);
@@ -32,11 +32,11 @@ export function CheckList({ templateId, listId, title }) {
   useEffect(() => {
     onSetAdded(true);
   }, []);
+  // useEffect(() => {
+  //   if (isBasic) setNewSupplyList(template.supplies);
+  // }, []);
   useEffect(() => {
-    if (templateId < 4) setNewSupplyList(template.supplies);
-  }, []);
-  useEffect(() => {
-    if (templateId < 4) {
+    if (isBasic) {
       setSupplyList(newSupplyList);
     } else {
       setSupplyList(template.supplies);
@@ -68,7 +68,7 @@ export function CheckList({ templateId, listId, title }) {
     setListData(updatedContents);
     setSupplyList(updatedSupplyList);
 
-    if (templateId < 4) {
+    if (isBasic) {
       setNewSupplyList(updatedSupplyList);
     } else {
       onUpdateSupplies(templateId, updatedSupplyList);
@@ -91,7 +91,7 @@ export function CheckList({ templateId, listId, title }) {
     setListData(updatedContents);
     setSupplyList(updatedSupplyList);
 
-    if (templateId < 4) {
+    if (isBasic) {
       setNewSupplyList(updatedSupplyList);
     } else {
       onUpdateSupplies(templateId, updatedSupplyList);
@@ -116,7 +116,7 @@ export function CheckList({ templateId, listId, title }) {
       setSupplyList(updatedSupplyList);
       setNewSupplyList(updatedSupplyList);
       {
-        templateId < 4
+        isBasic
           ? setNewSupplyList(updatedSupplyList)
           : onUpdateSupplies(templateId, updatedSupplyList);
       }

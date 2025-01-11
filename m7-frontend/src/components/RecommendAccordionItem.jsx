@@ -7,6 +7,7 @@ import {
 import RecommendPlusList from "./RecommendPlusList";
 
 const RecommendAccordionItem = ({
+  isBasic,
   templateId,
   listId,
   title,
@@ -20,6 +21,7 @@ const RecommendAccordionItem = ({
           <AccordionTrigger>{title}</AccordionTrigger>
           <AccordionContent className="max-h-[250px] overflow-y-auto scrollbar-thin">
             <RecommendPlusList
+              isBasic={isBasic}
               templateId={templateId}
               listId={listId}
               data={data}
