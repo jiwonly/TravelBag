@@ -21,7 +21,10 @@ export function CheckList({ isBasic, templateId, listId, title }) {
   const template = isBasic
     ? templateList.find((item) => String(item.id) === String(templateId))
     : data.find((item) => String(item.id) === String(templateId));
-  const [supplyList, setSupplyList] = useState(template.supplies);
+  const initialTemplate = templateList.find(
+    (item) => String(item.id) === String(templateId)
+  );
+  const [supplyList, setSupplyList] = useState([]);
   const { onUpdateSupplies } = useContext(TemplateDispatchContext);
   const isEditing = useContext(EditStateData);
   const selectedRecoomendSupplies = recommendSupplies.filter(
@@ -32,9 +35,13 @@ export function CheckList({ isBasic, templateId, listId, title }) {
   useEffect(() => {
     onSetAdded(true);
   }, []);
-  // useEffect(() => {
-  //   if (isBasic) setNewSupplyList(template.supplies);
-  // }, []);
+
+  useEffect(() => {
+    if (!isBasic) {
+      setSupplyList(template.supplies);
+    }
+  }, [template]);
+
   useEffect(() => {
     if (isBasic) {
       setSupplyList(newSupplyList);
@@ -42,6 +49,12 @@ export function CheckList({ isBasic, templateId, listId, title }) {
       setSupplyList(template.supplies);
     }
   }, [template, newSupplyList]);
+
+  useEffect(() => {
+    if (isBasic && initialTemplate) {
+      setSupplyList(initialTemplate.supplies);
+    }
+  }, [isBasic, initialTemplate]);
 
   const listContent = supplyList.find(
     (item) => String(item.id) === String(listId)
@@ -121,6 +134,7 @@ export function CheckList({ isBasic, templateId, listId, title }) {
           : onUpdateSupplies(templateId, updatedSupplyList);
       }
     }
+    console.log(templateId, supplyList);
   };
 
   return (

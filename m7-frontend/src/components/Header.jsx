@@ -65,7 +65,7 @@ const Header = ({
       if (existingTemplate && edit) {
         alert("이미 존재하는 템플릿입니다!");
         return;
-      } else {
+      } else if (!isBasic) {
         onUpdate(id, editedTitle);
         setSelectedTitle(editedTitle);
         onEditing(false);
