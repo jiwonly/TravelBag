@@ -19,8 +19,6 @@ export function CheckInput({ onAdd }) {
     setInputValue("");
   };
 
-  console.log(added);
-
   const handleCompositionStart = () => {
     setIsComposing(true);
   };

@@ -9,6 +9,7 @@ const CustomTemplate = ({ isTemplate, icon, id, title, data }) => {
   return (
     <div>
       <Header
+        isBasic={false}
         isTemplate={isTemplate}
         icon={icon}
         id={id}
@@ -20,6 +21,7 @@ const CustomTemplate = ({ isTemplate, icon, id, title, data }) => {
           {template.supplies.map((item) => (
             <CheckList
               key={item.id}
+              isBasic={false}
               templateId={id}
               listId={item.id}
               title={item.title}

@@ -10,7 +10,7 @@ const TemplateList = () => {
       </div>
       <div className="template_list_wrapper flex flex-row gap-8">
         {templateList.map((item) => (
-          <TemplateItem key={item.id} {...item} />
+          <TemplateItem key={item.id} {...item} isBasic={true} />
         ))}
       </div>
     </div>

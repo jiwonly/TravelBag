@@ -1,6 +1,14 @@
 import { useNavigate } from "react-router-dom";
 
-const HeaderButton = ({ id, title, style, imageSrc, onClick, isEditing }) => {
+const HeaderButton = ({
+  isBasic,
+  id,
+  title,
+  style,
+  imageSrc,
+  onClick,
+  isEditing,
+}) => {
   let onUpdated = false;
   const nav = useNavigate();
 
@@ -17,7 +25,7 @@ const HeaderButton = ({ id, title, style, imageSrc, onClick, isEditing }) => {
             }}
           />
         ) : isEditing ? (
-          id < 4 ? (
+          isBasic ? (
             "추가"
           ) : (
             "완료"
