@@ -26,7 +26,7 @@ const EESItem = ({ location_id, content, id, name, signature, url }) => {
   return (
     <div>
       <div
-        className="flex justify-center w-auto min-w-[150px] h-[170px] flex-col gap-[11px] items-center border [background:var(--Gray-50,#F5F5F6)] shadow-[0px_4px_12px_0px_rgba(0,0,0,0.12)] p-1 rounded-xl border-solid border-[#EAEAEA] cursor-pointer"
+        className="flex justify-center w-auto min-w-[150px] h-[170px] flex-col gap-[10px] items-center border [background:var(--Gray-50,#F5F5F6)] shadow-[0px_4px_12px_0px_rgba(0,0,0,0.12)] p-1 rounded-xl border-solid border-[#EAEAEA] cursor-pointer"
         onClick={onURL}
       >
         <div className="flex justify-center">

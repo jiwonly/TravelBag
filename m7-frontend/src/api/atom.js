@@ -209,6 +209,41 @@ export const restaurantsState = atom({
   default: [
     {
       id: 1,
+      location_id: 1,
+      name: "츠케멘 야스베에 아키하바라점",
+      signature: "대표 메뉴: 츠케멘",
+      url: "string",
+    },
+    {
+      id: 2,
+      location_id: 1,
+      name: "규카츠 모토무라 아키하바라점",
+      signature: "대표 메뉴: 규카츠",
+      url: "string",
+    },
+    {
+      id: 3,
+      location_id: 1,
+      name: "멘야 쇼오 본점",
+      signature: "대표 메뉴: 시오 라멘",
+      url: "string",
+    },
+    {
+      id: 4,
+      location_id: 1,
+      name: "돈카츠 마이센 아오야마 본점",
+      signature: "대표 메뉴: 흑돼지 돈카츠, 카츠산도",
+      url: "string",
+    },
+    {
+      id: 5,
+      location_id: 1,
+      name: "Harbs LUMINE Ikebukuro",
+      signature: "대표 메뉴: 밀 크레이프",
+      url: "string",
+    },
+    {
+      id: 1,
       location_id: 5,
       name: "츠케멘 야스베에 아키하바라점",
       signature: "대표 메뉴: 츠케멘",
