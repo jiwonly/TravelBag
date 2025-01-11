@@ -77,7 +77,7 @@ export const woman = [
     contents: [
       { id: 2, title: "아이라이너" },
       { id: 3, title: "블러셔" },
-      { id: 1, title: "쿠션" },
+      { id: 4, title: "쿠션" },
     ],
   },
   {
@@ -126,7 +126,7 @@ export const business = [
     contents: [
       { id: 2, title: "아이라이너" },
       { id: 3, title: "블러셔" },
-      { id: 1, title: "쿠션" },
+      { id: 4, title: "쿠션" },
     ],
   },
   {
