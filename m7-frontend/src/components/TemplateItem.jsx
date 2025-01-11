@@ -17,7 +17,7 @@ const TemplateItem = ({ title, id }) => {
         />
       </div>
       <div>
-        <Button id={id} title={title} style={style} />
+        <Button isBasic={true} id={id} title={title} style={style} />
       </div>
     </div>
   );

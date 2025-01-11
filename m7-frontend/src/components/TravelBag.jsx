@@ -15,7 +15,14 @@ const TravelBag = () => {
       }}
     >
       {data.map((item) => (
-        <Button key={item.id} {...item} style={style} />
+        <Button
+          key={item.id}
+          {...item}
+          isBasic={false}
+          id={item.id}
+          title={item.title}
+          style={style}
+        />
       ))}
     </div>
   );

@@ -57,11 +57,11 @@ function reducer(state, action) {
 }
 
 const custom = [
-  { id: 8, title: "신나는 유럽 여행", supplies: supplies },
-  { id: 7, title: "휴식이 필요해 떠나요", supplies: supplies },
-  { id: 6, title: "먹고 죽으러 가는 여행", supplies: supplies },
-  { id: 5, title: "중학교 친구들과 여행", supplies: supplies },
-  { id: 4, title: "연인과 오사카", supplies: supplies },
+  { id: 4, title: "신나는 유럽 여행", supplies: supplies },
+  { id: 3, title: "휴식이 필요해 떠나요", supplies: supplies },
+  { id: 2, title: "먹고 죽으러 가는 여행", supplies: supplies },
+  { id: 1, title: "중학교 친구들과 여행", supplies: supplies },
+  { id: 0, title: "연인과 오사카", supplies: supplies },
 ];
 
 export const TemplateStateContext = createContext();
@@ -72,8 +72,8 @@ export const EditStateData = createContext();
 export const EditDispatchData = createContext();
 export const supplyStateContext = createContext();
 export const supplyDispatchContext = createContext();
-export const AddStateContext = createContext();
-export const AddDispatchContext = createContext();
+export const AddStateContext = createContext(); // 물품 추가 완료 경고창
+export const AddDispatchContext = createContext(); // 물품 추가 완료 경고창
 
 function PrivateRoute({ isAuthenticated, children }) {
   return isAuthenticated ? children : <Navigate to="/login" />;
@@ -182,7 +182,7 @@ function App() {
                                 }
                               />
                               <Route
-                                path="/new"
+                                path="/new/:id"
                                 element={
                                   <PrivateRoute
                                     isAuthenticated={isAuthenticated}

@@ -17,7 +17,15 @@ import { EditStateData } from "@/App";
 import { supplyStateContext } from "@/App";
 import { AddStateContext } from "@/App";
 
-const Header = ({ isTemplate, icon, id, title, memo, updateButton }) => {
+const Header = ({
+  isBasic,
+  isTemplate,
+  icon,
+  id,
+  title,
+  memo,
+  updateButton,
+}) => {
   const added = useContext(AddStateContext);
   const newSupplyList = useContext(supplyStateContext);
   const data = useContext(TemplateStateContext);
@@ -32,7 +40,7 @@ const Header = ({ isTemplate, icon, id, title, memo, updateButton }) => {
 
   const nav = useNavigate();
   useEffect(() => {
-    onEditing(id < 4);
+    onEditing(isBasic);
   }, [id]);
 
   const onSetEdit = (value) => {
@@ -66,7 +74,7 @@ const Header = ({ isTemplate, icon, id, title, memo, updateButton }) => {
     } else {
       onEditing(true);
     }
-    if (id < 4) {
+    if (isBasic) {
       if (!added) {
         alert("물품 추가를 완료해주세요!");
         return;
@@ -140,6 +148,7 @@ const Header = ({ isTemplate, icon, id, title, memo, updateButton }) => {
         {updateButton && (
           <>
             <HeaderButton
+              isBasic={isBasic}
               id={id}
               title={title}
               style={updateStyle}

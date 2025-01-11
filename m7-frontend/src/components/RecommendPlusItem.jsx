@@ -7,7 +7,7 @@ import { templateList } from "@/util/get-template-list";
 import { supplyDispatchContext } from "@/App";
 import { supplyStateContext } from "@/App";
 
-const RecommendPlusItem = ({ templateId, listId, id, content }) => {
+const RecommendPlusItem = ({ isBasic, templateId, listId, id, content }) => {
   const { setNewSupplyList } = useContext(supplyDispatchContext);
   const newSupplyList = useContext(supplyStateContext);
   const isEditing = useContext(EditStateData);
@@ -25,11 +25,11 @@ const RecommendPlusItem = ({ templateId, listId, id, content }) => {
 
   const [listData, setListData] = useState(listContent.contents);
 
+  // useEffect(() => {
+  //   if (isBasic) setNewSupplyList(template.supplies);
+  // }, []);
   useEffect(() => {
-    if (templateId < 4) setNewSupplyList(template.supplies);
-  }, []);
-  useEffect(() => {
-    if (templateId < 4) {
+    if (isBasic) {
       setSupplyList(newSupplyList);
     } else {
       setSupplyList(template.supplies);
@@ -56,7 +56,7 @@ const RecommendPlusItem = ({ templateId, listId, id, content }) => {
       setListData(updatedContents);
       setSupplyList(updatedSupplyList);
 
-      if (templateId < 4) {
+      if (isBasic) {
         setNewSupplyList(updatedSupplyList);
       } else {
         onUpdateSupplies(templateId, updatedSupplyList);

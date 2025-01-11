@@ -19,9 +19,7 @@ const Template = ({ children }) => {
   const nav = useNavigate();
   const params = useParams();
   const data = useContext(TemplateStateContext);
-  const template =
-    data.find((item) => String(item.id) === String(params.id)) ||
-    templateList.find((item) => String(item.id) === String(params.id));
+  const template = data.find((item) => String(item.id) === String(params.id));
   const [input, setInput] = useState(template ? template.title : ""); // input state : 선택된 template의 제목 보관
   const [listData, setListData] = useState(supplies.contents);
 
@@ -35,11 +33,11 @@ const Template = ({ children }) => {
 
   let basicTitle;
 
-  if (params.id < 4) {
-    basicTitle = templateList.find(
-      (item) => String(item.id) === String(params.id)
-    ).title;
-  }
+  // if (params.id < 4) {
+  //   basicTitle = templateList.find(
+  //     (item) => String(item.id) === String(params.id)
+  //   ).title;
+  // }
 
   return (
     <div className="flex">
@@ -55,7 +53,7 @@ const Template = ({ children }) => {
                 isTemplate={true}
                 icon="bag"
                 id={template.id}
-                title={params.id < 4 ? basicTitle : input}
+                title={input}
                 data={data}
               />
             </SelectedDisplatchData.Provider>
@@ -64,6 +62,7 @@ const Template = ({ children }) => {
       </SidebarProvider>
       <RecommendBar
         className={"flex"}
+        isBasic={false}
         id={template.id}
         icon="inventory"
         setListData={setListData}
