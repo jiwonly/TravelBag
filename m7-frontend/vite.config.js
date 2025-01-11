@@ -14,4 +14,8 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    port: 5174, // 원하는 포트 번호로 변경
+    strictPort: true, // 해당 포트를 사용 중이면 에러 발생 (자동 증가 방지)
+  },
 });
