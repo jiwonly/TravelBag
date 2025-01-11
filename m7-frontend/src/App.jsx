@@ -4,7 +4,8 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { useReducer, createContext, useRef, useState } from "react";
+import { useReducer, createContext, useRef, useState, useEffect } from "react";
+// import { getAuthStatus } from "./api/auth";
 
 import Home from "./pages/Home";
 import New from "./pages/New";
@@ -95,6 +96,14 @@ function App() {
   const onEditing = (value) => {
     setIsEditing(value);
   };
+
+  // useEffect(() => {
+  //   const fetchAuthStatus = async () => {
+  //     const status = await getAuthStatus();
+  //     setIsAuthenticated(status.isAuthenticated);
+  //   };
+  //   fetchAuthStatus();
+  // }, []);
 
   const onCreate = (title, supplies) => {
     dispatch({

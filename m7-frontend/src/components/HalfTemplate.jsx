@@ -24,13 +24,21 @@ const HalfTemplate = ({ type, onLogin }) => {
             <InfoInputButton content="아이디" type="text" name="id" />
             <InfoInputButton content="비밀번호" type="password" name="pwd" />
             <div></div>
+
             <LoginButton content="로그인" onClick={handleLoginClick} />
             <RegisterButton
               onClick={() => {
                 nav("/register");
               }}
             />
-            <KakaoButton />
+
+            {/* 카카오 로그인 버튼 */}
+            <KakaoButton
+              onClick={() => {
+                window.location.href =
+                  "http://localhost:8080/oauth2/authorization/kakao";
+              }}
+            />
           </div>
         ) : (
           <div className="flex flex-col gap-[13px]">
