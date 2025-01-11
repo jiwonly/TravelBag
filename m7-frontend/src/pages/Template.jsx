@@ -63,6 +63,7 @@ const Template = ({ children }) => {
         </main>
       </SidebarProvider>
       <RecommendBar
+        className={"flex"}
         id={template.id}
         icon="inventory"
         setListData={setListData}

@@ -9,7 +9,7 @@ import RecommendAccordionList from "./RecommendAccordionList";
 
 const RecommendBar = ({ id, icon, setListData }) => {
   return (
-    <aside className="absolute right-8 top-[29px] w-[350px] h-full">
+    <aside className="absolute right-8 top-[29px] w-[350px]">
       <div className="flex items-center py-[12px] px-[23px] gap-[10px] self-stretch border-t border-l border-r rounded-t-[16px] border-[#e5e6e8] bg-gray-100">
         <section className="">
           <img src={`/${icon}.png`} alt="icon" />
@@ -21,7 +21,7 @@ const RecommendBar = ({ id, icon, setListData }) => {
           </section>
         </div>
       </div>
-      <div className="px-[20px] py-[10px] h-screen flex items-start flex-[1_0_0] self-stretch rounded-b-[16px] border-[1px] bg-gray-100">
+      <div className="px-[20px] py-[0px]flex items-start flex-[1_0_0] self-stretch rounded-b-[16px] border-[1px] h-full min-h-[695px] bg-gray-100">
         <RecommendAccordionList templateId={id} setListData={setListData} />
       </div>
     </aside>
