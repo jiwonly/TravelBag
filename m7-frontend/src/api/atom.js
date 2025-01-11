@@ -77,7 +77,7 @@ export const airlinesState = atom({
   default: [
     {
       location_id: 1,
-      airline: [
+      airlines: [
         {
           id: 1,
           name: "대한항공",
@@ -92,7 +92,7 @@ export const airlinesState = atom({
     },
     {
       location_id: 2,
-      airline: [
+      airlines: [
         {
           id: 2,
           name: "에어서울",
@@ -108,7 +108,7 @@ export const airlinesState = atom({
 
     {
       location_id: 3,
-      airline: [
+      airlines: [
         {
           id: 2,
           name: "에어서울",
@@ -118,7 +118,7 @@ export const airlinesState = atom({
     },
     {
       location_id: 4,
-      airline: [
+      airlines: [
         {
           id: 4,
           name: "에어부산",
@@ -128,7 +128,7 @@ export const airlinesState = atom({
     },
     {
       location_id: 5,
-      airline: [
+      airlines: [
         {
           id: 5,
           name: "아시아나항공",
