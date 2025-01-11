@@ -10,7 +10,7 @@ const MajorAirline = ({ location_id }) => {
 
   // location_id에 따라 해당 항공사를 필터링
   const filteredAirlines =
-    airlines.find((item) => item.location_id === location_id)?.airline || [];
+    airlines.find((item) => item.location_id === location_id)?.airlines || [];
 
   useEffect(() => {
     const fetchAirlines = async () => {
@@ -20,7 +20,7 @@ const MajorAirline = ({ location_id }) => {
           setAirlines((prev) =>
             prev.map((item) =>
               item.location_id === location_id
-                ? { ...item, airline: data }
+                ? { ...item, airlines: data }
                 : item
             )
           );
@@ -43,6 +43,7 @@ const MajorAirline = ({ location_id }) => {
       <div className="flex flex-row gap-5">
         {filteredAirlines.map((airline) => (
           <AirlineItem
+            location_id={location_id}
             key={airline.id}
             id={airline.id}
             name={airline.name}
