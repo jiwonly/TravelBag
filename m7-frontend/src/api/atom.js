@@ -104,13 +104,23 @@ export const airlinesState = atom({
       location_id: 2,
       airlines: [
         {
+          id: 1,
+          name: "아시아나항공",
+          url: "https://www.flyasiana.com",
+        },
+        {
           id: 2,
-          name: "에어서울",
-          url: "https://www.airseoul.com",
+          name: "대한항공",
+          url: "https://www.flyasiana.com",
         },
         {
           id: 3,
-          name: "아시아나항공",
+          name: "에어부산",
+          url: "https://www.flyasiana.com",
+        },
+        {
+          id: 4,
+          name: "에어서울",
           url: "https://www.flyasiana.com",
         },
       ],
@@ -120,9 +130,24 @@ export const airlinesState = atom({
       location_id: 3,
       airlines: [
         {
+          id: 1,
+          name: "아시아나항공",
+          url: "https://www.flyasiana.com",
+        },
+        {
           id: 2,
+          name: "대한항공",
+          url: "https://www.flyasiana.com",
+        },
+        {
+          id: 3,
+          name: "에어부산",
+          url: "https://www.flyasiana.com",
+        },
+        {
+          id: 4,
           name: "에어서울",
-          url: "https://www.airseoul.com",
+          url: "https://www.flyasiana.com",
         },
       ],
     },
@@ -130,9 +155,24 @@ export const airlinesState = atom({
       location_id: 4,
       airlines: [
         {
-          id: 4,
+          id: 1,
+          name: "아시아나항공",
+          url: "https://www.flyasiana.com",
+        },
+        {
+          id: 2,
+          name: "대한항공",
+          url: "https://www.flyasiana.com",
+        },
+        {
+          id: 3,
           name: "에어부산",
-          url: "https://www.airbusan.com",
+          url: "https://www.flyasiana.com",
+        },
+        {
+          id: 4,
+          name: "에어서울",
+          url: "https://www.flyasiana.com",
         },
       ],
     },
@@ -142,6 +182,21 @@ export const airlinesState = atom({
         {
           id: 1,
           name: "아시아나항공",
+          url: "https://www.flyasiana.com",
+        },
+        {
+          id: 2,
+          name: "대한항공",
+          url: "https://www.flyasiana.com",
+        },
+        {
+          id: 3,
+          name: "에어부산",
+          url: "https://www.flyasiana.com",
+        },
+        {
+          id: 4,
+          name: "에어서울",
           url: "https://www.flyasiana.com",
         },
       ],

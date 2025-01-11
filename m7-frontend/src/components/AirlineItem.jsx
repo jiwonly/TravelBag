@@ -10,7 +10,7 @@ const AirlineItem = ({ location_id, name, id, url }) => {
 
   return (
     <div
-      className="flex w-[100px] h-[130px] flex-col items-center justify-center gap-[4px] border [background:var(--Gray-50,#F5F5F6)] shadow-[0px_4px_12px_0px_rgba(0,0,0,0.12)] p-2.5 rounded-xl border-solid border-[#EAEAEA] cursor-pointer"
+      className="flex w-[100px] h-[130px] flex-col items-center justify-center gap-[9px] border [background:var(--Gray-50,#F5F5F6)] shadow-[0px_4px_12px_0px_rgba(0,0,0,0.12)] p-2.5 rounded-xl border-solid border-[#EAEAEA] cursor-pointer"
       onClick={onURL}
     >
       <div className="w-full rounded-[16px] overflow-hidden bg-gray-100">
