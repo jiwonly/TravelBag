@@ -104,9 +104,7 @@ export function CheckList({ isBasic, templateId, listId, title }) {
     setListData(updatedContents);
     setSupplyList(updatedSupplyList);
 
-    if (isBasic) {
-      setNewSupplyList(updatedSupplyList);
-    } else {
+    if (!isBasic) {
       onUpdateSupplies(templateId, updatedSupplyList);
     }
   };
@@ -128,13 +126,8 @@ export function CheckList({ isBasic, templateId, listId, title }) {
       setListData(updatedContents);
       setSupplyList(updatedSupplyList);
       setNewSupplyList(updatedSupplyList);
-      {
-        isBasic
-          ? setNewSupplyList(updatedSupplyList)
-          : onUpdateSupplies(templateId, updatedSupplyList);
-      }
+      if (!isBasic) onUpdateSupplies(templateId, updatedSupplyList);
     }
-    console.log(templateId, supplyList);
   };
 
   return (
