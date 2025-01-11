@@ -76,76 +76,65 @@ export const airlinesState = atom({
   key: "airlinesState",
   default: [
     {
-      location: 1,
-      airline: {
-        id: 1,
-        name: "대한항공",
-        url: "https://www.koreanair.com",
-      },
+      location_id: 1,
+      airline: [
+        {
+          id: 1,
+          name: "대한항공",
+          url: "https://www.koreanair.com",
+        },
+        {
+          id: 3,
+          name: "아시아나항공",
+          url: "https://www.flyasiana.com",
+        },
+      ],
     },
     {
-      location: 1,
-      airline: {
-        id: 2,
-        name: "에어서울",
-        url: "https://www.airseoul.com",
-      },
+      location_id: 2,
+      airline: [
+        {
+          id: 2,
+          name: "에어서울",
+          url: "https://www.airseoul.com",
+        },
+        {
+          id: 3,
+          name: "아시아나항공",
+          url: "https://www.flyasiana.com",
+        },
+      ],
+    },
+
+    {
+      location_id: 3,
+      airline: [
+        {
+          id: 2,
+          name: "에어서울",
+          url: "https://www.airseoul.com",
+        },
+      ],
     },
     {
-      location: 1,
-      airline: {
-        id: 3,
-        name: "아시아나항공",
-        url: "https://www.flyasiana.com",
-      },
+      location_id: 4,
+      airline: [
+        {
+          id: 4,
+          name: "에어부산",
+          url: "https://www.airbusan.com",
+        },
+      ],
     },
     {
-      location: 2,
-      airline: {
-        id: 1,
-        name: "대한항공",
-        url: "https://www.koreanair.com",
-      },
-    },
-    {
-      location: 2,
-      airline: {
-        id: 3,
-        name: "아시아나항공",
-        url: "https://www.flyasiana.com",
-      },
-    },
-    {
-      location: 3,
-      airline: {
-        id: 1,
-        name: "대한항공",
-        url: "https://www.koreanair.com",
-      },
-    },
-    {
-      location: 3,
-      airline: {
-        id: 2,
-        name: "에어서울",
-        url: "https://www.airseoul.com",
-      },
-    },
-    {
-      location: 4,
-      airline: {
-        id: 1,
-        name: "대한항공",
-        url: "https://www.koreanair.com",
-      },
-    },
-    {
-      location: 5,
-      airline: {
-        id: 1,
-        name: "대한항공",
-        url: "https://www.koreanair.com",
-      },
+      location_id: 5,
+      airline: [
+        {
+          id: 5,
+          name: "아시아나항공",
+          url: "https://www.flyasiana.com",
+        },
+      ],
     },
   ],
 });
