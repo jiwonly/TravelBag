@@ -81,8 +81,7 @@ function PrivateRoute({ isAuthenticated, children }) {
 
 function App() {
   const [added, setAdded] = useState(true);
-  const addTemplate = templateList.find((item) => item.id === 0);
-  const [newSupplyList, setNewSupplyList] = useState(addTemplate.supplies);
+  const [newSupplyList, setNewSupplyList] = useState([]);
   const [data, dispatch] = useReducer(reducer, custom);
   const [isAuthenticated, setIsAuthenticated] = useState(true);
   const idRef = useRef(

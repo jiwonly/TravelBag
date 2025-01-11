@@ -29,12 +29,13 @@ const RecommendPlusItem = ({ isBasic, templateId, listId, id, content }) => {
   //   if (isBasic) setNewSupplyList(template.supplies);
   // }, []);
   useEffect(() => {
-    if (isBasic) {
-      setSupplyList(newSupplyList);
-    } else {
-      setSupplyList(template.supplies);
-    }
+    // if (isBasic) {
+    setSupplyList(newSupplyList);
+    // } else {
+    //   setSupplyList(template.supplies);
+    // }
   }, [template, newSupplyList]);
+
   useEffect(() => {
     setListData(listContent.contents);
   }, [listContent.contents]);
@@ -56,11 +57,11 @@ const RecommendPlusItem = ({ isBasic, templateId, listId, id, content }) => {
       setListData(updatedContents);
       setSupplyList(updatedSupplyList);
 
-      if (isBasic) {
-        setNewSupplyList(updatedSupplyList);
-      } else {
-        onUpdateSupplies(templateId, updatedSupplyList);
-      }
+      // if (isBasic) {
+      setNewSupplyList(updatedSupplyList);
+      // } else {
+      //   onUpdateSupplies(templateId, updatedSupplyList);
+      // }
     } else return;
   };
 

@@ -33,7 +33,9 @@ const Header = ({
   const onChange = dispatchContext?.onChange;
   const [selectedTitle, setSelectedTitle] = useState(title);
   const [editedTitle, setEditedTitle] = useState(title);
-  const { onDelete, onUpdate, onCreate } = useContext(TemplateDispatchContext);
+  const { onDelete, onUpdate, onCreate, onUpdateSupplies } = useContext(
+    TemplateDispatchContext
+  );
   const isEditing = useContext(EditStateData);
   const { onEditing } = useContext(EditDispatchData);
   const [edit, setEdit] = useState(false);
@@ -67,6 +69,7 @@ const Header = ({
         return;
       } else if (!isBasic) {
         onUpdate(id, editedTitle);
+        onUpdateSupplies(id, newSupplyList);
         setSelectedTitle(editedTitle);
         onEditing(false);
         onSetEdit(false);
