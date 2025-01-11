@@ -126,6 +126,7 @@ export function CheckList({ isBasic, templateId, listId, title }) {
       setNewSupplyList(updatedSupplyList);
       // if (!isBasic) onUpdateSupplies(templateId, updatedSupplyList);
     }
+    console.log(listData);
   };
 
   return (
@@ -139,7 +140,7 @@ export function CheckList({ isBasic, templateId, listId, title }) {
             templateId={templateId}
             id={item.id}
             isChecked={item.isChecked}
-            content={item.content}
+            content={item.content || item.title}
             onToggle={handleToggle}
             onDelete={handleDelete}
           />
