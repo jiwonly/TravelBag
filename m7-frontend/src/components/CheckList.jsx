@@ -32,9 +32,7 @@ export function CheckList({ isBasic, templateId, listId, title }) {
   useEffect(() => {
     onSetAdded(true);
   }, []);
-  // useEffect(() => {
-  //   if (isBasic) setNewSupplyList(template.supplies);
-  // }, []);
+
   useEffect(() => {
     if (isBasic) {
       setSupplyList(newSupplyList);
