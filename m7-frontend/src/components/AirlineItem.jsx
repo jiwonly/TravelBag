@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { getAirlineImage } from "@/util/get-airline-image";
 
-const AirlineItem = ({ name, id, url }) => {
+const AirlineItem = ({ location_id, name, id, url }) => {
   const onURL = () => {
     if (url) {
-      window.open(url, '_blank');  // 새 창에서 열기
+      window.open(url, "_blank"); // 새 창에서 열기
     }
   };
 
@@ -16,7 +16,7 @@ const AirlineItem = ({ name, id, url }) => {
       <div className="w-full rounded-[16px] overflow-hidden bg-gray-100">
         <img
           className="flex items-start shrink-0 shadow-[0px_2px_12px_0px_rgba(0,0,0,0.08)] rounded-2xl"
-          src={getAirlineImage(id)}
+          src={getAirlineImage(location_id, id)}
           alt="Template"
         />
       </div>

@@ -80,12 +80,22 @@ export const airlinesState = atom({
       airlines: [
         {
           id: 1,
+          name: "아시아나항공",
+          url: "https://www.flyasiana.com",
+        },
+        {
+          id: 2,
           name: "대한항공",
-          url: "https://www.koreanair.com",
+          url: "https://www.flyasiana.com",
         },
         {
           id: 3,
-          name: "아시아나항공",
+          name: "에어부산",
+          url: "https://www.flyasiana.com",
+        },
+        {
+          id: 4,
+          name: "에어서울",
           url: "https://www.flyasiana.com",
         },
       ],
@@ -130,7 +140,7 @@ export const airlinesState = atom({
       location_id: 5,
       airlines: [
         {
-          id: 5,
+          id: 1,
           name: "아시아나항공",
           url: "https://www.flyasiana.com",
         },

@@ -43,6 +43,7 @@ const MajorAirline = ({ location_id }) => {
       <div className="flex flex-row gap-5">
         {filteredAirlines.map((airline) => (
           <AirlineItem
+            location_id={location_id}
             key={airline.id}
             id={airline.id}
             name={airline.name}
