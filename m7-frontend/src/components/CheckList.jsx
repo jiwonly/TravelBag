@@ -21,9 +21,9 @@ export function CheckList({ isBasic, templateId, listId, title }) {
   const template = isBasic
     ? templateList.find((item) => String(item.id) === String(templateId))
     : data.find((item) => String(item.id) === String(templateId));
-  const initialTemplate = templateList.find(
-    (item) => String(item.id) === String(templateId)
-  );
+  // const initialTemplate = templateList.find(
+  //   (item) => String(item.id) === String(templateId)
+  // );
   const [supplyList, setSupplyList] = useState([]);
   const { onUpdateSupplies } = useContext(TemplateDispatchContext);
   const isEditing = useContext(EditStateData);
@@ -33,28 +33,25 @@ export function CheckList({ isBasic, templateId, listId, title }) {
   const idRef = useRef(100);
 
   useEffect(() => {
+    setNewSupplyList(template.supplies);
     onSetAdded(true);
   }, []);
 
   useEffect(() => {
-    if (!isBasic) {
-      setSupplyList(template.supplies);
-    }
+    // if (!isBasic) {
+    setSupplyList(template.supplies);
+    // }
   }, [template]);
 
   useEffect(() => {
-    if (isBasic) {
-      setSupplyList(newSupplyList);
-    } else {
-      setSupplyList(template.supplies);
-    }
+    setSupplyList(newSupplyList);
   }, [template, newSupplyList]);
 
   useEffect(() => {
-    if (isBasic && initialTemplate) {
-      setSupplyList(initialTemplate.supplies);
-    }
-  }, [isBasic, initialTemplate]);
+    // if (isBasic && initialTemplate) {
+    setSupplyList(template.supplies);
+    // }
+  }, [isBasic, template]);
 
   const listContent = supplyList.find(
     (item) => String(item.id) === String(listId)
@@ -103,9 +100,10 @@ export function CheckList({ isBasic, templateId, listId, title }) {
     // 상태 업데이트
     setListData(updatedContents);
     setSupplyList(updatedSupplyList);
+    setNewSupplyList(updatedSupplyList);
 
     if (!isBasic) {
-      onUpdateSupplies(templateId, updatedSupplyList);
+      // onUpdateSupplies(templateId, updatedSupplyList);
     }
   };
 
@@ -126,7 +124,7 @@ export function CheckList({ isBasic, templateId, listId, title }) {
       setListData(updatedContents);
       setSupplyList(updatedSupplyList);
       setNewSupplyList(updatedSupplyList);
-      if (!isBasic) onUpdateSupplies(templateId, updatedSupplyList);
+      // if (!isBasic) onUpdateSupplies(templateId, updatedSupplyList);
     }
   };
 
