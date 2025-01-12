@@ -22,7 +22,6 @@ const Tipboard = ({ icon, title, memo }) => {
           selectedId={selectedDestination}
           showContent={handleSelectDestination}
         />
-
         {selectedDestination && (
           <>
             <MajorAirline location_id={selectedDestination} />
