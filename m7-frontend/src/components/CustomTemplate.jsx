@@ -2,7 +2,7 @@ import Header from "./Header";
 import { CheckList } from "./CheckList";
 import { templateList } from "@/util/get-template-list";
 
-const CustomTemplate = ({ isTemplate, icon, id, title, data }) => {
+const CustomTemplate = ({ isTemplate, icon, id, title, temporary, data }) => {
   const template =
     data.find((item) => String(item.id) === String(id)) ||
     templateList.find((item) => String(item.id) === String(id));
@@ -14,6 +14,7 @@ const CustomTemplate = ({ isTemplate, icon, id, title, data }) => {
         icon={icon}
         id={id}
         title={title}
+        temporary={temporary}
         updateButton={true}
       />
       <div className="Custom px-[30px] py-[40px] flex flex-col items-start flex-[1_0_0] self-stretch rounded-b-[16px] border-[1px] bg-[var(--White,_#FFF)] min-h-[685px]">

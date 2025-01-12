@@ -42,7 +42,7 @@ const Template = ({ children }) => {
   return (
     <div className="flex">
       <SidebarProvider>
-        <SideBar isTemplate={true} />
+        <SideBar template={template} isTemplate={true} />
         <main>
           <SidebarTrigger />
           {children}
@@ -54,6 +54,7 @@ const Template = ({ children }) => {
                 icon="bag"
                 id={template.id}
                 title={input}
+                temporary={template.temporary}
                 data={data}
               />
             </SelectedDisplatchData.Provider>

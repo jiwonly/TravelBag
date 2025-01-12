@@ -14,7 +14,6 @@ import Template from "./pages/Template";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { supplies } from "./util/get-supplies-list";
-import { templateList } from "./util/get-template-list";
 
 function reducer(state, action) {
   let nextState;
@@ -45,6 +44,16 @@ function reducer(state, action) {
       );
       break;
     }
+    case "UPDATETEMPORARY": {
+      console.log("Reducer Action Data:", action.data);
+
+      nextState = state.map((item) =>
+        String(item.id) === String(action.data.id)
+          ? { ...item, temporary: action.data.temporary }
+          : item
+      );
+      break;
+    }
     case "DELETE": {
       nextState = state.filter((item) => String(item.id) !== String(action.id));
       break;
@@ -57,11 +66,31 @@ function reducer(state, action) {
 }
 
 const custom = [
-  { id: 4, title: "신나는 유럽 여행", supplies: supplies },
-  { id: 3, title: "휴식이 필요해 떠나요", supplies: supplies },
-  { id: 2, title: "먹고 죽으러 가는 여행", supplies: supplies },
-  { id: 1, title: "중학교 친구들과 여행", supplies: supplies },
-  { id: 0, title: "연인과 오사카", supplies: supplies },
+  {
+    id: 4,
+    title: "신나는 유럽 여행",
+    supplies: supplies,
+    temporary: false,
+  },
+  {
+    id: 3,
+    title: "휴식이 필요해 떠나요",
+    supplies: supplies,
+    temporary: false,
+  },
+  {
+    id: 2,
+    title: "먹고 죽으러 가는 여행",
+    supplies: supplies,
+    temporary: false,
+  },
+  {
+    id: 1,
+    title: "중학교 친구들과 여행",
+    supplies: supplies,
+    temporary: false,
+  },
+  { id: 0, title: "연인과 오사카", supplies: supplies, temporary: false },
 ];
 
 export const TemplateStateContext = createContext();
@@ -72,15 +101,16 @@ export const EditStateData = createContext();
 export const EditDispatchData = createContext();
 export const supplyStateContext = createContext();
 export const supplyDispatchContext = createContext();
-export const AddStateContext = createContext(); // 물품 추가 완료 경고창
-export const AddDispatchContext = createContext(); // 물품 추가 완료 경고창
+export const ItemStateContext = createContext(); // 물품 추가 완료 경고창
+export const ItemDispatchContext = createContext(); // 물품 추가 완료 경고창
+export const IdRefContext = createContext();
 
 function PrivateRoute({ isAuthenticated, children }) {
   return isAuthenticated ? children : <Navigate to="/login" />;
 }
 
 function App() {
-  const [added, setAdded] = useState(true);
+  const [added, setAdded] = useState(0);
   const [newSupplyList, setNewSupplyList] = useState([]);
   const [data, dispatch] = useReducer(reducer, custom);
   const [isAuthenticated, setIsAuthenticated] = useState(true);
@@ -92,6 +122,7 @@ function App() {
   const onSetAdded = (value) => {
     setAdded(value);
   };
+
   const onEditing = (value) => {
     setIsEditing(value);
   };
@@ -111,6 +142,7 @@ function App() {
         id: idRef.current++,
         title,
         supplies: supplies,
+        temporary: true,
       },
     });
   };
@@ -126,6 +158,13 @@ function App() {
     dispatch({
       type: "UPDATESUPPlIES",
       data: { id, supplies },
+    });
+  };
+
+  const onUpdateTemporary = (id, temporary) => {
+    dispatch({
+      type: "UPDATETEMPORARY",
+      data: { id, temporary },
     });
   };
 
@@ -152,7 +191,13 @@ function App() {
         <pageDispatchContext.Provider value={{ onSetPage }}>
           <TemplateStateContext.Provider value={data}>
             <TemplateDispatchContext.Provider
-              value={{ onCreate, onUpdate, onUpdateSupplies, onDelete }}
+              value={{
+                onCreate,
+                onUpdate,
+                onUpdateSupplies,
+                onUpdateTemporary,
+                onDelete,
+              }}
             >
               <EditStateData.Provider value={isEditing}>
                 <EditDispatchData.Provider value={{ onEditing }}>
@@ -160,60 +205,65 @@ function App() {
                     <supplyDispatchContext.Provider
                       value={{ setNewSupplyList }}
                     >
-                      <AddStateContext.Provider value={added}>
-                        <AddDispatchContext.Provider value={{ onSetAdded }}>
-                          <Router>
-                            <Routes>
-                              <Route
-                                path="/login"
-                                element={<Login onLogin={handleLogin} />}
-                              />
-                              <Route path="/register" element={<Register />} />
-                              {/* Protected Routes */}
-                              <Route
-                                path="/"
-                                element={
-                                  <PrivateRoute
-                                    isAuthenticated={isAuthenticated}
-                                  >
-                                    <Home />
-                                  </PrivateRoute>
-                                }
-                              />
-                              <Route
-                                path="/new/:id"
-                                element={
-                                  <PrivateRoute
-                                    isAuthenticated={isAuthenticated}
-                                  >
-                                    <New />
-                                  </PrivateRoute>
-                                }
-                              />
-                              <Route
-                                path="/tip"
-                                element={
-                                  <PrivateRoute
-                                    isAuthenticated={isAuthenticated}
-                                  >
-                                    <Tip />
-                                  </PrivateRoute>
-                                }
-                              />
-                              <Route
-                                path="/template/:id"
-                                element={
-                                  <PrivateRoute
-                                    isAuthenticated={isAuthenticated}
-                                  >
-                                    <Template />
-                                  </PrivateRoute>
-                                }
-                              />
-                            </Routes>
-                          </Router>
-                        </AddDispatchContext.Provider>
-                      </AddStateContext.Provider>
+                      <ItemStateContext.Provider value={added}>
+                        <ItemDispatchContext.Provider value={{ onSetAdded }}>
+                          <IdRefContext.Provider value={idRef}>
+                            <Router>
+                              <Routes>
+                                <Route
+                                  path="/login"
+                                  element={<Login onLogin={handleLogin} />}
+                                />
+                                <Route
+                                  path="/register"
+                                  element={<Register />}
+                                />
+                                {/* Protected Routes */}
+                                <Route
+                                  path="/"
+                                  element={
+                                    <PrivateRoute
+                                      isAuthenticated={isAuthenticated}
+                                    >
+                                      <Home />
+                                    </PrivateRoute>
+                                  }
+                                />
+                                <Route
+                                  path="/new/:id"
+                                  element={
+                                    <PrivateRoute
+                                      isAuthenticated={isAuthenticated}
+                                    >
+                                      <New />
+                                    </PrivateRoute>
+                                  }
+                                />
+                                <Route
+                                  path="/tip"
+                                  element={
+                                    <PrivateRoute
+                                      isAuthenticated={isAuthenticated}
+                                    >
+                                      <Tip />
+                                    </PrivateRoute>
+                                  }
+                                />
+                                <Route
+                                  path="/template/:id"
+                                  element={
+                                    <PrivateRoute
+                                      isAuthenticated={isAuthenticated}
+                                    >
+                                      <Template />
+                                    </PrivateRoute>
+                                  }
+                                />
+                              </Routes>
+                            </Router>
+                          </IdRefContext.Provider>
+                        </ItemDispatchContext.Provider>
+                      </ItemStateContext.Provider>
                     </supplyDispatchContext.Provider>
                   </supplyStateContext.Provider>
                 </EditDispatchData.Provider>

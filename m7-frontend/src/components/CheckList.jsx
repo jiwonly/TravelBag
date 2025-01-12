@@ -9,12 +9,12 @@ import { templateList } from "@/util/get-template-list";
 import { supplyDispatchContext } from "@/App";
 import { supplyStateContext } from "@/App";
 import { recommendSupplies } from "@/util/get-recomment-supplies-list";
-import { AddStateContext } from "@/App";
-import { AddDispatchContext } from "@/App";
+import { ItemStateContext } from "@/App";
+import { ItemDispatchContext } from "@/App";
 
 export function CheckList({ isBasic, templateId, listId, title }) {
-  const added = useContext(AddStateContext);
-  const { onSetAdded } = useContext(AddDispatchContext);
+  const added = useContext(ItemStateContext);
+  const { onSetAdded } = useContext(ItemDispatchContext);
   const { setNewSupplyList } = useContext(supplyDispatchContext);
   const newSupplyList = useContext(supplyStateContext);
   const data = useContext(TemplateStateContext);
@@ -34,12 +34,17 @@ export function CheckList({ isBasic, templateId, listId, title }) {
 
   useEffect(() => {
     setNewSupplyList(template.supplies);
-    onSetAdded(true);
+    onSetAdded(0);
   }, []);
+
+  // useEffect(() => {
+
+  // }, [templateId]);
 
   useEffect(() => {
     // if (!isBasic) {
     setSupplyList(template.supplies);
+    onSetAdded(0);
     // }
   }, [template]);
 
@@ -103,7 +108,7 @@ export function CheckList({ isBasic, templateId, listId, title }) {
     setNewSupplyList(updatedSupplyList);
 
     if (!isBasic) {
-      // onUpdateSupplies(templateId, updatedSupplyList);
+      onUpdateSupplies(templateId, updatedSupplyList);
     }
   };
 
@@ -124,7 +129,7 @@ export function CheckList({ isBasic, templateId, listId, title }) {
       setListData(updatedContents);
       setSupplyList(updatedSupplyList);
       setNewSupplyList(updatedSupplyList);
-      // if (!isBasic) onUpdateSupplies(templateId, updatedSupplyList);
+      if (!isBasic) onUpdateSupplies(templateId, updatedSupplyList);
     }
   };
 
@@ -139,7 +144,7 @@ export function CheckList({ isBasic, templateId, listId, title }) {
             templateId={templateId}
             id={item.id}
             isChecked={item.isChecked}
-            content={item.content}
+            content={item.content || item.title}
             onToggle={handleToggle}
             onDelete={handleDelete}
           />

@@ -4,12 +4,12 @@ const HeaderButton = ({
   isBasic,
   id,
   title,
+  temporary,
   style,
   imageSrc,
   onClick,
   isEditing,
 }) => {
-  let onUpdated = false;
   const nav = useNavigate();
 
   return (
@@ -24,12 +24,10 @@ const HeaderButton = ({
               height: "20px",
             }}
           />
+        ) : temporary ? (
+          "추가"
         ) : isEditing ? (
-          isBasic ? (
-            "추가"
-          ) : (
-            "완료"
-          )
+          "완료"
         ) : (
           "수정"
         )}
