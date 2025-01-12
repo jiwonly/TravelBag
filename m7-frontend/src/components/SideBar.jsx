@@ -160,10 +160,10 @@ export function SideBar({ isTemplate }) {
                       <Link
                         to={getLink(item.id)}
                         onClick={(e) => {
-                          if ((isEditing || isActive) && !template.Temporary) {
+                          if ((isEditing || isActive) && !template.temporary) {
                             // isEditing이 true이거나 이미 활성 상태일 경우 이동 차단
                             e.preventDefault();
-                            if (isEditing) {
+                            if (isEditing && !template.temporary) {
                               alert("물품 수정을 완료해주세요!");
                             }
                           }

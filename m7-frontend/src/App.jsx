@@ -13,6 +13,7 @@ import Tip from "./pages/Tip";
 import Template from "./pages/Template";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import NotFound from "./pages/NofFound";
 import { supplies } from "./util/get-supplies-list";
 
 function reducer(state, action) {
@@ -259,6 +260,7 @@ function App() {
                                     </PrivateRoute>
                                   }
                                 />
+                                <Route path="/*" element={<NotFound />} />
                               </Routes>
                             </Router>
                           </IdRefContext.Provider>
