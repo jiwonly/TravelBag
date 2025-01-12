@@ -63,7 +63,7 @@ const RecommendPlusItem = ({ isBasic, templateId, listId, id, content }) => {
       // if (isBasic) {
       setNewSupplyList(updatedSupplyList);
       // } else {
-      if (!isBasic) onUpdateSupplies(templateId, updatedSupplyList);
+      if (!template.temporary) onUpdateSupplies(templateId, updatedSupplyList);
       // }
     } else return;
   };

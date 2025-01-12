@@ -83,11 +83,11 @@ export function CheckList({ isBasic, templateId, listId, title }) {
     setListData(updatedContents);
     setSupplyList(updatedSupplyList);
 
-    if (isBasic) {
-      setNewSupplyList(updatedSupplyList);
-    } else {
-      onUpdateSupplies(templateId, updatedSupplyList);
-    }
+    // if (isBasic) {
+    //   setNewSupplyList(updatedSupplyList);
+    // } else {
+    onUpdateSupplies(templateId, updatedSupplyList);
+    // }
   };
 
   const handleDelete = (id) => {

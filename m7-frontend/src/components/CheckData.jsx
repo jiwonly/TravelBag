@@ -19,6 +19,7 @@ export function CheckData({
     onDelete(id);
     // onSetDeleted(false);
   };
+  console.log(id, isChecked);
 
   return (
     <div

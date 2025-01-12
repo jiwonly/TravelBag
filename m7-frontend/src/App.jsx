@@ -45,8 +45,6 @@ function reducer(state, action) {
       break;
     }
     case "UPDATETEMPORARY": {
-      console.log("Reducer Action Data:", action.data);
-
       nextState = state.map((item) =>
         String(item.id) === String(action.data.id)
           ? { ...item, temporary: action.data.temporary }
