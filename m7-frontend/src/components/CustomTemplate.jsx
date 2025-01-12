@@ -7,7 +7,7 @@ const CustomTemplate = ({ isTemplate, icon, id, title, temporary, data }) => {
     data.find((item) => String(item.id) === String(id)) ||
     templateList.find((item) => String(item.id) === String(id));
   return (
-    <div>
+    <div className="mt-[29px]">
       <Header
         isBasic={false}
         isTemplate={isTemplate}

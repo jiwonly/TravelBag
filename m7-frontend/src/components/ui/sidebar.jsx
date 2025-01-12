@@ -70,44 +70,15 @@ const SidebarProvider = React.forwardRef(
       [setOpenProp, open]
     );
 
-    // Helper to toggle the sidebar.
-    const toggleSidebar = React.useCallback(() => {
-      return isMobile
-        ? setOpenMobile((open) => !open)
-        : setOpen((open) => !open);
-    }, [isMobile, setOpen, setOpenMobile]);
-
-    // Adds a keyboard shortcut to toggle the sidebar.
-    React.useEffect(() => {
-      const handleKeyDown = (event) => {
-        if (
-          event.key === SIDEBAR_KEYBOARD_SHORTCUT &&
-          (event.metaKey || event.ctrlKey)
-        ) {
-          event.preventDefault();
-          toggleSidebar();
-        }
-      };
-
-      window.addEventListener("keydown", handleKeyDown);
-      return () => window.removeEventListener("keydown", handleKeyDown);
-    }, [toggleSidebar]);
-
-    // We add a state so that we can do data-state="expanded" or "collapsed".
-    // This makes it easier to style the sidebar with Tailwind classes.
-    const state = open ? "expanded" : "collapsed";
-
     const contextValue = React.useMemo(
       () => ({
-        state,
         open,
         setOpen,
         isMobile,
         openMobile,
         setOpenMobile,
-        toggleSidebar,
       }),
-      [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar]
+      [open, setOpen, isMobile, openMobile, setOpenMobile]
     );
 
     return (
@@ -229,29 +200,9 @@ const Sidebar = React.forwardRef(
 );
 Sidebar.displayName = "Sidebar";
 
-const SidebarTrigger = React.forwardRef(
-  ({ className, onClick, ...props }, ref) => {
-    const { toggleSidebar } = useSidebar();
-
-    return (
-      <Button
-        ref={ref}
-        data-sidebar="trigger"
-        variant="ghost"
-        size="icon"
-        className={cn("h-7 w-7", className)}
-        onClick={(event) => {
-          onClick?.(event);
-          toggleSidebar();
-        }}
-        {...props}
-      >
-        <PanelLeft />
-        <span className="sr-only">Toggle Sidebar</span>
-      </Button>
-    );
-  }
-);
+const SidebarTrigger = React.forwardRef(({ onClick, ...props }, ref) => {
+  return null;
+});
 SidebarTrigger.displayName = "SidebarTrigger";
 
 const SidebarRail = React.forwardRef(({ className, ...props }, ref) => {
