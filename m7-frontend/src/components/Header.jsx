@@ -25,25 +25,29 @@ const Header = ({
   id,
   title,
   memo,
+  temporary,
   updateButton,
 }) => {
   const added = useContext(ItemStateContext);
   const newSupplyList = useContext(supplyStateContext);
   const data = useContext(TemplateStateContext);
+  const realData = data.filter((item) => !item.temporary);
   const dispatchContext = useContext(SelectedDisplatchData);
   const onChange = dispatchContext?.onChange;
   const [selectedTitle, setSelectedTitle] = useState(title);
   const [editedTitle, setEditedTitle] = useState(title);
-  const { onDelete, onUpdate, onCreate, onUpdateSupplies } = useContext(
-    TemplateDispatchContext
-  );
+  const { onDelete, onUpdate, onCreate, onUpdateSupplies, onUpdateTemporary } =
+    useContext(TemplateDispatchContext);
   const isEditing = useContext(EditStateData);
   const { onEditing } = useContext(EditDispatchData);
   const [edit, setEdit] = useState(false);
+  // useEffect(() => {
+  //   console.log("Updated State in Component:", data);
+  // }, [data]);
 
   const nav = useNavigate();
   useEffect(() => {
-    onEditing(isBasic);
+    onEditing(temporary);
   }, [id]);
 
   const onSetEdit = (value) => {
@@ -57,7 +61,7 @@ const Header = ({
   };
 
   const onUpdateButton = () => {
-    const existingTemplate = data.find(
+    const existingTemplate = realData.find(
       (item) => String(item.title) === String(editedTitle)
     );
     if (isEditing) {
@@ -78,7 +82,7 @@ const Header = ({
     } else {
       onEditing(true);
     }
-    if (isBasic) {
+    if (temporary) {
       if (added !== 0) {
         alert("물품 추가를 완료해주세요!");
         return;
@@ -88,15 +92,13 @@ const Header = ({
         onEditing(true);
         return;
       } else {
-        onCreate(editedTitle, newSupplyList);
+        onUpdateTemporary(id, false);
+        // onCreate(editedTitle, newSupplyList);
         onSetEdit;
         nav("/");
       }
     }
   };
-
-  console.log(added);
-
   const onDeleteButton = () => {
     onDelete(id);
     nav("/", { replace: true });
@@ -157,6 +159,7 @@ const Header = ({
               isBasic={isBasic}
               id={id}
               title={title}
+              temporary={temporary}
               style={updateStyle}
               onClick={onUpdateButton}
               isEditing={isEditing}

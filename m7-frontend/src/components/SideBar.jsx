@@ -23,6 +23,7 @@ import travel from "./../assets/sidebar/travel.svg";
 import ontravel from "./../assets/sidebar/ontravel.svg";
 import logout from "./../assets/sidebar/logout.svg";
 import { EditStateData } from "@/App";
+import { useParams } from "react-router-dom";
 
 function sidebarImage(id, isActive = false) {
   if (isActive) {
@@ -77,14 +78,17 @@ const items = [
 ];
 
 export function SideBar({ isTemplate }) {
+  const params = useParams();
   const isEditing = useContext(EditStateData);
   const page = useContext(pageStateContext);
   const data = useContext(TemplateStateContext);
+  const template = isTemplate
+    ? data.find((item) => String(item.id) === String(params.id))
+    : null;
   const curId =
     data.length > 0 ? Math.max(...data.map((item) => item.id)) : null;
   const nav = useNavigate();
   const location = useLocation();
-
   const onLogoutClick = () => {
     if (window.confirm("정말 로그아웃하시겠습니까?")) {
       nav("/login");
@@ -114,7 +118,9 @@ export function SideBar({ isTemplate }) {
           alt="Logo"
           className="w-[130px] h-auto mt-5 cursor-pointer"
           onClick={() => {
-            isEditing ? alert("물품 수정을 완료해주세요!") : nav("/");
+            isEditing && !template.temporary
+              ? alert("물품 수정을 완료해주세요!")
+              : nav("/");
           }}
         />
       </SidebarHeader>
@@ -154,7 +160,7 @@ export function SideBar({ isTemplate }) {
                       <Link
                         to={getLink(item.id)}
                         onClick={(e) => {
-                          if (isEditing || isActive) {
+                          if ((isEditing || isActive) && !template.Temporary) {
                             // isEditing이 true이거나 이미 활성 상태일 경우 이동 차단
                             e.preventDefault();
                             if (isEditing) {
