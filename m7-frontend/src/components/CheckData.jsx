@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import Checkbox_Yes from "../assets/Checkbox_Yes.svg";
 import Checkbox_No from "../assets/Checkbox_No.svg";
 import CheckData_minus from "../assets/CheckData_minus.svg";
-import { EditStateData } from "@/App";
+import { EditStateData, ItemDispatchContext } from "@/App";
 
 export function CheckData({
   templateId,
@@ -12,10 +12,12 @@ export function CheckData({
   onToggle,
   onDelete,
 }) {
+  const { onSetDeleted } = useContext(ItemDispatchContext);
   const isEditing = useContext(EditStateData);
 
   const handleDelete = () => {
     onDelete(id);
+    onSetDeleted(false);
   };
 
   return (

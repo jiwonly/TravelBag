@@ -13,7 +13,6 @@ import Template from "./pages/Template";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { supplies } from "./util/get-supplies-list";
-import { templateList } from "./util/get-template-list";
 
 function reducer(state, action) {
   let nextState;
@@ -71,15 +70,16 @@ export const EditStateData = createContext();
 export const EditDispatchData = createContext();
 export const supplyStateContext = createContext();
 export const supplyDispatchContext = createContext();
-export const AddStateContext = createContext(); // 물품 추가 완료 경고창
-export const AddDispatchContext = createContext(); // 물품 추가 완료 경고창
+export const ItemStateContext = createContext(); // 물품 추가 완료 경고창
+export const ItemDispatchContext = createContext(); // 물품 추가 완료 경고창
 
 function PrivateRoute({ isAuthenticated, children }) {
   return isAuthenticated ? children : <Navigate to="/login" />;
 }
 
 function App() {
-  const [added, setAdded] = useState(true);
+  const [added, setAdded] = useState(0);
+  const [deleted, setDeleted] = useState(true);
   const [newSupplyList, setNewSupplyList] = useState([]);
   const [data, dispatch] = useReducer(reducer, custom);
   const [isAuthenticated, setIsAuthenticated] = useState(true);
@@ -91,6 +91,11 @@ function App() {
   const onSetAdded = (value) => {
     setAdded(value);
   };
+
+  const onSetDeleted = (value) => {
+    setDeleted(value);
+  };
+
   const onEditing = (value) => {
     setIsEditing(value);
   };
@@ -151,8 +156,10 @@ function App() {
                     <supplyDispatchContext.Provider
                       value={{ setNewSupplyList }}
                     >
-                      <AddStateContext.Provider value={added}>
-                        <AddDispatchContext.Provider value={{ onSetAdded }}>
+                      <ItemStateContext.Provider value={{ added, deleted }}>
+                        <ItemDispatchContext.Provider
+                          value={{ onSetAdded, onSetDeleted }}
+                        >
                           <Router>
                             <Routes>
                               <Route
@@ -203,8 +210,8 @@ function App() {
                               />
                             </Routes>
                           </Router>
-                        </AddDispatchContext.Provider>
-                      </AddStateContext.Provider>
+                        </ItemDispatchContext.Provider>
+                      </ItemStateContext.Provider>
                     </supplyDispatchContext.Provider>
                   </supplyStateContext.Provider>
                 </EditDispatchData.Provider>

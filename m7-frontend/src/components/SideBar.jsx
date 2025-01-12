@@ -22,6 +22,7 @@ import onhome from "./../assets/sidebar/onhome.svg";
 import travel from "./../assets/sidebar/travel.svg";
 import ontravel from "./../assets/sidebar/ontravel.svg";
 import logout from "./../assets/sidebar/logout.svg";
+import { EditStateData } from "@/App";
 
 function sidebarImage(id, isActive = false) {
   if (isActive) {
@@ -76,6 +77,7 @@ const items = [
 ];
 
 export function SideBar({ isTemplate }) {
+  const isEditing = useContext(EditStateData);
   const page = useContext(pageStateContext);
   const data = useContext(TemplateStateContext);
   const curId =
@@ -111,7 +113,9 @@ export function SideBar({ isTemplate }) {
           src={Logo}
           alt="Logo"
           className="w-[130px] h-auto mt-5 cursor-pointer"
-          onClick={() => nav("/")}
+          onClick={() => {
+            isEditing ? null : nav("/");
+          }}
         />
       </SidebarHeader>
       <SidebarContent>
@@ -150,8 +154,12 @@ export function SideBar({ isTemplate }) {
                       <Link
                         to={getLink(item.id)}
                         onClick={(e) => {
-                          if (isActive) {
+                          if (isEditing || isActive) {
+                            // isEditing이 true이거나 이미 활성 상태일 경우 이동 차단
                             e.preventDefault();
+                            if (isEditing) {
+                              alert("물품 수정을 완료해주세요!");
+                            }
                           }
                         }}
                       >

@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useCallback } from "react";
 import {
   Select,
   SelectTrigger,
@@ -15,7 +15,8 @@ import { useNavigate } from "react-router-dom";
 import { EditDispatchData } from "@/App";
 import { EditStateData } from "@/App";
 import { supplyStateContext } from "@/App";
-import { AddStateContext } from "@/App";
+import { ItemDispatchContext } from "@/App";
+import { ItemStateContext } from "@/App";
 
 const Header = ({
   isBasic,
@@ -26,7 +27,8 @@ const Header = ({
   memo,
   updateButton,
 }) => {
-  const added = useContext(AddStateContext);
+  const { added, deleted } = useContext(ItemStateContext);
+  const { onSetAdded, onSetDeleted } = useContext(ItemDispatchContext);
   const newSupplyList = useContext(supplyStateContext);
   const data = useContext(TemplateStateContext);
   const dispatchContext = useContext(SelectedDisplatchData);
@@ -56,43 +58,52 @@ const Header = ({
   };
 
   const onUpdateButton = () => {
-    const existingTemplate = data.find(
-      (item) => String(item.title) === String(editedTitle)
-    );
-    if (isEditing) {
-      if (!added) {
-        alert("물품 추가를 완료해주세요!");
-        return;
-      }
-      if (existingTemplate && edit) {
-        alert("이미 존재하는 템플릿입니다!");
-        return;
-      } else if (!isBasic) {
-        onUpdate(id, editedTitle);
-        onUpdateSupplies(id, newSupplyList);
-        setSelectedTitle(editedTitle);
-        onEditing(false);
-        onSetEdit(false);
-      }
-    } else {
-      onEditing(true);
-    }
-    if (isBasic) {
-      if (!added) {
-        alert("물품 추가를 완료해주세요!");
-        return;
-      }
-      if (existingTemplate) {
-        alert("이미 존재하는 템플릿입니다!");
-        onEditing(true);
-        return;
+    onSetDeleted(true);
+    onUpdateHandler();
+  };
+
+  const onUpdateHandler = useCallback(() => {
+    if (deleted) {
+      const existingTemplate = data.find(
+        (item) => String(item.title) === String(editedTitle)
+      );
+      if (isEditing) {
+        if (added > 0) {
+          alert("물품 추가를 완료해주세요!");
+          return;
+        }
+        if (existingTemplate && edit) {
+          alert("이미 존재하는 템플릿입니다!");
+          return;
+        }
+        if (!isBasic) {
+          onUpdate(id, editedTitle);
+          onUpdateSupplies(id, newSupplyList);
+          setSelectedTitle(editedTitle);
+          onEditing(false);
+          onSetEdit(false);
+        }
       } else {
+        onEditing(true);
+      }
+
+      if (isBasic) {
+        if (added > 0) {
+          alert("물품 추가를 완료해주세요!");
+          return;
+        }
+        if (existingTemplate) {
+          alert("이미 존재하는 템플릿입니다!");
+          onEditing(true);
+          return;
+        }
         onCreate(editedTitle, newSupplyList);
-        onSetEdit;
         nav("/");
       }
     }
-  };
+  }, [deleted, added, isEditing, data, editedTitle, newSupplyList]);
+
+  console.log(added, deleted);
 
   const onDeleteButton = () => {
     onDelete(id);
