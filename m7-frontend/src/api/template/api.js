@@ -61,37 +61,33 @@ const apiRequest = async (method, url, data = null) => {
 
 // API 함수들
 
-// 1. 템플릿 생성 (홈 화면)
-export const createTemplateAPI = (memberId, templateId, templateData) =>
-  apiRequest(
-    "post",
-    `/member/${memberId}/bags/template/${templateId}`,
-    templateData
-  );
+// 1. 가방 생성 (홈 화면)
+export const createBagAPI = (memberId, bagData) =>
+  apiRequest("post", `/member/${memberId}/bags/template`, bagData);
 
-// 2. 템플릿 이름 수정 (챙길것들 화면)
-export const updateTemplateNameAPI = (memberId, bagId, newName) =>
+// 2. 가방 이름 수정 (챙길것들 화면)
+export const updateBagNameAPI = (memberId, bagId, newName) =>
   apiRequest("patch", `/member/${memberId}/bags/${bagId}/name`, {
     name: newName,
   });
 
-// 3. 템플릿 전체 조회 (홈 화면)
-export const getTemplatesAPI = (memberId) =>
+// 3. 가방 전체 조회 (홈 화면)
+export const getBagsAPI = (memberId) =>
   apiRequest("get", `/member/${memberId}/bags`);
 
-// 4. 템플릿 상세 조회 (챙길것들 화면)
-export const getTemplateDetailsAPI = (memberId, bagId) =>
+// 4. 가방 상세 조회 (챙길것들 화면)
+export const getBagDetailsAPI = (memberId, bagId) =>
   apiRequest("get", `/member/${memberId}/bags/${bagId}`);
 
-// 5. 템플릿 삭제 (챙길것들 화면)
-export const deleteTemplateAPI = (memberId, bagId) =>
-  apiRequest("delete", `/member/${memberId}/bags/${bagId}`);
+// 5. 가방 삭제 (챙길것들 화면)
+export const deleteBagAPI = (memberId, bagId) =>
+  apiRequest("delete", `/member/${memberId}bags/${bagId}`);
 
 // 6. 추천 준비물 추가
-export const addRecommendItemAPI = (memberId, bagId, recommendItemData) =>
+export const addRecommendItemAPI = (bagId, recommendItemData) =>
   apiRequest(
     "post",
-    `/member/${memberId}/bags/${bagId}/recommendeditem`,
+    `/member/bags/${bagId}/recommendeditem`,
     recommendItemData
   );
 
