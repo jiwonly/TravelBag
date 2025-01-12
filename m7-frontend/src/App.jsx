@@ -79,7 +79,7 @@ function PrivateRoute({ isAuthenticated, children }) {
 
 function App() {
   const [added, setAdded] = useState(0);
-  const [deleted, setDeleted] = useState(true);
+  // const [deleted, setDeleted] = useState(true);
   const [newSupplyList, setNewSupplyList] = useState([]);
   const [data, dispatch] = useReducer(reducer, custom);
   const [isAuthenticated, setIsAuthenticated] = useState(true);
@@ -92,8 +92,8 @@ function App() {
     setAdded(value);
   };
 
-  const onSetDeleted = (value) => {
-    setDeleted(value);
+  const onted = (value) => {
+    // setDeleted(value);
   };
 
   const onEditing = (value) => {
@@ -156,10 +156,8 @@ function App() {
                     <supplyDispatchContext.Provider
                       value={{ setNewSupplyList }}
                     >
-                      <ItemStateContext.Provider value={{ added, deleted }}>
-                        <ItemDispatchContext.Provider
-                          value={{ onSetAdded, onSetDeleted }}
-                        >
+                      <ItemStateContext.Provider value={added}>
+                        <ItemDispatchContext.Provider value={{ onSetAdded }}>
                           <Router>
                             <Routes>
                               <Route

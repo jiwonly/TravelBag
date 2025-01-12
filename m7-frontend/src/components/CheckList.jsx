@@ -13,8 +13,8 @@ import { ItemStateContext } from "@/App";
 import { ItemDispatchContext } from "@/App";
 
 export function CheckList({ isBasic, templateId, listId, title }) {
-  const { added, deleted } = useContext(ItemStateContext);
-  const { onSetAdded, onSetDeleted } = useContext(ItemDispatchContext);
+  const added = useContext(ItemStateContext);
+  const { onSetAdded } = useContext(ItemDispatchContext);
   const { setNewSupplyList } = useContext(supplyDispatchContext);
   const newSupplyList = useContext(supplyStateContext);
   const data = useContext(TemplateStateContext);

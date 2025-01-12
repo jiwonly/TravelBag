@@ -27,8 +27,7 @@ const Header = ({
   memo,
   updateButton,
 }) => {
-  const { added, deleted } = useContext(ItemStateContext);
-  const { onSetAdded, onSetDeleted } = useContext(ItemDispatchContext);
+  const added = useContext(ItemStateContext);
   const newSupplyList = useContext(supplyStateContext);
   const data = useContext(TemplateStateContext);
   const dispatchContext = useContext(SelectedDisplatchData);
@@ -58,52 +57,45 @@ const Header = ({
   };
 
   const onUpdateButton = () => {
-    onSetDeleted(true);
-    onUpdateHandler();
-  };
-
-  const onUpdateHandler = useCallback(() => {
-    if (deleted) {
-      const existingTemplate = data.find(
-        (item) => String(item.title) === String(editedTitle)
-      );
-      if (isEditing) {
-        if (added > 0) {
-          alert("물품 추가를 완료해주세요!");
-          return;
-        }
-        if (existingTemplate && edit) {
-          alert("이미 존재하는 템플릿입니다!");
-          return;
-        }
-        if (!isBasic) {
-          onUpdate(id, editedTitle);
-          onUpdateSupplies(id, newSupplyList);
-          setSelectedTitle(editedTitle);
-          onEditing(false);
-          onSetEdit(false);
-        }
-      } else {
-        onEditing(true);
+    const existingTemplate = data.find(
+      (item) => String(item.title) === String(editedTitle)
+    );
+    if (isEditing) {
+      if (added !== 0) {
+        alert("물품 추가를 완료해주세요!");
+        return;
       }
-
-      if (isBasic) {
-        if (added > 0) {
-          alert("물품 추가를 완료해주세요!");
-          return;
-        }
-        if (existingTemplate) {
-          alert("이미 존재하는 템플릿입니다!");
-          onEditing(true);
-          return;
-        }
+      if (existingTemplate && edit) {
+        alert("이미 존재하는 템플릿입니다!");
+        return;
+      } else if (!isBasic) {
+        onUpdate(id, editedTitle);
+        onUpdateSupplies(id, newSupplyList);
+        setSelectedTitle(editedTitle);
+        onEditing(false);
+        onSetEdit(false);
+      }
+    } else {
+      onEditing(true);
+    }
+    if (isBasic) {
+      if (added !== 0) {
+        alert("물품 추가를 완료해주세요!");
+        return;
+      }
+      if (existingTemplate) {
+        alert("이미 존재하는 템플릿입니다!");
+        onEditing(true);
+        return;
+      } else {
         onCreate(editedTitle, newSupplyList);
+        onSetEdit;
         nav("/");
       }
     }
-  }, [deleted, added, isEditing, data, editedTitle, newSupplyList]);
+  };
 
-  console.log(added, deleted);
+  console.log(added);
 
   const onDeleteButton = () => {
     onDelete(id);

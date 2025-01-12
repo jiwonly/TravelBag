@@ -5,7 +5,7 @@ import { ItemDispatchContext } from "@/App";
 import { ItemStateContext } from "@/App";
 
 export function CheckInput({ onAdd }) {
-  const { added } = useContext(ItemStateContext);
+  const added = useContext(ItemStateContext);
   const { onSetAdded } = useContext(ItemDispatchContext);
   const [inputValue, setInputValue] = useState("");
   const [isComposing, setIsComposing] = useState(false);

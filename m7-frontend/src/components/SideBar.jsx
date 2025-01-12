@@ -114,7 +114,7 @@ export function SideBar({ isTemplate }) {
           alt="Logo"
           className="w-[130px] h-auto mt-5 cursor-pointer"
           onClick={() => {
-            isEditing ? null : nav("/");
+            isEditing ? alert("물품 수정을 완료해주세요!") : nav("/");
           }}
         />
       </SidebarHeader>

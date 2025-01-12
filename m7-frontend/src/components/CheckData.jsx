@@ -12,12 +12,12 @@ export function CheckData({
   onToggle,
   onDelete,
 }) {
-  const { onSetDeleted } = useContext(ItemDispatchContext);
+  // const { onSetDeleted } = useContext(ItemDispatchContext);
   const isEditing = useContext(EditStateData);
 
   const handleDelete = () => {
     onDelete(id);
-    onSetDeleted(false);
+    // onSetDeleted(false);
   };
 
   return (
