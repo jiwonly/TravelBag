@@ -1,14 +1,11 @@
-import { useContext } from "react";
 import BagList from "./BagList";
-import Header from "./Header";
+import CommonHeader from "../common/CommonHeader";
 import TemplateList from "./TemplateList";
-import TravelBag from "./TravelBag";
 
-const Dashboard = ({ icon, title, memo }) => {
-  const isTemplate = false;
+const Dashboard = () => {
   return (
     <div className="mt-[29px]">
-      <Header isTemplate={isTemplate} icon={icon} title={title} memo={memo} />
+      <CommonHeader icon="home" title="홈" memo="어서오세요!" />
       <div className="Main flex px-[30px] mb-[20px] flex-col items-start flex-[1_0_0] self-stretch rounded-b-[16px] border-[1px] bg-[var(--White,_#FFF)]">
         <BagList />
         <TemplateList />

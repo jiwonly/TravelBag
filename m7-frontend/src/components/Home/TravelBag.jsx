@@ -1,10 +1,10 @@
-import { useContext } from "react";
-import Button from "./Button";
-import { TemplateStateContext } from "@/App";
+import { bagState } from "@/api/Bag/atom";
+import { useRecoilValue } from "recoil";
+import BagButton from "./BagButton";
 
 const TravelBag = () => {
-  const data = useContext(TemplateStateContext);
-  const realData = data.filter((item) => !item.temporary);
+  const bags = useRecoilValue(bagState);
+  const realBags = bags.filter((bag) => !bag.temporary);
   const style =
     "w-[240px] h-[53px] min-w-[240px] p-[20px] flex items-center rounded-[12px] border-[1px] bg-[var(--Gray-50,_#F5F5F6)] [box-shadow:0px] shadow-custom text-[16px] font-[Pretendard] text-gray-800";
   return (
@@ -15,13 +15,13 @@ const TravelBag = () => {
         columnGap: "30px",
       }}
     >
-      {realData.map((item) => (
-        <Button
+      {realBags.map((item) => (
+        <BagButton
           key={item.id}
           {...item}
-          isBasic={false}
+          isTemporary={false}
           id={item.id}
-          title={item.title}
+          name={item.name}
           style={style}
         />
       ))}

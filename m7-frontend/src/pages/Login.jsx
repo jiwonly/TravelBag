@@ -1,5 +1,4 @@
 import HalfTemplate from "@/components/HalfTemplate";
-import { useEffect } from "react";
 
 const Login = ({ onLogin }) => {
   return (

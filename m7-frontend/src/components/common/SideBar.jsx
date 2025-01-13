@@ -7,23 +7,23 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarMenuAction,
   SidebarHeader,
 } from "@/components/ui/sidebar";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Logo from "@/assets/LoginLogo.svg";
-import { useContext, useState } from "react";
-import { TemplateStateContext } from "@/App";
-import { pageStateContext } from "@/App";
-import bag from "./../assets/sidebar/bag.svg";
-import onbag from "./../assets/sidebar/onbag.svg";
-import home from "./../assets/sidebar/home.svg";
-import onhome from "./../assets/sidebar/onhome.svg";
-import travel from "./../assets/sidebar/travel.svg";
-import ontravel from "./../assets/sidebar/ontravel.svg";
-import logout from "./../assets/sidebar/logout.svg";
-import { EditStateData } from "@/App";
+import { useContext } from "react";
+import bag from "../../assets/sidebar/bag.svg";
+import onbag from "../../assets/sidebar/onbag.svg";
+import home from "../../assets/sidebar/home.svg";
+import onhome from "../../assets/sidebar/onhome.svg";
+import travel from "../../assets/sidebar/travel.svg";
+import ontravel from "../../assets/sidebar/ontravel.svg";
+import logout from "../../assets/sidebar/logout.svg";
+import { EditStateContext } from "@/pages/Bag";
 import { useParams } from "react-router-dom";
+import { bagState } from "@/api/Bag/atom";
+import { useRecoilValue } from "recoil";
+import { getBagDetailsById } from "@/api/Bag/selector";
 
 function sidebarImage(id, isActive = false) {
   if (isActive) {
@@ -77,18 +77,21 @@ const items = [
   },
 ];
 
-export function SideBar({ isTemplate }) {
+export function SideBar() {
   const params = useParams();
-  const isEditing = useContext(EditStateData);
-  const page = useContext(pageStateContext);
-  const data = useContext(TemplateStateContext);
-  const template = isTemplate
-    ? data.find((item) => String(item.id) === String(params.id))
-    : null;
+  const isEditing = useContext(EditStateContext);
+
+  const bags = useRecoilValue(bagState);
+  const thisBag = useRecoilValue(getBagDetailsById(params.id));
+
+  const realBags = bags.filter((bag) => !bag.temporary);
   const curId =
-    data.length > 0 ? Math.max(...data.map((item) => item.id)) : null;
+    realBags.length > 0 ? Math.max(...realBags.map((bag) => bag.id)) : 0;
+
   const nav = useNavigate();
   const location = useLocation();
+  const isTemplate = location.pathname.includes("bag");
+
   const onLogoutClick = () => {
     if (window.confirm("정말 로그아웃하시겠습니까?")) {
       nav("/login");
@@ -100,7 +103,7 @@ export function SideBar({ isTemplate }) {
       case 0:
         return "/";
       case 1:
-        return curId ? `/template/${curId}` : "/new";
+        return `/bag/${curId}`;
       case 2:
         return "/tip";
       case 3:
@@ -118,7 +121,7 @@ export function SideBar({ isTemplate }) {
           alt="Logo"
           className="w-[130px] h-auto mt-5 cursor-pointer"
           onClick={() => {
-            isEditing && !template.temporary
+            isEditing && !thisBag.temporary
               ? alert("물품 수정을 완료해주세요!")
               : nav("/");
           }}
@@ -160,10 +163,10 @@ export function SideBar({ isTemplate }) {
                       <Link
                         to={getLink(item.id)}
                         onClick={(e) => {
-                          if ((isEditing || isActive) && !template.temporary) {
+                          if ((isEditing || isActive) && !thisBag.temporary) {
                             // isEditing이 true이거나 이미 활성 상태일 경우 이동 차단
                             e.preventDefault();
-                            if (isEditing && !template.temporary) {
+                            if (isEditing && !thisBag.temporary) {
                               alert("물품 수정을 완료해주세요!");
                             }
                           }

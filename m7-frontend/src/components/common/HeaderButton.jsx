@@ -1,10 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 const HeaderButton = ({
-  isBasic,
-  id,
-  title,
-  temporary,
+  bagTemporary,
   style,
   imageSrc,
   onClick,
@@ -24,7 +21,7 @@ const HeaderButton = ({
               height: "20px",
             }}
           />
-        ) : temporary ? (
+        ) : bagTemporary ? (
           "추가"
         ) : isEditing ? (
           "완료"

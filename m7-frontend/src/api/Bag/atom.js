@@ -8,19 +8,27 @@ export const categoryState = atom({
   default: [
     {
       id: 1,
-      name: "FREESTYLE",
+      name: "ESSENTIAL",
     },
     {
       id: 2,
-      name: "WOMAN_SOLO",
+      name: "CLOTHING",
     },
     {
       id: 3,
-      name: "MAN_SOLO",
+      name: "TOILETRIES",
     },
     {
       id: 4,
-      name: "BUSINESS",
+      name: "ELECTORICS",
+    },
+    {
+      id: 5,
+      name: "MEDICALS",
+    },
+    {
+      id: 6,
+      name: "OTHER",
     },
   ],
 });
