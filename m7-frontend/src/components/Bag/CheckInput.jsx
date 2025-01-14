@@ -1,12 +1,14 @@
 import { useState, useContext } from "react";
-import Checkbox_No from "../assets/Checkbox_No.svg";
-import CheckData_plus from "../assets/CheckData_plus.svg";
-import { ItemDispatchContext } from "@/App";
-import { ItemStateContext } from "@/App";
+import Checkbox_No from "../../assets/Checkbox_No.svg";
+import CheckData_plus from "../../assets/CheckData_plus.svg";
+import {
+  AddedItemStateContext,
+  AddedItemDispatchContext,
+} from "./BagDashboard";
 
-export function CheckInput({ onAdd }) {
-  const added = useContext(ItemStateContext);
-  const { onSetAdded } = useContext(ItemDispatchContext);
+export function CheckInput({ onCreateItem }) {
+  const added = useContext(AddedItemStateContext);
+  const { onSetAdded } = useContext(AddedItemDispatchContext);
   const [inputValue, setInputValue] = useState("");
   const [isComposing, setIsComposing] = useState(false);
   const [isAddedCalled, setIsAddedCalled] = useState(false); // onSetAdded 호출 여부 관리
@@ -20,7 +22,7 @@ export function CheckInput({ onAdd }) {
     }
   };
   const onClickAdd = () => {
-    onAdd(inputValue);
+    onCreateItem(inputValue);
     onSetAdded(added - 1);
     setInputValue("");
     setIsAddedCalled(false);

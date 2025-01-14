@@ -1,13 +1,11 @@
 import { useState } from "react";
-import BagList from "./BagList";
-import Header from "./Header";
+import CommonHeader from "./common/CommonHeader";
 import PopularDestinations from "./PopularDestinations";
 import MajorAirline from "./MajorAirline";
 import ExchangeRate from "./ExchangeRate";
 import EatEnjoyShop from "./EatEnjoyShop";
 
-const Tipboard = ({ icon, title, memo }) => {
-  const isTemplate = false;
+const Tipboard = () => {
   const [selectedDestination, setSelectedDestination] = useState(null);
 
   const handleSelectDestination = (id) => {
@@ -16,7 +14,11 @@ const Tipboard = ({ icon, title, memo }) => {
 
   return (
     <div className="mt-[29px]">
-      <Header isTemplate={isTemplate} icon={icon} title={title} memo={memo} />
+      <CommonHeader
+        icon="travel"
+        title="여행 팁"
+        memo="원하는 여행지를 선택하세요."
+      />
       <div className="flex px-[30px] mb-[20px] flex-col items-start flex-[1_0_0] self-stretch rounded-b-[16px] border-[1px] bg-[var(--White,_#FFF)]">
         <PopularDestinations
           selectedId={selectedDestination}

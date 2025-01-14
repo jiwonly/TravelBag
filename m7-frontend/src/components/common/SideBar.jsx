@@ -7,23 +7,28 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarMenuAction,
   SidebarHeader,
 } from "@/components/ui/sidebar";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Logo from "@/assets/LoginLogo.svg";
-import { useContext, useState } from "react";
-import { TemplateStateContext } from "@/App";
-import { pageStateContext } from "@/App";
-import bag from "./../assets/sidebar/bag.svg";
-import onbag from "./../assets/sidebar/onbag.svg";
-import home from "./../assets/sidebar/home.svg";
-import onhome from "./../assets/sidebar/onhome.svg";
-import travel from "./../assets/sidebar/travel.svg";
-import ontravel from "./../assets/sidebar/ontravel.svg";
-import logout from "./../assets/sidebar/logout.svg";
-import { EditStateData } from "@/App";
+import { useContext } from "react";
+import bag from "../../assets/sidebar/bag.svg";
+import onbag from "../../assets/sidebar/onbag.svg";
+import home from "../../assets/sidebar/home.svg";
+import onhome from "../../assets/sidebar/onhome.svg";
+import travel from "../../assets/sidebar/travel.svg";
+import ontravel from "../../assets/sidebar/ontravel.svg";
+import logout from "../../assets/sidebar/logout.svg";
+import { EditStateContext } from "@/pages/Bag";
 import { useParams } from "react-router-dom";
+import { bagItemState, bagState } from "@/api/Bag/atom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  bagReducerSelector,
+  getBagDetailsById,
+  getThisTemplateItemById,
+} from "@/api/Bag/selector";
+import { BagIdRefContext } from "@/App";
 
 function sidebarImage(id, isActive = false) {
   if (isActive) {
@@ -77,22 +82,52 @@ const items = [
   },
 ];
 
-export function SideBar({ isTemplate }) {
+export function SideBar() {
   const params = useParams();
-  const isEditing = useContext(EditStateData);
-  const page = useContext(pageStateContext);
-  const data = useContext(TemplateStateContext);
-  const template = isTemplate
-    ? data.find((item) => String(item.id) === String(params.id))
-    : null;
+  const isEditing = useContext(EditStateContext);
+
+  const bags = useRecoilValue(bagState);
+  const thisBag = useRecoilValue(getBagDetailsById(params.id));
+
+  const realBags = bags.filter((bag) => !bag.temporary);
   const curId =
-    data.length > 0 ? Math.max(...data.map((item) => item.id)) : null;
+    realBags.length > 0 ? Math.max(...realBags.map((bag) => bag.id)) : 0;
+
   const nav = useNavigate();
   const location = useLocation();
+  const isTemplate = location.pathname.includes("bag");
+  const templateItemOfFREESTYLE = useRecoilValue(getThisTemplateItemById(1));
   const onLogoutClick = () => {
     if (window.confirm("정말 로그아웃하시겠습니까?")) {
       nav("/login");
     }
+  };
+
+  const bagIdRef = useContext(BagIdRefContext);
+
+  const bagsDispatch = useSetRecoilState(bagReducerSelector);
+  const bagItemsDispatch = useSetRecoilState(bagItemState);
+  const handleBagCreate = (templateName) => {
+    // 새 가방 생성
+    bagsDispatch({
+      type: "CREATE",
+      data: {
+        id: bagIdRef.current,
+        name: "내 마음대로 시작하기",
+        template: templateName,
+        temporary: true,
+      },
+    });
+
+    // 새 가방 아이템 생성
+    const newBagItems = {
+      bagId: bagIdRef.current,
+      items: templateItemOfFREESTYLE[0].items, // 템플릿의 아이템을 복사하여 추가
+    };
+
+    bagItemsDispatch((prev) => [...prev, newBagItems]); // bagItemState 업데이트
+    nav(`/bag/${bagIdRef.current}`);
+    bagIdRef.current++;
   };
 
   const getLink = (id) => {
@@ -100,7 +135,9 @@ export function SideBar({ isTemplate }) {
       case 0:
         return "/";
       case 1:
-        return curId ? `/template/${curId}` : "/new";
+        return realBags.length > 0
+          ? `/bag/${curId}`
+          : `/bag/${bagIdRef.current - 1}`;
       case 2:
         return "/tip";
       case 3:
@@ -118,7 +155,7 @@ export function SideBar({ isTemplate }) {
           alt="Logo"
           className="w-[130px] h-auto mt-5 cursor-pointer"
           onClick={() => {
-            isEditing && !template.temporary
+            isEditing && !thisBag.temporary
               ? alert("물품 수정을 완료해주세요!")
               : nav("/");
           }}
@@ -160,10 +197,14 @@ export function SideBar({ isTemplate }) {
                       <Link
                         to={getLink(item.id)}
                         onClick={(e) => {
-                          if ((isEditing || isActive) && !template.temporary) {
-                            // isEditing이 true이거나 이미 활성 상태일 경우 이동 차단
-                            e.preventDefault();
-                            if (isEditing && !template.temporary) {
+                          if (item.id === 1 && realBags.length === 0) {
+                            e.preventDefault(); // 기본 동작 방지
+                            handleBagCreate("FREESTYLE"); // 새 가방 생성 후 이동
+                            return;
+                          }
+                          if ((isEditing || isActive) && !thisBag.temporary) {
+                            e.preventDefault(); // 이동 차단
+                            if (isEditing && !thisBag.temporary) {
                               alert("물품 수정을 완료해주세요!");
                             }
                           }
