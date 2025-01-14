@@ -27,14 +27,14 @@ const PopularDestinations = ({ selectedId, showContent }) => {
 
   // const locations_string = JSON.stringify(locations);
 
-
-  axios.get(`${API_BASE_URL}/location`).then(response => {
-    console.log('API 응답:', response.data);
-  })
-  .catch(error => {
-    console.error('API 호출 중 오류:', error);
-  });
-
+  axios
+    .get(`${API_BASE_URL}/location`)
+    .then((response) => {
+      console.log("API 응답:", response.data);
+    })
+    .catch((error) => {
+      console.error("API 호출 중 오류:", error);
+    });
 
   return (
     <div className="template_list mt-[40px] mb-[50px] ">

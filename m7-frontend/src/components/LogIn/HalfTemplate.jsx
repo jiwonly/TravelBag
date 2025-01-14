@@ -1,5 +1,5 @@
-import LoginImage from "../assets/LoginImage.png";
-import LoginLogo from "../assets/LoginLogo.svg";
+import LoginImage from "../../assets/LoginImage.png";
+import LoginLogo from "../../assets/LoginLogo.svg";
 import InfoInputButton from "./InfoInputButton";
 import LoginButton from "./LoginButton";
 import KakaoButton from "./KakaoButton";

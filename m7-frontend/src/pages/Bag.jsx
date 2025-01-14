@@ -8,7 +8,7 @@ import { useRecoilValue } from "recoil";
 import { getBagDetailsById } from "@/api/Bag/selector";
 import { bagState } from "@/api/Bag/atom";
 import { getThisBagItemById } from "@/api/Bag/selector";
-import NotFound from "./NofFound";
+import NotFound from "./NotFound";
 
 export const SelectedSateData = createContext();
 export const SelectedDisplatchData = createContext();
