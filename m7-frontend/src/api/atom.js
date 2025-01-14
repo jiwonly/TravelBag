@@ -2,38 +2,7 @@ import { atom } from "recoil";
 
 export const locationsState = atom({
   key: "locationsState",
-  default: [
-    {
-      id: 1,
-      name: "오사카",
-      country: "일본",
-      currency_unit: "JPY",
-    },
-    {
-      id: 2,
-      name: "뉴욕",
-      country: "미국",
-      currency_unit: "USD",
-    },
-    {
-      id: 3,
-      name: "다낭",
-      country: "베트남",
-      currency_unit: "JPY",
-    },
-    {
-      id: 4,
-      name: "방콕",
-      country: "태국",
-      currency_unit: "JPY",
-    },
-    {
-      id: 5,
-      name: "도쿄",
-      country: "일본",
-      currency_unit: "JPY",
-    },
-  ],
+  default:[],
 });
 
 export const exchangeRatesState = atom({

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const API_BASE_URL = "http://localhost:8080";
+export const API_BASE_URL = "http://13.125.254.94:8080";
 
 // CORS 설정하기!! -> 백엔드
 
@@ -114,7 +114,7 @@ export const deleteBagAPI = async (userId, bagId) => {
 export const fetchItemDetailsAPI = async (userId, bagId, itemId) => {
   try {
     const response = await axios.get(
-      `${API_BASE_URL}/api/bags/${bagId}//item/${itemId}`,
+      `${API_BASE_URL}/api/bags/${bagId}/item/${itemId}`,
       { params: { userId, bagId, itemId } }
     );
     return response.data;
