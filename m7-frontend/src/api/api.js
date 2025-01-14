@@ -2,8 +2,6 @@ import axios from "axios";
 
 export const API_BASE_URL = "http://13.125.254.94:8080";
 
-// CORS 설정하기!! -> 백엔드
-
 export const registerUserAPI = async (email, name, password, phone) => {
   try {
     const response = await axios.post(`${API_BASE_URL}/api/register`, {
