@@ -190,7 +190,7 @@ export const addRecommendedItemAPI = async (userId, bagId, reItemId) => {
 // 여행지 목록 조회
 export const fetchLocationsAPI = async () => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/location`);
+    const response = await axios.get(`${API_BASE_URL}/api/location`);
     return response.data;
   } catch (error) {
     console.error("Error fetching locations:", error);
@@ -202,7 +202,7 @@ export const fetchLocationsAPI = async () => {
 export const fetchExchangeRatesAPI = async (location_id) => {
   try {
     const response = await axios.get(
-      `${API_BASE_URL}/location/exchange-rate/${location_id}`,
+      `${API_BASE_URL}/api/location/exchange-rate/${location_id}`,
       { params: { location_id } }
     );
     return response.data;
@@ -216,7 +216,7 @@ export const fetchExchangeRatesAPI = async (location_id) => {
 export const fetchAirlinesAPI = async (location_id) => {
   try {
     const response = await axios.get(
-      `${API_BASE_URL}/location/airline/${location_id}`,
+      `${API_BASE_URL}/api/location/airline/${location_id}`,
       { params: { location_id } }
     );
     return response.data;
@@ -230,7 +230,7 @@ export const fetchAirlinesAPI = async (location_id) => {
 export const fetchRestaurantsAPI = async (location_id) => {
   try {
     const response = await axios.get(
-      `${API_BASE_URL}/location/restaurant/${location_id}`,
+      `${API_BASE_URL}/api/location/restaurant/${location_id}`,
       { params: { location_id } }
     );
     return response.data;
@@ -244,7 +244,7 @@ export const fetchRestaurantsAPI = async (location_id) => {
 export const fetchAttractionsAPI = async (location_id) => {
   try {
     const response = await axios.get(
-      `${API_BASE_URL}/location/attraction/${location_id}`,
+      `${API_BASE_URL}/api/location/attraction/${location_id}`,
       { params: { location_id } }
     );
     return response.data;
@@ -258,7 +258,7 @@ export const fetchAttractionsAPI = async (location_id) => {
 export const fetchSouvenirsAPI = async (location_id) => {
   try {
     const response = await axios.get(
-      `${API_BASE_URL}/location/souvenir/${location_id}`,
+      `${API_BASE_URL}/api/location/souvenir/${location_id}`,
       { params: { location_id } }
     );
     return response.data;

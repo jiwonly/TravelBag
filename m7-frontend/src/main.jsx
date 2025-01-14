@@ -5,11 +5,9 @@ import App from "./App.jsx";
 import "./styles/global.css";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <RecoilRoot>
-      <App />
-    </RecoilRoot>
-  </StrictMode>
+  <RecoilRoot>
+    <App />
+  </RecoilRoot>
 );
 
 // 줄바꿈 동일하게 적용
