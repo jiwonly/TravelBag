@@ -1,4 +1,4 @@
-import kakao from "../assets/icon/kakao.webp";
+import kakao from "../../assets/icon/kakao.webp";
 
 const KakaoButton = ({ onClick }) => {
   return (
