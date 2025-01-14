@@ -26,7 +26,7 @@ const EESItem = ({ location_id, content, id, name, signature, url }) => {
   return (
     <div>
       <div
-        className="flex justify-center w-auto h-[181px] flex-col items-center border [background:var(--Gray-50,#F5F5F6)] shadow-[0px_4px_12px_0px_rgba(0,0,0,0.12)] p-2 rounded-xl border-solid border-[#EAEAEA] cursor-pointer"
+        className="flex justify-center w-auto min-w-[150px] h-[170px] flex-col gap-[10px] items-center border [background:var(--Gray-50,#F5F5F6)] shadow-[0px_4px_12px_0px_rgba(0,0,0,0.12)] p-1 rounded-xl border-solid border-[#EAEAEA] cursor-pointer"
         onClick={onURL}
       >
         <div className="flex justify-center">
@@ -35,7 +35,7 @@ const EESItem = ({ location_id, content, id, name, signature, url }) => {
             src={getImage(location_id, content, id)}
           />
         </div>
-        <div>
+        <div className="flex flex-col items-center justify-center p-1">
           <div className="items-center self-stretch text-black text-center [font-family:Pretendard] text-xs font-medium leading-[13px]">
             {name}
           </div>

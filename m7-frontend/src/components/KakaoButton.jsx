@@ -1,6 +1,6 @@
 import kakao from "../assets/icon/kakao.webp";
 
-const KakaoButton = (onClick) => {
+const KakaoButton = ({ onClick }) => {
   return (
     <div className="flex items-center">
       <button

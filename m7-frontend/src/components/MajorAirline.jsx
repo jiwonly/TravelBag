@@ -8,22 +8,22 @@ const MajorAirline = ({ location_id }) => {
   const airlines = useRecoilValue(airlinesState);
   const setAirlines = useSetRecoilState(airlinesState);
 
-  const filteredAirlines = airlines.filter(
-    (item) => item.location === location_id
-  );
+  // location_id에 따라 해당 항공사를 필터링
+  const filteredAirlines =
+    airlines.find((item) => item.location_id === location_id)?.airlines || [];
 
   useEffect(() => {
     const fetchAirlines = async () => {
       try {
         if (location_id) {
           const data = await fetchAirlinesAPI(location_id);
-          setAirlines((prev) => [
-            ...prev.filter((item) => item.location !== location_id),
-            ...data.map((airline) => ({
-              location: location_id,
-              airline,
-            })),
-          ]);
+          setAirlines((prev) =>
+            prev.map((item) =>
+              item.location_id === location_id
+                ? { ...item, airlines: data }
+                : item
+            )
+          );
         }
       } catch (error) {
         console.error("Failed to fetch airlines:", error);
@@ -41,12 +41,13 @@ const MajorAirline = ({ location_id }) => {
         정보를 얻어보세요.
       </div>
       <div className="flex flex-row gap-5">
-        {filteredAirlines.map((item) => (
+        {filteredAirlines.map((airline) => (
           <AirlineItem
-            key={item.airline.id}
-            id={item.airline.id}
-            name={item.airline.name}
-            url={item.airline.url}
+            location_id={location_id}
+            key={airline.id}
+            id={airline.id}
+            name={airline.name}
+            url={airline.url}
           />
         ))}
       </div>

@@ -8,6 +8,7 @@ import { createContext, useRef, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { bagState } from "./api/Bag/atom";
 import { bagReducerSelector } from "./api/Bag/selector";
+// import { getAuthStatus } from "./api/auth";
 
 import Home from "./pages/Home";
 import Tip from "./pages/Tip";
@@ -31,74 +32,9 @@ function App() {
     bags.length > 0 ? Math.max(...bags.map((bag) => bag.id)) + 1 : 1
   );
 
-  const handleBagCreate = (name, items) => {
-    bagsDispatch({
-      type: "CREATE",
-      data: {
-        id: bagIdRef.current++,
-        name,
-        items: items,
-        temporary: true,
-      },
-    });
-  };
-
-  const handleBagUpdateName = (id, name) => {
-    bagsDispatch({
-      type: "UPDATE_NAME",
-      data: { id, name },
-    });
-  };
-
-  const handleBagUpdateItems = (id, items) => {
-    bagsDispatch({
-      type: "UPDATE_ITEMS",
-      data: { id, items },
-    });
-  };
-
-  const handleBagUpdateTemporary = (id, temporary) => {
-    bagsDispatch({
-      type: "UPDATE_TEMPORARY",
-      data: { id, temporary },
-    });
-  };
-
-  const handleBagDelete = (id) => {
-    bagsDispatch({
-      type: "DELETE",
-      id,
-    });
-  };
-
   const handleLogin = () => {
     setIsAuthenticated(true);
   };
-
-  // const handleThisBagItemByCategoryCreate = (name) => {
-  //   thisBagItemByCategoryDispatch({
-  //     type: "CREATE",
-  //     data: {
-  //       id: thisBagItemByCategoryIdRef.current++,
-  //       name: name,
-  //       packed: false,
-  //     },
-  //   });
-  // };
-
-  // const handleThisBagItemByCategoryUpdatePacked = (id, packed) => {
-  //   thisBagItemByCategoryDispatch({
-  //     thpe: "UPDATE_PACKED",
-  //     data: { id, packed },
-  //   });
-  // };
-
-  // const handleThisBagItemCategoryDelete = (id) => {
-  //   thisBagItemByCategoryDispatch({
-  //     type: "DELETE",
-  //     id,
-  //   });
-  // };
 
   return (
     <>
