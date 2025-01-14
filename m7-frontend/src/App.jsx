@@ -5,9 +5,8 @@ import {
   Navigate,
 } from "react-router-dom";
 import { createContext, useRef, useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { bagState } from "./api/Bag/atom";
-import { bagReducerSelector } from "./api/Bag/selector";
 // import { getAuthStatus } from "./api/auth";
 
 import Home from "./pages/Home";
@@ -25,7 +24,6 @@ export const BagIdRefContext = createContext();
 
 function App() {
   const bags = useRecoilValue(bagState);
-  const bagsDispatch = useSetRecoilState(bagReducerSelector);
 
   const [isAuthenticated, setIsAuthenticated] = useState(true);
   const bagIdRef = useRef(
