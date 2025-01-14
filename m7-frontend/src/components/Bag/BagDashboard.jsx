@@ -15,10 +15,7 @@ export const AddedItemDispatchContext = createContext();
 const BagDashboard = ({ icon }) => {
   const params = useParams();
   const thisBag = useRecoilValue(getBagDetailsById(params.id));
-  const bags = useRecoilValue(bagState);
-  // const thisBagItems = thisBag.temporary? thisBag.items :
   const thisBagItems = useRecoilValue(getThisBagItemById(params.id));
-  // console.log(thisBagItemsById);
   const [newItemsList, setNewItemsList] = useState([]);
   const [added, setAdded] = useState(0);
   const onSetAdded = (value) => {

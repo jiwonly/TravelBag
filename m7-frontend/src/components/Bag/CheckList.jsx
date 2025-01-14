@@ -8,7 +8,7 @@ import { bagState, categoryState } from "@/api/Bag/atom";
 import { thisBagItemByCategoryIdRefContext } from "@/pages/Bag";
 import { NewItemsStateContext } from "./BagDashboard";
 import { NewItemDispatchContext } from "./BagDashboard";
-import { AddedItemDispatchContext } from "./BagDashboard";
+import { AddedItemStateContext } from "./BagDashboard";
 import {
   getBagDetailsById,
   getThisBagItemById,
@@ -37,14 +37,11 @@ export function CheckList({ bagId, categoryId }) {
       categoryName = "기타";
       break;
   }
-  // const { onSetAdded } = useContext(AddedItemDispatchContext);
-  // const newItemList = useContext(NewItemsStateContext);
-  // const { setNewItemList } = useContext(NewItemDispatchContext);
-  const bags = useRecoilValue(bagState);
+
+  const added = useContext(AddedItemStateContext);
+  console.log(added);
   const thisBag = useRecoilValue(getBagDetailsById(bagId));
 
-  const thisBagItemsById = useRecoilValue(getThisBagItemById(bagId));
-  const setThisBagItemsById = useSetRecoilState(getThisBagItemById(bagId));
   const thisBagItemsByCategory = useRecoilValue(
     getThisBagItemByCategory({ bagId, categoryId })
   );
@@ -53,10 +50,6 @@ export function CheckList({ bagId, categoryId }) {
     getThisBagItemByCategory({ bagId, categoryId })
   );
 
-  const categories = useRecoilValue(categoryState);
-  const thisCategory = categories.find(
-    (category) => String(category.id) === String(categoryId)
-  );
   const isEditing = useContext(EditStateContext);
 
   useEffect(() => {

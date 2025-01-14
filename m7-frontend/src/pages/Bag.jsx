@@ -4,11 +4,10 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import BagDashboard from "@/components/Bag/BagDashboard";
 import { createContext, useState, useRef } from "react";
 import RecommendBar from "@/components/Bag/RecommendBar";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { getBagDetailsById } from "@/api/Bag/selector";
 import { bagState } from "@/api/Bag/atom";
 import { getThisBagItemById } from "@/api/Bag/selector";
-import { bagItemReducerSelector } from "@/api/Bag/selector";
 
 export const SelectedSateData = createContext();
 export const SelectedDisplatchData = createContext();
@@ -24,7 +23,6 @@ const Bag = ({ children }) => {
   const thisBag = useRecoilValue(getBagDetailsById(params.id));
 
   const thisBagItemsById = useRecoilValue(getThisBagItemById(thisBag.id));
-  console.log("thisBagItems", thisBagItemsById);
 
   // thisBagItemsById가 배열인지 확인
   const maxItemId = Array.isArray(thisBagItemsById)
@@ -38,8 +36,6 @@ const Bag = ({ children }) => {
         return Math.max(maxId, maxInCategory);
       }, 0)
     : 0;
-
-  console.log("Max Item ID:", maxItemId);
 
   // Ref 초기화
   const thisBagItemByCategoryIdRef = useRef(maxItemId + 1);
