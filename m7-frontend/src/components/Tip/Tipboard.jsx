@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import CommonHeader from "./common/CommonHeader";
 import PopularDestinations from "./PopularDestinations";
@@ -5,9 +6,9 @@ import MajorAirline from "./MajorAirline";
 import ExchangeRate from "./ExchangeRate";
 import EatEnjoyShop from "./EatEnjoyShop";
 
+
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { fetchLocationsAPI } from "@/api/api";
-
 import { locationsState } from "@/api/atom";
 
 const Tipboard = () => {
@@ -57,3 +58,4 @@ const Tipboard = () => {
 };
 
 export default Tipboard;
+

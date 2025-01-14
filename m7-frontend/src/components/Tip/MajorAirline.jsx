@@ -1,8 +1,8 @@
-import AirlineItem from "./Tip/AirlineItem";
+import AirlineItem from "./AirlineItem";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import React, { useEffect } from "react";
-import { airlinesState } from "../api/atom";
-import { fetchAirlinesAPI } from "../api/api";
+import { airlinesState } from "../../api/atom";
+import { fetchAirlinesAPI } from "../../api/api";
 
 const MajorAirline = ({ location_id }) => {
   const [airlines, setAirlines] = useRecoilState(airlinesState);
@@ -18,11 +18,13 @@ const MajorAirline = ({ location_id }) => {
         }
       } catch (error) {
         console.error("Error fetching airlines:", error);
+
       }
     };
 
     fetchAirlines();
   }, [location_id]);
+
 
   return (
     <div className="mt-[20px] mb-[50px] ">

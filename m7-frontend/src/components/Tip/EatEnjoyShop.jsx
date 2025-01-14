@@ -4,12 +4,15 @@ import {
   restaurantsState,
   attractionsState,
   souvenirsState,
-} from "../api/atom";
+
+} from "../../api/atom";
+
 import {
   fetchRestaurantsAPI,
   fetchAttractionsAPI,
   fetchSouvenirsAPI,
-} from "../api/api";
+
+} from "../../api/api";
 import { useEffect } from "react";
 
 const EatEnjoyShop = ({ location_id }) => {

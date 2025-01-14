@@ -1,7 +1,7 @@
-import HalfTemplate from "@/components/HalfTemplate";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuthStatus } from "@/api/auth";
+import HalfTemplate from "@/components/LogIn/HalfTemplate";
 
 const Login = () => {
   const nav = useNavigate();

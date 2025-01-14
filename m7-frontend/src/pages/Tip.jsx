@@ -1,5 +1,5 @@
 import { SideBar } from "@/components/common/SideBar";
-import Tipboard from "@/components/Tipboard";
+import Tipboard from "@/components/Tip/Tipboard";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 const Tip = ({ children }) => {

@@ -2,7 +2,9 @@ import { useRecoilState } from "recoil";
 import { exchangeRatesState } from "@/api/atom.js";
 import { fetchExchangeRatesAPI } from "@/api/api.js";
 import React, { useEffect } from "react";
-import RateItem from "./RateItem.jsx";
+
+import RateItem from "./RateItem";
+
 
 const ExchangeRate = ({ location_id }) => {
   const [exchangeRates, setExchangeRates] = useRecoilState(exchangeRatesState);
