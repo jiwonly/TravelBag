@@ -6,9 +6,9 @@ import {
   SelectContent,
   SelectItem,
 } from "../ui/select";
-import { SelectedDisplatchData } from "@/pages/Bag";
 import trashIcon from "../../assets/icon/trash.svg";
-import HeaderButton from "../common/HeaderButton";
+import { SelectedDisplatchData } from "@/pages/Bag";
+import HeaderButton from "./HeaderButton";
 import { useParams, useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { getBags } from "@/api/Bag/selector";
@@ -25,8 +25,9 @@ const BagHeader = ({ icon }) => {
   const thisBag = useRecoilValue(getBagDetailsById(params.id));
 
   const realBags = bags.filter((bag) => !bag.temporary);
-  const dispatchContext = useContext(SelectedDisplatchData);
-  const onChange = dispatchContext?.onChange;
+  const { onChangeBagName } = useContext(SelectedDisplatchData);
+  const onChange = onChangeBagName; // 올바른 함수 참조
+
   const [selectedBagName, setSelectedBagName] = useState(thisBag.name);
   const [editedBagName, setEditedBagName] = useState(thisBag.name);
 
@@ -108,8 +109,9 @@ const BagHeader = ({ icon }) => {
       }
     }
   };
-  const onDeleteButton = (id) => {
-    handleBagDelete(id);
+  const onDeleteButton = () => {
+    const bagId = thisBag.id;
+    handleBagDelete(bagId);
     nav("/", { replace: true });
   };
 
@@ -144,7 +146,7 @@ const BagHeader = ({ icon }) => {
             <SelectContent>
               {realBags.map((bag) => (
                 <SelectItem key={bag.id} value={bag.name}>
-                  {bag.title}
+                  {bag.name}
                 </SelectItem>
               ))}
             </SelectContent>

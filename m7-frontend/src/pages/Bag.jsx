@@ -41,8 +41,8 @@ const Bag = ({ children }) => {
     // 다른 template이 선택됐을 때 호출되는 함수
     setNewBagName(name);
 
-    const selectedId = bags.find((bag) => bag.name === name).id;
-    nav(`/template/${selectedId}`);
+    const selectedId = bags.find((bag) => bag.name === name)?.id;
+    nav(`/bag/${selectedId}`);
   };
 
   return (

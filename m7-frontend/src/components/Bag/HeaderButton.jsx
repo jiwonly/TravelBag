@@ -1,4 +1,5 @@
-import { useNavigate } from "react-router-dom";
+import { bagState } from "@/api/Bag/atom";
+import { useRecoilValue } from "recoil";
 
 const HeaderButton = ({
   bagTemporary,
@@ -7,7 +8,8 @@ const HeaderButton = ({
   onClick,
   isEditing,
 }) => {
-  const nav = useNavigate();
+  const bags = useRecoilValue(bagState);
+  console.log(bags);
 
   return (
     <div>
