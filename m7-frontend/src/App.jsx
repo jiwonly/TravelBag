@@ -15,7 +15,7 @@ import Tip from "./pages/Tip";
 import Bag from "./pages/Bag";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import NotFound from "./pages/NofFound";
+import NotFound from "./pages/NotFound";
 
 function PrivateRoute({ isAuthenticated, children }) {
   return isAuthenticated ? children : <Navigate to="/login" />;
