@@ -157,10 +157,10 @@ export const bagReducerSelector = selector({
         break;
       }
       case "UPDATE_NAME": {
-        nextState = state.map((item) =>
-          String(item.id) === String(action.data.id)
-            ? { ...item, title: action.data.title }
-            : item
+        nextState = state.map((bag) =>
+          String(bag.id) === String(action.data.id)
+            ? { ...bag, name: action.data.name }
+            : bag
         );
         break;
       }

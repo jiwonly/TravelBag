@@ -36,10 +36,10 @@ const BagHeader = ({ icon }) => {
   const [edit, setEdit] = useState(false);
   const bagsDispatch = useSetRecoilState(bagReducerSelector);
 
-  const handleBagUpdateName = (id, title) => {
+  const handleBagUpdateName = (id, name) => {
     bagsDispatch({
       type: "UPDATE_NAME",
-      data: { id, title },
+      data: { id, name },
     });
   };
 
@@ -85,7 +85,7 @@ const BagHeader = ({ icon }) => {
         alert("이미 존재하는 템플릿입니다!");
         return;
       } else if (!thisBag.temporary) {
-        handleBagUpdateName(thisBag.Stringid, editedBagName);
+        handleBagUpdateName(thisBag.id, editedBagName);
         setSelectedBagName(editedBagName);
         onSetEditing(false);
         onSetEdit(false);
