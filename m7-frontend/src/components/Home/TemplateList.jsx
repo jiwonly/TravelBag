@@ -1,7 +1,9 @@
-import { templateList } from "@/util/get-template-list";
 import TemplateItem from "./TemplateItem";
+import { useRecoilValue } from "recoil";
+import { templateState } from "@/api/Bag/atom";
 
 const TemplateList = () => {
+  const templates = useRecoilValue(templateState);
   return (
     <div className="template_list mt-[40px] mb-[80px] ">
       <div className="title text-[17px] text-gray-900">템플릿</div>
@@ -9,8 +11,8 @@ const TemplateList = () => {
         여행 목적에 맞춰 여행가방을 시작하세요!
       </div>
       <div className="template_list_wrapper flex flex-row gap-8">
-        {templateList.map((item) => (
-          <TemplateItem key={item.id} {...item} isBasic={true} />
+        {templates.map((template) => (
+          <TemplateItem key={template.id} {...template} />
         ))}
       </div>
     </div>
