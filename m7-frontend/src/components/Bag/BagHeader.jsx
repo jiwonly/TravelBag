@@ -104,6 +104,7 @@ const BagHeader = ({ icon }) => {
         return;
       } else {
         handleBagUpdateTemporary(thisBag.id, false);
+        handleBagUpdateName(thisBag.id, editedBagName);
         onSetEdit;
         nav("/");
       }

@@ -68,9 +68,6 @@ export function CheckList({ bagId, categoryId }) {
     }
   }, [thisBag, categoryId, setThisBagItemsByCategory]);
 
-  const thisBagItemByCategoryDispatch = useSetRecoilState(
-    getThisBagItemByCategory(categoryId)
-  );
   const thisBagItemByCategoryIdRef = useContext(
     thisBagItemByCategoryIdRefContext
   );

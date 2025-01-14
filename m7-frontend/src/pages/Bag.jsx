@@ -23,12 +23,26 @@ const Bag = ({ children }) => {
   const bags = useRecoilValue(bagState);
   const thisBag = useRecoilValue(getBagDetailsById(params.id));
 
-  const thisBagItemByCategoryDispatch = useSetRecoilState(
-    bagItemReducerSelector
-  );
-  const thisBagItemByCategoryIdRef = useRef(
-    thisBag.length > 0 ? Math.max(...thisBag.map((item) => item.id + 1)) : 1
-  );
+  const thisBagItemsById = useRecoilValue(getThisBagItemById(thisBag.id));
+  console.log("thisBagItems", thisBagItemsById);
+
+  // thisBagItemsById가 배열인지 확인
+  const maxItemId = Array.isArray(thisBagItemsById)
+    ? thisBagItemsById.reduce((maxId, category) => {
+        // category.item이 배열인지 확인
+        const maxInCategory = Array.isArray(category.item)
+          ? category.item.reduce((categoryMaxId, item) => {
+              return Math.max(categoryMaxId, item.id || 0);
+            }, 0)
+          : 0;
+        return Math.max(maxId, maxInCategory);
+      }, 0)
+    : 0;
+
+  console.log("Max Item ID:", maxItemId);
+
+  // Ref 초기화
+  const thisBagItemByCategoryIdRef = useRef(maxItemId + 1);
 
   const [newBagName, setNewBagName] = useState(thisBag.name);
 
@@ -47,27 +61,28 @@ const Bag = ({ children }) => {
 
   return (
     <div className="flex">
-      <SidebarProvider>
-        <SideBar />
-        <main>
-          <SidebarTrigger />
-          {children}
-          <EditStateContext.Provider value={isEditing}>
-            <EditDispatchContext.Provider value={{ onSetEditing }}>
-              <thisBagItemByCategoryIdRefContext.Provider
-                value={thisBagItemByCategoryIdRef}
-              >
+      <EditStateContext.Provider value={isEditing}>
+        <EditDispatchContext.Provider value={{ onSetEditing }}>
+          <thisBagItemByCategoryIdRefContext.Provider
+            value={thisBagItemByCategoryIdRef}
+          >
+            <SidebarProvider>
+              <SideBar />
+              <main>
+                <SidebarTrigger />
+                {children}
+
                 <SelectedSateData.Provider value={newBagName}>
                   <SelectedDisplatchData.Provider value={{ onChangeBagName }}>
                     <BagDashboard icon="bag" />
                   </SelectedDisplatchData.Provider>
                 </SelectedSateData.Provider>
-              </thisBagItemByCategoryIdRefContext.Provider>
-            </EditDispatchContext.Provider>
-          </EditStateContext.Provider>
-        </main>
-      </SidebarProvider>
-      {/* <RecommendBar className={"flex"} icon="inventory" /> */}
+              </main>
+            </SidebarProvider>
+            <RecommendBar className={"flex"} icon="inventory" />
+          </thisBagItemByCategoryIdRefContext.Provider>
+        </EditDispatchContext.Provider>
+      </EditStateContext.Provider>
     </div>
   );
 };

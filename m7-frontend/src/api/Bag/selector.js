@@ -278,14 +278,19 @@ export const getRecommendItems = selector({
 });
 
 // 12. 카테고리별 추천 아이템 조회
-export const getRecommendItemsByCategory = selector({
+export const getRecommendItemsByCategory = selectorFamily({
   key: "getRecommendItemsByCategory",
-  get: ({ get }) => {
-    return (categoryId) => {
+  get:
+    (categoryId) =>
+    ({ get }) => {
       const recommendItems = get(recommendItemState);
-      return recommendItems.find(
-        (recommendItem) => String(recommendItem.id) === String(categoryId)
+
+      // categoryId에 해당하는 객체를 찾고 item만 반환
+      const foundItem = recommendItems.find(
+        (recommendItem) =>
+          String(recommendItem.categoryId) === String(categoryId)
       );
-    };
-  },
+
+      return foundItem ? foundItem.item : []; // 없으면 빈 배열 반환
+    },
 });

@@ -5,7 +5,6 @@ import CheckData_minus from "../../assets/CheckData_minus.svg";
 import { EditStateContext } from "@/pages/Bag";
 
 export function CheckData({ itemId, itemName, isPacked, onToggle, onDelete }) {
-  console.log("itemID", itemId, "itemName", itemName, "isPacked", isPacked);
   const isEditing = useContext(EditStateContext);
 
   const handleDelete = () => {

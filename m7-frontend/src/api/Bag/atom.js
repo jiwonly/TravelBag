@@ -20,7 +20,7 @@ export const categoryState = atom({
     },
     {
       id: 4,
-      name: "ELECTORICS",
+      name: "ELECTRONICS",
     },
     {
       id: 5,

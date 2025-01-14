@@ -1,54 +1,35 @@
 import CheckData_plus from "../../assets/CheckData_plus.svg";
 import { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { EditStateContext } from "@/pages/Bag";
-import { NewItemsStateContext } from "./BagDashboard";
 import { useSetRecoilState } from "recoil";
-import { useRecoilValue } from "recoil";
+import { EditStateContext } from "@/pages/Bag";
 import {
   getBagDetailsById,
   getThisBagItemByCategory,
 } from "@/api/Bag/selector";
 import { thisBagItemByCategoryIdRefContext } from "@/pages/Bag";
 
-const RecommendPlusItem = ({ categoryId, itemId, itemName }) => {
+const RecommendPlusItem = ({ categoryId, itemName }) => {
   const params = useParams();
-  const newItemsList = useContext(NewItemsStateContext);
-  const isEditing = useContext(EditStateContext);
-  const bagDetailsById = useRecoilValue(getBagDetailsById);
-  const thisBag = bagDetailsById(params.id);
-  const [supplyList, setSupplyList] = useState(thisBag.supplies);
+  const bagId = params.id;
+  const isEditiing = useContext(EditStateContext);
 
-  const listContent = supplyList.find(
-    (item) => String(item.id) === String(categoryId)
-  ) || { contents: [] };
-
-  const [listData, setListData] = useState(listContent.contents);
-
-  useEffect(() => {
-    setSupplyList(newItemsList);
-  }, [thisBag, newItemsList]);
-
-  useEffect(() => {
-    setListData(listContent.contents);
-  }, [listContent.contents]);
-
-  const thisBagItemByCategoryDispatch = useSetRecoilState(
-    getThisBagItemByCategory
-  );
   const thisBagItemByCategoryIdRef = useContext(
     thisBagItemByCategoryIdRefContext
   );
+  const setThisBagItemsByCategory = useSetRecoilState(
+    getThisBagItemByCategory({ bagId, categoryId })
+  );
+  const handleThisBagItemByCategoryCreate = (itemName) => {
+    const newItem = {
+      id: thisBagItemByCategoryIdRef.current, // 고유 ID
+      name: itemName,
+      packed: false,
+    };
 
-  const handleThisBagItemByCategoryCreate = (name) => {
-    thisBagItemByCategoryDispatch({
-      type: "CREATE",
-      data: {
-        id: thisBagItemByCategoryIdRef.current++,
-        name: name,
-        packed: false,
-      },
-    });
+    // 🔄 기존 배열을 복사하여 새 아이템 추가
+    setThisBagItemsByCategory((prevItems) => [...prevItems, newItem]);
+    thisBagItemByCategoryIdRef.current += 1; // ID 증가
   };
 
   return (
@@ -56,7 +37,7 @@ const RecommendPlusItem = ({ categoryId, itemId, itemName }) => {
       <div className="flex items-center gap-3">
         <p className="text-gray-800 text-sm">{itemName}</p>
       </div>
-      {isEditing ? (
+      {isEditiing ? (
         <button
           onClick={() => handleThisBagItemByCategoryCreate(itemName)}
           className="flex justify-center items-center rounded-md bg-white"
