@@ -7,13 +7,13 @@ import {
 import { useReducer, createContext, useRef, useState, useEffect } from "react";
 // import { getAuthStatus } from "./api/auth";
 
-import Home from "./pages/Home";
-import New from "./pages/New";
-import Tip from "./pages/Tip";
-import Template from "./pages/Template";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import NotFound from "./pages/NofFound";
+import Home from "./pages/Home.jsx";
+import New from "./pages/New.jsx";
+import Tip from "./pages/Tip.jsx";
+import Template from "./pages/Template.jsx";
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
+import NotFound from "./pages/NofFound.jsx";
 import { supplies } from "./util/get-supplies-list";
 
 function reducer(state, action) {
