@@ -16,6 +16,27 @@ import {
 } from "@/api/Bag/selector";
 
 export function CheckList({ bagId, categoryId }) {
+  let categoryName = "";
+  switch (categoryId) {
+    case 1:
+      categoryName = "필수품";
+      break;
+    case 2:
+      categoryName = "옷";
+      break;
+    case 3:
+      categoryName = "위생용품";
+      break;
+    case 4:
+      categoryName = "전자기기";
+      break;
+    case 5:
+      categoryName = "의료품";
+      break;
+    case 6:
+      categoryName = "기타";
+      break;
+  }
   // const { onSetAdded } = useContext(AddedItemDispatchContext);
   // const newItemList = useContext(NewItemsStateContext);
   // const { setNewItemList } = useContext(NewItemDispatchContext);
@@ -54,33 +75,35 @@ export function CheckList({ bagId, categoryId }) {
     thisBagItemByCategoryIdRefContext
   );
 
-  const handleThisBagItemByCategoryCreate = (name) => {
+  const handleThisBagItemByCategoryCreate = (itemName) => {
     const newItem = {
-      id: thisBagItemByCategoryIdRef.current,
-      name,
+      id: thisBagItemByCategoryIdRef.current, // 고유 ID
+      name: itemName,
       packed: false,
     };
-    thisBagItemByCategoryDispatch([...thisBagItemsByCategory, newItem]);
+
+    // 🔄 기존 배열을 복사하여 새 아이템 추가
+    setThisBagItemsByCategory((prevItems) => [...prevItems, newItem]);
     thisBagItemByCategoryIdRef.current += 1; // ID 증가
   };
 
-  const handleThisBagItemByCategoryUpdatePacked = (id, packed) => {
-    const updatedItems = thisBagItemsByCategory.map((item) =>
-      item.id === id ? { ...item, packed: packed } : item
+  const handleThisBagItemByCategoryUpdatePacked = (id) => {
+    setThisBagItemsByCategory((prevItems) =>
+      prevItems.map(
+        (item) => (item.id === id ? { ...item, packed: !item.packed } : item) // packed 값을 반전
+      )
     );
-    thisBagItemByCategoryDispatch(updatedItems);
   };
 
   const handleThisBagItemCategoryDelete = (id) => {
-    const updatedItems = thisBagItemsByCategory.filter(
-      (item) => item.id !== id
+    setThisBagItemsByCategory(
+      (prevItems) => prevItems.filter((item) => item.id !== id) // 해당 ID를 제외한 새로운 배열 반환
     );
-    thisBagItemByCategoryDispatch(updatedItems);
   };
 
   return (
     <div className="flex flex-col bg-gray-100 py-4 px-1 rounded-md w-[340px] h-auto gap-[14px] shadow-[0px_4px_12px_0px_rgba(0,0,0,0.12)]">
-      <p className="font-bold mb-1 ml-6 text-sm">{thisCategory.name}</p>
+      <p className="font-bold mb-1 ml-6 text-sm">{categoryName}</p>
 
       <div className="flex flex-col items-center gap-[14px] max-h-[400px] overflow-y-auto scrollbar-thin">
         {thisBagItemsByCategory.map((item) => (
@@ -96,7 +119,7 @@ export function CheckList({ bagId, categoryId }) {
         ))}
 
         {isEditing ? (
-          <CheckInput onCreate={handleThisBagItemByCategoryCreate} />
+          <CheckInput onCreateItem={handleThisBagItemByCategoryCreate} />
         ) : null}
       </div>
     </div>

@@ -21,9 +21,14 @@ import ontravel from "../../assets/sidebar/ontravel.svg";
 import logout from "../../assets/sidebar/logout.svg";
 import { EditStateContext } from "@/pages/Bag";
 import { useParams } from "react-router-dom";
-import { bagState } from "@/api/Bag/atom";
-import { useRecoilValue } from "recoil";
-import { getBagDetailsById } from "@/api/Bag/selector";
+import { bagItemState, bagState } from "@/api/Bag/atom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  bagReducerSelector,
+  getBagDetailsById,
+  getThisTemplateItemById,
+} from "@/api/Bag/selector";
+import { BagIdRefContext } from "@/App";
 
 function sidebarImage(id, isActive = false) {
   if (isActive) {
@@ -91,11 +96,38 @@ export function SideBar() {
   const nav = useNavigate();
   const location = useLocation();
   const isTemplate = location.pathname.includes("bag");
-
+  const templateItemOfFREESTYLE = useRecoilValue(getThisTemplateItemById(1));
   const onLogoutClick = () => {
     if (window.confirm("정말 로그아웃하시겠습니까?")) {
       nav("/login");
     }
+  };
+
+  const bagIdRef = useContext(BagIdRefContext);
+
+  const bagsDispatch = useSetRecoilState(bagReducerSelector);
+  const bagItemsDispatch = useSetRecoilState(bagItemState);
+  const handleBagCreate = (templateName) => {
+    // 새 가방 생성
+    bagsDispatch({
+      type: "CREATE",
+      data: {
+        id: bagIdRef.current,
+        name: "내 마음대로 시작하기",
+        template: templateName,
+        temporary: true,
+      },
+    });
+
+    // 새 가방 아이템 생성
+    const newBagItems = {
+      bagId: bagIdRef.current,
+      items: templateItemOfFREESTYLE[0].items, // 템플릿의 아이템을 복사하여 추가
+    };
+
+    bagItemsDispatch((prev) => [...prev, newBagItems]); // bagItemState 업데이트
+    nav(`/bag/${bagIdRef.current}`);
+    bagIdRef.current++;
   };
 
   const getLink = (id) => {
@@ -103,7 +135,9 @@ export function SideBar() {
       case 0:
         return "/";
       case 1:
-        return `/bag/${curId}`;
+        return realBags.length > 0
+          ? `/bag/${curId}`
+          : `/bag/${bagIdRef.current - 1}`;
       case 2:
         return "/tip";
       case 3:
@@ -163,9 +197,13 @@ export function SideBar() {
                       <Link
                         to={getLink(item.id)}
                         onClick={(e) => {
+                          if (item.id === 1 && realBags.length === 0) {
+                            e.preventDefault(); // 기본 동작 방지
+                            handleBagCreate("FREESTYLE"); // 새 가방 생성 후 이동
+                            return;
+                          }
                           if ((isEditing || isActive) && !thisBag.temporary) {
-                            // isEditing이 true이거나 이미 활성 상태일 경우 이동 차단
-                            e.preventDefault();
+                            e.preventDefault(); // 이동 차단
                             if (isEditing && !thisBag.temporary) {
                               alert("물품 수정을 완료해주세요!");
                             }

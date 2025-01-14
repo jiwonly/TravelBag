@@ -3,7 +3,7 @@ import Checkbox_No from "../../assets/Checkbox_No.svg";
 import CheckData_plus from "../../assets/CheckData_plus.svg";
 import { AddedItemStateContext } from "./BagDashboard";
 
-export function CheckInput({ onCreate }) {
+export function CheckInput({ onCreateItem }) {
   const added = useContext(AddedItemStateContext);
   const { onSetAdded } = useContext(AddedItemStateContext);
   const [inputValue, setInputValue] = useState("");
@@ -13,16 +13,16 @@ export function CheckInput({ onCreate }) {
   const handleChange = (e) => {
     setInputValue(e.target.value);
     // 입력이 변경되었을 때, onSetAdded가 아직 호출되지 않은 경우에만 호출
-    if (!isAddedCalled) {
-      onSetAdded(added + 1); // 입력이 시작되었음을 알림
-      setIsAddedCalled(true); // 이후로는 다시 호출되지 않음
-    }
+    // if (!isAddedCalled) {
+    // onSetAdded(added + 1); // 입력이 시작되었음을 알림
+    // setIsAddedCalled(true); // 이후로는 다시 호출되지 않음
+    // }
   };
   const onClickAdd = () => {
-    onCreate(inputValue);
-    onSetAdded(added - 1);
+    onCreateItem(inputValue);
+    // onSetAdded(added - 1);
     setInputValue("");
-    setIsAddedCalled(false);
+    // setIsAddedCalled(false);
   };
 
   const handleCompositionStart = () => {

@@ -9,7 +9,6 @@ const HeaderButton = ({
   isEditing,
 }) => {
   const bags = useRecoilValue(bagState);
-  console.log(bags);
 
   return (
     <div>

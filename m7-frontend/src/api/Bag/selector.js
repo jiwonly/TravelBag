@@ -111,27 +111,36 @@ export const getThisBagItemByCategory = selectorFamily({
       const categoryItems = thisBag.items.find(
         (item) => String(item.categoryId) === String(categoryId)
       );
-      return categoryItems ? categoryItems.item : [];
+      return categoryItems ? [...categoryItems.item] : []; // 불변성을 위해 새 배열 반환
     },
   set:
     ({ bagId, categoryId }) =>
     ({ set, get }, newValue) => {
-      const bagItems = get(bagItemState);
+      const bagItems = get(bagItemState); // 기존 상태 가져오기
       const thisBagIndex = bagItems.findIndex(
         (bag) => String(bag.bagId) === String(bagId)
       );
 
       if (thisBagIndex === -1) return; // 해당 bagId가 없으면 아무 작업도 하지 않음
 
-      const updatedBagItems = [...bagItems];
-      const categoryItemsIndex = updatedBagItems[thisBagIndex].items.findIndex(
-        (item) => String(item.categoryId) === String(categoryId)
-      );
+      const updatedBagItems = bagItems.map((bag, index) => {
+        if (index !== thisBagIndex) return bag; // 다른 가방은 변경하지 않음
 
-      if (categoryItemsIndex !== -1) {
-        updatedBagItems[thisBagIndex].items[categoryItemsIndex].item = newValue;
-        set(bagItemState, updatedBagItems);
-      }
+        const updatedItems = bag.items.map((item) => {
+          if (String(item.categoryId) !== String(categoryId)) return item; // 다른 카테고리는 변경하지 않음
+          return {
+            ...item,
+            item: [...newValue], // 새 배열로 업데이트
+          };
+        });
+
+        return {
+          ...bag,
+          items: updatedItems, // 변경된 items 배열 할당
+        };
+      });
+
+      set(bagItemState, updatedBagItems); // 상태 업데이트
     },
 });
 

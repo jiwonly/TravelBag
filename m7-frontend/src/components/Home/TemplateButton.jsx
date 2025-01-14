@@ -37,13 +37,11 @@ const TemplateButton = ({ isTemporary, templateId, name, style }) => {
   );
   const thisTemplateItems = useRecoilValue(getThisTemplateItemById(templateId));
   const handleBagCreate = (templateName) => {
-    const newBagId = bagIdRef.current++;
-
     // 새 가방 생성
     bagsDispatch({
       type: "CREATE",
       data: {
-        id: newBagId,
+        id: bagIdRef.current,
         name: templateTitle,
         template: templateName,
         temporary: true,
@@ -52,16 +50,16 @@ const TemplateButton = ({ isTemporary, templateId, name, style }) => {
 
     // 새 가방 아이템 생성
     const newBagItems = {
-      bagId: newBagId,
+      bagId: bagIdRef.current,
       items: thisTemplateItems[0]?.items || [], // 템플릿의 아이템을 복사하여 추가
     };
 
     bagItemsDispatch((prev) => [...prev, newBagItems]); // bagItemState 업데이트
+    bagIdRef.current++;
   };
   const onClick = () => {
     handleBagCreate(thisTemplate.name);
-    const newId = bagIdRef.current - 1;
-    nav(`/bag/${newId}`);
+    nav(`/bag/${bagIdRef.current - 1}`);
   };
   return (
     <div>
