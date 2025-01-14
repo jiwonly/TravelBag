@@ -1,4 +1,4 @@
-import pw from "../assets/icon/pw.svg";
+import pw from "../../assets/icon/pw.svg";
 import { useState } from "react";
 
 const InfoInputButton = ({ content, type, name }) => {

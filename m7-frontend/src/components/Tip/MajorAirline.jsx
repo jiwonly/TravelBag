@@ -1,8 +1,8 @@
 import AirlineItem from "./AirlineItem";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import React, { useEffect } from "react";
-import { airlinesState } from "../api/atom";
-import { fetchAirlinesAPI } from "../api/api";
+import { airlinesState } from "../../api/atom";
+import { fetchAirlinesAPI } from "../../api/api";
 
 const MajorAirline = ({ location_id }) => {
   const airlines = useRecoilValue(airlinesState);

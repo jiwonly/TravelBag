@@ -1,4 +1,4 @@
-import HalfTemplate from "@/components/HalfTemplate";
+import HalfTemplate from "@/components/LogIn/HalfTemplate";
 
 const Register = () => {
   return (
