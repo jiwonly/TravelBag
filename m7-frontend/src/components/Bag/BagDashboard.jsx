@@ -3,9 +3,7 @@ import { CheckList } from "./CheckList";
 import { useRecoilValue } from "recoil";
 import { useParams } from "react-router-dom";
 import { createContext, useState } from "react";
-import { getBagDetailsById } from "@/api/Bag/selector";
-import { getThisBagItemById } from "@/api/Bag/selector";
-import { bagState } from "@/api/Bag/atom";
+import { getThisBagItemById, getBagDetailsById } from "@/api/Bag/selector";
 
 export const NewItemsStateContext = createContext();
 export const NewItemDispatchContext = createContext();
@@ -21,6 +19,41 @@ const BagDashboard = ({ icon }) => {
   const onSetAdded = (value) => {
     setAdded(value);
   };
+
+  //API 연결시 사용!!!(14부터 지우고 사용)
+  /**
+   *   const params = useParams();
+  const [thisBag, setThisBag] = useState(null);
+  const [thisBagItems, setThisBagItems] = useState([]);
+  const [newItemsList, setNewItemsList] = useState([]);
+  const [added, setAdded] = useState(0);
+
+  useEffect(() => {
+    const fetchBagData = async () => {
+      try {
+        const bagResponse = await api.get(`/members/bags/${params.id}`);
+        setThisBag(bagResponse.data);
+
+        const bagItemsResponse = await api.get(
+          `/members/bags/${params.id}/items`
+        );
+        setThisBagItems(bagItemsResponse.data);
+      } catch (error) {
+        console.error("Error fetching bag data:", error);
+      }
+    };
+
+    fetchBagData();
+  }, [params.id]);
+
+  const onSetAdded = (value) => {
+    setAdded(value);
+  };
+
+  if (!thisBag) {
+    return <div>Loading...</div>; // 데이터 로드 전 로딩 표시
+  }
+   */
 
   return (
     <>

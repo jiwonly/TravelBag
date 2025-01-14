@@ -2,13 +2,14 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { BagIdRefContext } from "@/App";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { bagItemState, bagState, templateState } from "@/api/Bag/atom";
+import { bagItemState, templateState } from "@/api/Bag/atom";
 import {
   bagReducerSelector,
   getThisTemplateItemById,
 } from "@/api/Bag/selector";
+// import api from "@/api/Bag/api";
 
-const TemplateButton = ({ isTemporary, templateId, name, style }) => {
+const TemplateButton = ({ templateId, style }) => {
   const bagIdRef = useContext(BagIdRefContext);
   const nav = useNavigate();
   let templateTitle = "";
@@ -30,7 +31,6 @@ const TemplateButton = ({ isTemporary, templateId, name, style }) => {
 
   const bagsDispatch = useSetRecoilState(bagReducerSelector);
   const bagItemsDispatch = useSetRecoilState(bagItemState);
-  const bags = useRecoilValue(bagState);
   const templates = useRecoilValue(templateState);
   const thisTemplate = templates.find(
     (item) => String(item.id) === String(templateId)
@@ -61,6 +61,31 @@ const TemplateButton = ({ isTemporary, templateId, name, style }) => {
     handleBagCreate(thisTemplate.name);
     nav(`/bag/${bagIdRef.current - 1}`);
   };
+
+  // API 연결시 사용!!!!(32부터 지우고 사용)
+  /*
+    const handleBagCreate = async () => {
+    try {
+      // 서버에 새 가방 생성 요청
+      const createBagResponse = await api.post(`/members/bags`, {
+        id: bagIdRef.current,
+        name: templateTitle,
+        templateId: templateId,
+        temporary: true,
+      });
+
+      // 서버에 새 가방 아이템 생성 요청
+      await api.post(`/members/bags/${createBagResponse.data.id}/items`, {
+        items: createBagResponse.data.items, // 템플릿의 아이템
+      });
+
+      bagIdRef.current++;
+      nav(`/bag/${createBagResponse.data.id}`);
+    } catch (error) {
+      console.error("Error creating bag:", error);
+    }
+  };
+  */
   return (
     <div>
       <button onClick={onClick} className={`Button ${style}`}>
