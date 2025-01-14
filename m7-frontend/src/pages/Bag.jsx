@@ -8,6 +8,7 @@ import { useRecoilValue } from "recoil";
 import { getBagDetailsById } from "@/api/Bag/selector";
 import { bagState } from "@/api/Bag/atom";
 import { getThisBagItemById } from "@/api/Bag/selector";
+import NotFound from "./NofFound";
 
 export const SelectedSateData = createContext();
 export const SelectedDisplatchData = createContext();
@@ -18,10 +19,8 @@ export const EditDispatchContext = createContext();
 const Bag = ({ children }) => {
   const nav = useNavigate();
   const params = useParams();
-
   const bags = useRecoilValue(bagState);
   const thisBag = useRecoilValue(getBagDetailsById(params.id));
-
   const thisBagItemsById = useRecoilValue(getThisBagItemById(thisBag.id));
 
   // thisBagItemsById가 배열인지 확인
@@ -54,6 +53,14 @@ const Bag = ({ children }) => {
     const selectedId = bags.find((bag) => bag.name === name)?.id;
     nav(`/bag/${selectedId}`);
   };
+
+  // 가방 ID 검증
+  const bagExists = bags.some((bag) => String(bag.id) === params.id);
+
+  // 존재하지 않는 가방으로 접근 시 NotFound 페이지로 리다이렉트
+  if (!bagExists) {
+    return <NotFound />;
+  }
 
   return (
     <div className="flex">
