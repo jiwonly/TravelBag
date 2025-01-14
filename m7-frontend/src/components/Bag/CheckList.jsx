@@ -22,7 +22,7 @@ export function CheckList({ bagId, categoryId }) {
       categoryName = "필수품";
       break;
     case 2:
-      categoryName = "옷";
+      categoryName = "의류";
       break;
     case 3:
       categoryName = "위생용품";
