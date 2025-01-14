@@ -2,18 +2,18 @@ import { getEatImage } from "@/util/get-eat-image";
 import { getEnjoyImage } from "@/util/get-enjoy-image";
 import { getShopImage } from "@/util/get-shop-image";
 
-const EESItem = ({ location_id, content, id, name, signature, url }) => {
-  const getImage = (location_id, content, id) => {
+const EESItem = ({ content, id, name, signature, url }) => {
+  const getImage = (content, id) => {
     if (content === "eat") {
-      return getEatImage(location_id, id);
+      return getEatImage(id);
     }
 
     if (content === "enjoy") {
-      return getEnjoyImage(location_id, id);
+      return getEnjoyImage(id);
     }
 
     if (content === "shop") {
-      return getShopImage(location_id, id);
+      return getShopImage(id);
     }
   };
 
@@ -32,7 +32,7 @@ const EESItem = ({ location_id, content, id, name, signature, url }) => {
         <div className="flex justify-center">
           <img
             className="flex justify-center items-start shrink-0 rounded-2xl"
-            src={getImage(location_id, content, id)}
+            src={getImage(content, id)}
           />
         </div>
         <div className="flex flex-col items-center justify-center p-1">
