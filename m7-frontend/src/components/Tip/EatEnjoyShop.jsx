@@ -4,8 +4,7 @@ import {
   restaurantsState,
   attractionsState,
   souvenirsState,
-
-} from "../../api/atom";
+} from "../../api/atom"
 
 import {
   fetchRestaurantsAPI,
@@ -26,6 +25,7 @@ const EatEnjoyShop = ({ location_id }) => {
         const response = await fetchRestaurantsAPI(location_id);
         if (Array.isArray(response.restaurants)) {
           setRestaurants(response.restaurants);
+          console.log(response.restaurants);
         } else {
           console.error("Invalid restaurants response format:", response);
         }
