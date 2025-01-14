@@ -22,6 +22,41 @@ const Bag = ({ children }) => {
   const bags = useRecoilValue(bagState);
   const thisBag = useRecoilValue(getBagDetailsById(params.id));
   const thisBagItemsById = useRecoilValue(getThisBagItemById(thisBag.id));
+  const [newBagName, setNewBagName] = useState(thisBag.name);
+  const [isEditing, setIsEditing] = useState(false);
+
+  //API 연결 시 사용!!!!!!(20line부터 지우고 쓰면 됨)
+  /*
+  const nav = useNavigate();
+  const params = useParams();
+  const [bags, setBags] = useState([]);
+  const [thisBag, setThisBag] = useState(null);
+  const [thisBagItemsById, setThisBagItemsById] = useState([]);
+  const [newBagName, setNewBagName] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+
+  // 가방 데이터 및 상세 데이터 가져오기
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const bagsResponse = await api.get("/members/bags");
+        setBags(bagsResponse.data);
+
+        const bagDetailsResponse = await api.get(`/members/bags/${params.id}`);
+        setThisBag(bagDetailsResponse.data);
+        setNewBagName(bagDetailsResponse.data.name);
+
+        const bagItemsResponse = await api.get(
+          `/members/bags/${params.id}/items`
+        );
+        setThisBagItemsById(bagItemsResponse.data);
+      } catch (error) {
+        console.error("Error fetching bag data:", error);
+      }
+    };
+    fetchData();
+  }, [params.id]);
+   */
 
   // thisBagItemsById가 배열인지 확인
   const maxItemId = Array.isArray(thisBagItemsById)
@@ -39,9 +74,6 @@ const Bag = ({ children }) => {
   // Ref 초기화
   const thisBagItemByCategoryIdRef = useRef(maxItemId + 1);
 
-  const [newBagName, setNewBagName] = useState(thisBag.name);
-
-  const [isEditing, setIsEditing] = useState(false);
   const onSetEditing = (value) => {
     setIsEditing(value);
   };
@@ -53,6 +85,23 @@ const Bag = ({ children }) => {
     const selectedId = bags.find((bag) => bag.name === name)?.id;
     nav(`/bag/${selectedId}`);
   };
+
+  // API 연결 시 위 onChangeBagName 지우고 사용!!!!
+  /*
+  const onChangeBagName = async (name) => {
+    setNewBagName(name);
+
+    try {
+      const selectedBag = bags.find((bag) => bag.name === name);
+      if (selectedBag) {
+        await api.patch(`/members/bags/${selectedBag.id}/name`, { name });
+        nav(`/bag/${selectedBag.id}`);
+      }
+    } catch (error) {
+      console.error("Error updating bag name:", error);
+    }
+  };
+  */
 
   // 가방 ID 검증
   const bagExists = bags.some((bag) => String(bag.id) === params.id);
