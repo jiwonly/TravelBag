@@ -1,6 +1,6 @@
-import { SideBar } from "@/components/SideBar";
+import { SideBar } from "@/components/common/SideBar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import Dashboard from "@/components/Dashboard";
+import Dashboard from "@/components/Home/Dashboard";
 
 const Home = ({ children }) => {
   return (
@@ -10,7 +10,7 @@ const Home = ({ children }) => {
         <main>
           <SidebarTrigger />
           {children}
-          <Dashboard icon="home" title="홈" memo="어서오세요!" />
+          <Dashboard />
         </main>
       </SidebarProvider>
     </>
