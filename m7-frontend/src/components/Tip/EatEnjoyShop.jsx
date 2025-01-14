@@ -4,11 +4,14 @@ import {
   restaurantsState,
   attractionsState,
   souvenirsState,
+
 } from "../../api/atom";
+
 import {
   fetchRestaurantsAPI,
   fetchAttractionsAPI,
   fetchSouvenirsAPI,
+
 } from "../../api/api";
 import { useEffect } from "react";
 
@@ -17,21 +20,15 @@ const EatEnjoyShop = ({ location_id }) => {
   const [attractions, setAttractions] = useRecoilState(attractionsState);
   const [souvenirs, setSouvenirs] = useRecoilState(souvenirsState);
 
-  const filteredRestaurants = restaurants.filter(
-    (item) => item.location_id === location_id
-  );
-  const filteredAttractions = attractions.filter(
-    (item) => item.location_id === location_id
-  );
-  const filteredSouvenirs = souvenirs.filter(
-    (item) => item.location_id === location_id
-  );
-
   useEffect(() => {
     const fetchRestaurants = async () => {
       try {
         const response = await fetchRestaurantsAPI(location_id);
-        setRestaurants(response);
+        if (Array.isArray(response.restaurants)) {
+          setRestaurants(response.restaurants);
+        } else {
+          console.error("Invalid restaurants response format:", response);
+        }
       } catch (error) {
         console.error("Error fetching restaurants:", error);
       }
@@ -40,7 +37,11 @@ const EatEnjoyShop = ({ location_id }) => {
     const fetchAttractions = async () => {
       try {
         const response = await fetchAttractionsAPI(location_id);
-        setAttractions(response);
+        if (Array.isArray(response.attractions)) {
+          setAttractions(response.attractions);
+        } else {
+          console.error("Invalid attractions response format:", response);
+        }
       } catch (error) {
         console.error("Error fetching attractions:", error);
       }
@@ -49,7 +50,11 @@ const EatEnjoyShop = ({ location_id }) => {
     const fetchSouvenirs = async () => {
       try {
         const response = await fetchSouvenirsAPI(location_id);
-        setSouvenirs(response);
+        if (Array.isArray(response.souvenirs)) {
+          setSouvenirs(response.souvenirs);
+        } else {
+          console.error("Invalid souvenirs response format:", response);
+        }
       } catch (error) {
         console.error("Error fetching souvenirs:", error);
       }
@@ -71,19 +76,19 @@ const EatEnjoyShop = ({ location_id }) => {
       <div className="flex flex-col items-start">
         <li className="text-[17px] font-bold py-5">맛집</li>
         <div className="flex flex-row gap-5 mb-[20px]">
-          {filteredRestaurants.map((item) => (
+          {restaurants.map((item) => (
             <EESItem content="eat" key={item.id} {...item} />
           ))}
         </div>
         <li className="text-[17px] font-bold py-5">관광지</li>
         <div className="flex flex-row gap-5 mb-[20px]">
-          {filteredAttractions.map((item) => (
+          {attractions.map((item) => (
             <EESItem content="enjoy" key={item.id} {...item} />
           ))}
         </div>
         <li className="text-[17px] font-bold py-5">기념품</li>
         <div className="flex flex-row gap-5 mb-[20px]">
-          {filteredSouvenirs.map((item) => (
+          {souvenirs.map((item) => (
             <EESItem content="shop" key={item.id} {...item} />
           ))}
         </div>

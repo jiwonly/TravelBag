@@ -1,16 +1,37 @@
-import { useState } from "react";
-import CommonHeader from "../common/CommonHeader";
+
+import { useState, useEffect } from "react";
+import CommonHeader from "./common/CommonHeader";
 import PopularDestinations from "./PopularDestinations";
 import MajorAirline from "./MajorAirline";
 import ExchangeRate from "./ExchangeRate";
 import EatEnjoyShop from "./EatEnjoyShop";
 
+
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { fetchLocationsAPI } from "@/api/api";
+import { locationsState } from "@/api/atom";
+
 const Tipboard = () => {
   const [selectedDestination, setSelectedDestination] = useState(null);
+  const setLocations = useSetRecoilState(locationsState); // Recoil 상태 업데이트 함수 가져오기
+  const locations = useRecoilValue(locationsState); // Recoil 상태 가져오기
 
   const handleSelectDestination = (id) => {
     setSelectedDestination((prev) => (prev === id ? null : id));
   };
+
+  useEffect(() => {
+    const fetchLocations = async () => {
+      try {
+        const data = await fetchLocationsAPI();
+        setLocations(data);
+      } catch (err) {
+        console.error("Error fetching locations:", err);
+      }
+    };
+
+    fetchLocations();
+  }, [setLocations, locations]);
 
   return (
     <div className="mt-[29px]">
@@ -37,3 +58,4 @@ const Tipboard = () => {
 };
 
 export default Tipboard;
+

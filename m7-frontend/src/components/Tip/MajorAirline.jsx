@@ -5,33 +5,26 @@ import { airlinesState } from "../../api/atom";
 import { fetchAirlinesAPI } from "../../api/api";
 
 const MajorAirline = ({ location_id }) => {
-  const airlines = useRecoilValue(airlinesState);
-  const setAirlines = useSetRecoilState(airlinesState);
-
-  // location_id에 따라 해당 항공사를 필터링
-  const filteredAirlines =
-    airlines.find((item) => item.location_id === location_id)?.airlines || [];
+  const [airlines, setAirlines] = useRecoilState(airlinesState);
 
   useEffect(() => {
     const fetchAirlines = async () => {
       try {
-        if (location_id) {
-          const data = await fetchAirlinesAPI(location_id);
-          setAirlines((prev) =>
-            prev.map((item) =>
-              item.location_id === location_id
-                ? { ...item, airlines: data }
-                : item
-            )
-          );
+        const response = await fetchAirlinesAPI(location_id);
+        if (Array.isArray(response.airlines)) {
+          setAirlines(response.airlines);
+        } else {
+          console.error("Invalid airlines response format:", response);
         }
       } catch (error) {
-        console.error("Failed to fetch airlines:", error);
+        console.error("Error fetching airlines:", error);
+
       }
     };
 
     fetchAirlines();
-  }, [location_id, setAirlines]);
+  }, [location_id]);
+
 
   return (
     <div className="mt-[20px] mb-[50px] ">
@@ -41,7 +34,7 @@ const MajorAirline = ({ location_id }) => {
         정보를 얻어보세요.
       </div>
       <div className="flex flex-row gap-5">
-        {filteredAirlines.map((airline) => (
+        {airlines.map((airline) => (
           <AirlineItem
             location_id={location_id}
             key={airline.id}

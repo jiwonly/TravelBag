@@ -21,12 +21,6 @@ export default defineConfig({
     mimeTypes: {
       "text/javascript": ["js", "jsx"],
     },
-    // proxy: {
-    //   "/location": {
-    //     target: API_BASE_URL,
-    //     changeOrigin: true,
-    //     rewrite: (path) => path.replace(/^\/location/, "/location"),
-    //   },
-    // },
+
   },
 });

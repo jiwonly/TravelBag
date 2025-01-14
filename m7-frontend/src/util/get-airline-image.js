@@ -22,26 +22,26 @@ export function getAirlineImage(location_id, id) {
     case 2:
       if (id === 1) return common_airline_1;
       if (id === 2) return common_airline_2;
-      if (id === 3) return newyork_airline_3;
-      if (id === 4) return newyork_airline_4;
+      if (id === 5) return newyork_airline_3;
+      if (id === 6) return newyork_airline_4;
       break;
     case 3:
       if (id === 1) return common_airline_1;
       if (id === 2) return common_airline_2;
-      if (id === 3) return danang_airline_3;
-      if (id === 4) return danang_airline_4;
+      if (id === 7) return danang_airline_3;
+      if (id === 8) return danang_airline_4;
       break;
     case 4:
       if (id === 1) return common_airline_1;
       if (id === 2) return common_airline_2;
-      if (id === 3) return bangkok_airline_3;
-      if (id === 4) return bangkok_airline_4;
+      if (id === 9) return bangkok_airline_3;
+      if (id === 10) return bangkok_airline_4;
       break;
     case 5:
       if (id === 1) return common_airline_1;
       if (id === 2) return common_airline_2;
-      if (id === 3) return tokyo_airline_3;
-      if (id === 4) return tokyo_airline_4;
+      if (id === 11) return tokyo_airline_3;
+      if (id === 12) return tokyo_airline_4;
       break;
   }
 }
