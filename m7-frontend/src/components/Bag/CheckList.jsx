@@ -23,8 +23,13 @@ export function CheckList({ bagId, categoryId }) {
   const thisBag = useRecoilValue(getBagDetailsById(bagId));
 
   const thisBagItemsById = useRecoilValue(getThisBagItemById(bagId));
+  const setThisBagItemsById = useSetRecoilState(getThisBagItemById(bagId));
   const thisBagItemsByCategory = useRecoilValue(
-    getThisBagItemByCategory(categoryId)
+    getThisBagItemByCategory({ bagId, categoryId })
+  );
+
+  const setThisBagItemsByCategory = useSetRecoilState(
+    getThisBagItemByCategory({ bagId, categoryId })
   );
 
   const categories = useRecoilValue(categoryState);
@@ -33,31 +38,14 @@ export function CheckList({ bagId, categoryId }) {
   );
   const isEditing = useContext(EditStateContext);
 
-  const setThisBagItemsByCategory = useSetRecoilState(
-    getThisBagItemByCategory(categoryId)
-  );
-
-  // useEffect(() => {
-  //   setNewItemList(thisBag.supplies);
-  //   onSetAdded(0);
-  // }, []);
-
-  // useEffect(() => {
-  //   // setThisBagItems(thisBag.supplies);
-  //   onSetAdded(0);
-  // }, [thisBag]);
-
-  // useEffect(() => {
-  //   // setThisBagItems(newItemList);
-  // }, [thisBag, newItemList]);
-
-  // useEffect(() => {
-  //   // setThisBagItems(thisBag.itmes);
-  // }, [thisBag]);
-
-  // // useEffect(() => {
-  // //   setThisBagItemByCategory(thisBagItemByCategory);
-  // // }, [thisBagItemByCategory]);
+  useEffect(() => {
+    if (thisBag && thisBag.items) {
+      const categoryItems = thisBag.items.find(
+        (item) => item.categoryId === categoryId
+      );
+      setThisBagItemsByCategory(categoryItems ? categoryItems.item : []);
+    }
+  }, [thisBag, categoryId, setThisBagItemsByCategory]);
 
   const thisBagItemByCategoryDispatch = useSetRecoilState(
     getThisBagItemByCategory(categoryId)
@@ -66,25 +54,14 @@ export function CheckList({ bagId, categoryId }) {
     thisBagItemByCategoryIdRefContext
   );
 
-  // useEffect(() => {
-  //   if (!thisBag || !thisBag.items) {
-  //     console.log("No bag or items found. Setting default values.");
-  //     setThisBagItemsByCategory([]);
-  //     return;
-  //   }
-
-  //   const categoryItems = thisBag.items.filter(
-  //     (item) => item.categoryId === categoryId
-  //   );
-  //   setThisBagItemsByCategory(categoryItems || []);
-  // }, [thisBag, categoryId, setThisBagItemsByCategory]);
-
   const handleThisBagItemByCategoryCreate = (name) => {
-    thisBagItemByCategoryDispatch([...thisBagItemsByCategory], {
-      id: thisBagItemByCategoryIdRef,
-      name: name,
+    const newItem = {
+      id: thisBagItemByCategoryIdRef.current,
+      name,
       packed: false,
-    });
+    };
+    thisBagItemByCategoryDispatch([...thisBagItemsByCategory, newItem]);
+    thisBagItemByCategoryIdRef.current += 1; // ID 증가
   };
 
   const handleThisBagItemByCategoryUpdatePacked = (id, packed) => {
@@ -119,7 +96,7 @@ export function CheckList({ bagId, categoryId }) {
         ))}
 
         {isEditing ? (
-          <CheckInput onCretae={handleThisBagItemByCategoryCreate} />
+          <CheckInput onCreate={handleThisBagItemByCategoryCreate} />
         ) : null}
       </div>
     </div>

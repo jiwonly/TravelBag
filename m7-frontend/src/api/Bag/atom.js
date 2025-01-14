@@ -269,6 +269,10 @@ export const bagItemState = atom({
           categoryId: 5,
           item: [{ id: 5, name: "종합감기약", packed: false }],
         },
+        {
+          categoryId: 6,
+          item: [],
+        },
       ],
     },
     {
@@ -302,6 +306,14 @@ export const bagItemState = atom({
             { id: 7, name: "고데기", packed: true },
             { id: 8, name: "멀티어댑터", packed: true },
           ],
+        },
+        {
+          categoryId: 5,
+          item: [],
+        },
+        {
+          categoryId: 6,
+          item: [],
         },
       ],
     },

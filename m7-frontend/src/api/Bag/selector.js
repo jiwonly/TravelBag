@@ -100,35 +100,38 @@ export const getThisBagItemById = selectorFamily({
 export const getThisBagItemByCategory = selectorFamily({
   key: "getThisBagItemByCategory",
   get:
-    (categoryId) =>
+    ({ bagId, categoryId }) =>
     ({ get }) => {
       const bagItems = get(bagItemState);
-      const thisBag = bagItems.find((bag) =>
-        bag.items.some((item) => item.categoryId === categoryId)
+      const thisBag = bagItems.find(
+        (bag) => String(bag.bagId) === String(bagId)
       );
-      if (!thisBag) return [];
+      if (!thisBag) return []; // 해당 bagId가 없을 경우 빈 배열 반환
+
       const categoryItems = thisBag.items.find(
-        (item) => item.categoryId === categoryId
+        (item) => String(item.categoryId) === String(categoryId)
       );
       return categoryItems ? categoryItems.item : [];
     },
   set:
-    (categoryId) =>
+    ({ bagId, categoryId }) =>
     ({ set, get }, newValue) => {
       const bagItems = get(bagItemState);
-      const thisBagIndex = bagItems.findIndex((bag) =>
-        bag.items.some((item) => item.categoryId === categoryId)
+      const thisBagIndex = bagItems.findIndex(
+        (bag) => String(bag.bagId) === String(bagId)
       );
 
-      if (thisBagIndex === -1) return;
+      if (thisBagIndex === -1) return; // 해당 bagId가 없으면 아무 작업도 하지 않음
 
       const updatedBagItems = [...bagItems];
       const categoryItemsIndex = updatedBagItems[thisBagIndex].items.findIndex(
-        (item) => item.categoryId === categoryId
+        (item) => String(item.categoryId) === String(categoryId)
       );
 
-      updatedBagItems[thisBagIndex].items[categoryItemsIndex].item = newValue;
-      set(bagItemState, updatedBagItems);
+      if (categoryItemsIndex !== -1) {
+        updatedBagItems[thisBagIndex].items[categoryItemsIndex].item = newValue;
+        set(bagItemState, updatedBagItems);
+      }
     },
 });
 
