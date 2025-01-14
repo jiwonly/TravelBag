@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import CommonHeader from "./common/CommonHeader";
+import CommonHeader from "../common/CommonHeader";
 import PopularDestinations from "./PopularDestinations";
 import MajorAirline from "./MajorAirline";
 import ExchangeRate from "./ExchangeRate";
