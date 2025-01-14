@@ -1,4 +1,4 @@
-import AirlineItem from "./AirlineItem";
+import AirlineItem from "./Tip/AirlineItem";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import React, { useEffect } from "react";
 import { airlinesState } from "../api/atom";

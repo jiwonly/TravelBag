@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const API_BASE_URL = "http://13.125.254.94:8080";
 
+// CORS 설정하기!! -> 백엔드
 
 export const registerUserAPI = async (email, name, password, phone) => {
   try {
@@ -202,7 +203,7 @@ export const fetchExchangeRatesAPI = async (location_id) => {
   try {
     const response = await axios.get(
       `${API_BASE_URL}/api/location/exchange-rate/${location_id}`,
-      
+      { params: { location_id } }
     );
     return response.data;
   } catch (error) {
@@ -216,7 +217,7 @@ export const fetchAirlinesAPI = async (location_id) => {
   try {
     const response = await axios.get(
       `${API_BASE_URL}/api/location/airline/${location_id}`,
-      
+      { params: { location_id } }
     );
     return response.data;
   } catch (error) {
@@ -229,8 +230,8 @@ export const fetchAirlinesAPI = async (location_id) => {
 export const fetchRestaurantsAPI = async (location_id) => {
   try {
     const response = await axios.get(
-      `${API_BASE_URL}/api/restaurant/${location_id}`,
-      
+      `${API_BASE_URL}/api/location/restaurant/${location_id}`,
+      { params: { location_id } }
     );
     return response.data;
   } catch (error) {
@@ -243,8 +244,8 @@ export const fetchRestaurantsAPI = async (location_id) => {
 export const fetchAttractionsAPI = async (location_id) => {
   try {
     const response = await axios.get(
-      `${API_BASE_URL}/api/attraction/${location_id}`,
-      
+      `${API_BASE_URL}/api/location/attraction/${location_id}`,
+      { params: { location_id } }
     );
     return response.data;
   } catch (error) {
@@ -257,8 +258,8 @@ export const fetchAttractionsAPI = async (location_id) => {
 export const fetchSouvenirsAPI = async (location_id) => {
   try {
     const response = await axios.get(
-      `${API_BASE_URL}/api/souvenir/${location_id}`,
-      
+      `${API_BASE_URL}/api/location/souvenir/${location_id}`,
+      { params: { location_id } }
     );
     return response.data;
   } catch (error) {
