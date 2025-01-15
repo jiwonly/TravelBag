@@ -3,23 +3,10 @@ import { useRecoilValue } from "recoil";
 import { templateState } from "@/api/Bag/atom";
 import { useEffect, useState } from "react";
 import api from "@/api/Bag/api";
+import { templateList } from "@/util/get-template-list";
 
 const TemplateList = () => {
-  const [templates, setTemplates] = useState([]);
-
-  useEffect(() => {
-    const fetchTemplates = async () => {
-      try {
-        const response = await api.get("/members/templates");
-        setTemplates(response.data);
-      } catch (error) {
-        console.error("Error fetching templates:", error);
-      }
-    };
-
-    fetchTemplates();
-  }, []);
-
+  const templates = templateList;
   return (
     <div className="template_list mt-[40px] mb-[80px] ">
       <div className="title text-[17px] text-gray-900">템플릿</div>
