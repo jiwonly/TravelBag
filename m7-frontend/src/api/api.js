@@ -4,12 +4,7 @@ export const API_BASE_URL = "https://www.jionly.tech";
 
 export const registerUserAPI = async (email, name, password, phone) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/api/register`, {
-      email,
-      name,
-      password,
-      phone,
-    });
+    const response = await axios.post(`${API_BASE_URL}/api/register`);
     return response.data;
   } catch (error) {
     console.error("Error registering user:", error);
@@ -19,17 +14,13 @@ export const registerUserAPI = async (email, name, password, phone) => {
 
 export const loginUserAPI = async (email, password) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/api/login`, {
-      email,
-      password,
-    });
+    const response = await axios.post(`${API_BASE_URL}/api/login`);
     return response.data;
   } catch (error) {
     console.error("Error logging in user:", error);
     throw error;
   }
 };
-
 
 // 여행지 목록 조회
 export const fetchLocationsAPI = async () => {
@@ -107,16 +98,6 @@ export const fetchSouvenirsAPI = async (location_id) => {
   }
 };
 
-// 회원가입
-export const signupAPI = async (name) => {
-  try {
-    const response = await axios.post(`${API_BASE_URL}/api/member`, { name });
-    return response.data;
-  } catch (error) {
-    console.error("Error during signup:", error);
-    throw error;
-  }
-};
 
 
 // 피오리니 복붙
