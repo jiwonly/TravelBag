@@ -97,6 +97,7 @@ export function SideBar() {
   const location = useLocation();
   const isTemplate = location.pathname.includes("bag");
   const templateItemOfFREESTYLE = useRecoilValue(getThisTemplateItemById(1));
+  
   const onLogoutClick = () => {
     if (window.confirm("정말 로그아웃하시겠습니까?")) {
       nav("/login");
@@ -107,6 +108,9 @@ export function SideBar() {
 
   const bagsDispatch = useSetRecoilState(bagReducerSelector);
   const bagItemsDispatch = useSetRecoilState(bagItemState);
+
+  // const [setIsAuthenticated] = useContext(AppContext);
+
   const handleBagCreate = (templateName) => {
     // 새 가방 생성
     bagsDispatch({
