@@ -1,8 +1,6 @@
 import axios from "axios";
 
-export const API_BASE_URL = "http://13.125.254.94:8080";
-
-// CORS 설정하기!! -> 백엔드
+export const API_BASE_URL = "https://www.jionly.tech";
 
 export const registerUserAPI = async (email, name, password, phone) => {
   try {
