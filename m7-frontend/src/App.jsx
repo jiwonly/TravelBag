@@ -4,10 +4,10 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { createContext, useRef, useState } from "react";
+import { createContext, useRef, useState, useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import { bagState } from "./api/Bag/atom";
-// import { getAuthStatus } from "./api/auth";
+import { getAuthStatus } from "./api/auth";
 
 import Home from "./pages/Home";
 import Tip from "./pages/Tip";
@@ -25,7 +25,7 @@ export const BagIdRefContext = createContext();
 function App() {
   const bags = useRecoilValue(bagState);
 
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const bagIdRef = useRef(
     bags.length > 0 ? Math.max(...bags.map((bag) => bag.id)) + 1 : 1
   );
@@ -33,6 +33,14 @@ function App() {
   const handleLogin = () => {
     setIsAuthenticated(true);
   };
+
+  useEffect(() => {
+    const fetchAuthStatus = async () => {
+      const status = await getAuthStatus();
+      setIsAuthenticated(status.isAuthenticated);
+    };
+    fetchAuthStatus();
+  }, []);
 
   return (
     <>
