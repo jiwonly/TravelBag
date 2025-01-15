@@ -25,7 +25,7 @@ export const BagIdRefContext = createContext();
 function App() {
   const bags = useRecoilValue(bagState);
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
   const bagIdRef = useRef(
     bags.length > 0 ? Math.max(...bags.map((bag) => bag.id)) + 1 : 1
   );
@@ -34,13 +34,13 @@ function App() {
     setIsAuthenticated(true);
   };
 
-  useEffect(() => {
-    const fetchAuthStatus = async () => {
-      const status = await getAuthStatus();
-      setIsAuthenticated(status.isAuthenticated);
-    };
-    fetchAuthStatus();
-  }, []);
+  // useEffect(() => {
+  //   const fetchAuthStatus = async () => {
+  //     const status = await getAuthStatus();
+  //     setIsAuthenticated(status.isAuthenticated);
+  //   };
+  //   fetchAuthStatus();
+  // }, []);
 
   return (
     <>

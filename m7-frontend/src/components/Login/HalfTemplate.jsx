@@ -5,6 +5,7 @@ import LoginButton from "./LoginButton";
 import KakaoButton from "./KakaoButton";
 import RegisterButton from "./RegisterButton";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "@/api/api";
 
 const HalfTemplate = ({ type, onLogin }) => {
   const nav = useNavigate();
