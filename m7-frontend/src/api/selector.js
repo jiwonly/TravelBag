@@ -6,7 +6,6 @@ import {
   restaurantsState,
   attractionsState,
   souvenirsState,
-  signupMessageState,
 } from "./atom";
 
 export const selectLocations = selector({
@@ -54,13 +53,5 @@ export const selectSouvenirs = selector({
   get: ({ get }) => {
     const souvenirs = get(souvenirsState);
     return souvenirs;
-  },
-});
-
-export const selectSignupMessage = selector({
-  key: "selectSignupMessage",
-  get: ({ get }) => {
-    const signupMessage = get(signupMessageState);
-    return signupMessage;
   },
 });

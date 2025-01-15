@@ -2,13 +2,14 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuthStatus } from "@/api/auth";
 import HalfTemplate from "@/components/LogIn/HalfTemplate";
+import { API_BASE_URL } from "@/api/api";
 
 const Login = () => {
   const nav = useNavigate();
   // 카카오 로그인 함수
   const handleKakaoLogin = () => {
     // 백엔드의 카카오 인증 엔드포인트로 이동
-    window.location.href = "http://localhost:8080/oauth2/authorization/kakao";
+    window.location.href = `${API_BASE_URL}/oauth2/authorization/kakao`;
   };
   useEffect(() => {
     // 새로고침 시 인증 상태 확인 및 복구
