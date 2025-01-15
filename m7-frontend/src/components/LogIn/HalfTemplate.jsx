@@ -5,6 +5,7 @@ import LoginButton from "./LoginButton";
 import KakaoButton from "./KakaoButton";
 import RegisterButton from "./RegisterButton";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "@/api/api";
 
 const HalfTemplate = ({ type, onLogin }) => {
   const nav = useNavigate();
@@ -35,8 +36,7 @@ const HalfTemplate = ({ type, onLogin }) => {
             {/* 카카오 로그인 버튼 */}
             <KakaoButton
               onClick={() => {
-                window.location.href =
-                  "http://localhost:8080/oauth2/authorization/kakao";
+                window.location.href = `${API_BASE_URL}/oauth2/authorization/kakao`;
               }}
             />
           </div>
