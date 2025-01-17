@@ -2,6 +2,17 @@ import axios from "axios";
 
 export const API_BASE_URL = "https://www.jionly.tech";
 
+// 회원 조회 
+export const getMemberAPI = async (memberId) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/api/member/${memberId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching member:", error);
+    throw error;
+  }
+};
+
 // 여행지 목록 조회
 export const fetchLocationsAPI = async () => {
   try {
