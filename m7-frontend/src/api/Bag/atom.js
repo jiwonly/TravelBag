@@ -190,6 +190,12 @@ export const templateItemState = atom({
   ],
 });
 
+// 임시 가방 목록 - 지원
+export const bagState2 = atom({
+  key: "bagState2",
+  default: [],
+});
+
 // 4. 가방 목록
 export const bagState = atom({
   key: "bagState",

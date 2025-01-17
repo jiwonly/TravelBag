@@ -8,7 +8,7 @@ const RecommendPlusList = ({ categoryId }) => {
   );
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 ">
       {recommendItemsByCategory.map((item) => (
         <RecommendPlusItem
           key={item.id}

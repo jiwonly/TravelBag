@@ -138,7 +138,7 @@ const BagHeader = ({ icon }) => {
               setEditedBagName(e.target.value);
               onSetEdit(true);
             }}
-            className="text-[16px] font-[Pretendard] leading-[28px] text-[#393940] border border-gray-300 rounded px-2 py-1"
+            className="w-[200px] text-[16px] font-[Pretendard] leading-[28px] text-[#393940] border border-gray-300 rounded px-2 py-1"
           />
         ) : (
           <Select onValueChange={(value) => onSelected(value)}>
