@@ -4,11 +4,13 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import BagDashboard from "@/components/Bag/BagDashboard";
 import { createContext, useState, useRef } from "react";
 import RecommendBar from "@/components/Bag/RecommendBar";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 import { getBagDetailsById } from "@/api/Bag/selector";
-import { bagState } from "@/api/Bag/atom";
+import { bagState2 } from "@/api/Bag/atom";
 import { getThisBagItemById } from "@/api/Bag/selector";
 import NotFound from "./NotFound";
+import { getBagsAPI2 } from "@/api/Bag/api";
+import { useEffect } from "react";
 
 export const SelectedSateData = createContext();
 export const SelectedDisplatchData = createContext();
@@ -17,9 +19,26 @@ export const EditStateContext = createContext();
 export const EditDispatchContext = createContext();
 
 const Bag = ({ children }) => {
+  // 데이터 잘 불러지는 코드
+  const [bags, setBags] = useRecoilState(bagState2);
+  const memberId = 1; // 임시로 memberId 1로 설정
+  useEffect(() => {
+    const fetchBags = async () => {
+      try {
+        const data = await getBagsAPI2(memberId); // 임시로 memberId 1로 설정
+        setBags(data);
+        console.log(data);
+      } catch (err) {
+        console.error("Error:", err);
+      }
+    };
+
+    fetchBags();
+  }, []);
+
   const nav = useNavigate();
   const params = useParams();
-  const bags = useRecoilValue(bagState);
+  // const bags = useRecoilValue(bagState); 언니 원래 코드
   const thisBag = useRecoilValue(getBagDetailsById(params.id));
   const thisBagItemsById = useRecoilValue(getThisBagItemById(thisBag.id));
   const [newBagName, setNewBagName] = useState(thisBag.name);
@@ -107,9 +126,10 @@ const Bag = ({ children }) => {
   const bagExists = bags.some((bag) => String(bag.id) === params.id);
 
   // 존재하지 않는 가방으로 접근 시 NotFound 페이지로 리다이렉트
-  if (!bagExists) {
-    return <NotFound />;
-  }
+  // 잠시 주석 처리
+  // if (!bagExists) {
+  //   return <NotFound />;
+  // }
 
   return (
     <div className="flex">

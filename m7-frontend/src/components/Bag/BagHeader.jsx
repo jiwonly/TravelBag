@@ -17,6 +17,7 @@ import { AddedItemStateContext } from "./BagDashboard";
 import { EditStateContext } from "@/pages/Bag";
 import { EditDispatchContext } from "@/pages/Bag";
 import { getBagDetailsById } from "@/api/Bag/selector";
+import { getIconImage } from "@/util/get-icon-image";
 
 const BagHeader = ({ icon }) => {
   const added = useContext(AddedItemStateContext);
@@ -125,7 +126,7 @@ const BagHeader = ({ icon }) => {
   return (
     <div className="flex items-center py-[12px] px-[23px] gap-[10px] self-stretch border-t border-l border-r rounded-t-[16px] border-[#e5e6e8] bg-[var(--White,_#FFF)] relative">
       <section className="icon w-[40px] h-[40px] flex-shrink-0">
-        <img src={`/src/assets/icon/${icon}.svg`} alt="icon" />
+        <img src={getIconImage(icon)} alt="icon" />
       </section>
 
       <div className="flex flex-col">
@@ -137,7 +138,7 @@ const BagHeader = ({ icon }) => {
               setEditedBagName(e.target.value);
               onSetEdit(true);
             }}
-            className="text-[16px] font-[Pretendard] leading-[28px] text-[#393940] border border-gray-300 rounded px-2 py-1"
+            className="w-[200px] text-[16px] font-[Pretendard] leading-[28px] text-[#393940] border border-gray-300 rounded px-2 py-1"
           />
         ) : (
           <Select onValueChange={(value) => onSelected(value)}>

@@ -48,7 +48,7 @@ export function CheckInput({ onCreateItem }) {
       <div className="flex items-center gap-3">
         <img src={Checkbox_No} />
         <input
-          className="text-gray-800 text-sm outline-none"
+          className="text-gray-800 text-sm outline-none w-[200px]"
           placeholder="원하는 물품을 입력하세요"
           value={inputValue}
           onChange={handleChange}
@@ -58,7 +58,7 @@ export function CheckInput({ onCreateItem }) {
         />
       </div>
       <button
-        onClick={onClickAdd}
+        onClick={inputValue !== "" ? onClickAdd : null}
         className="flex justify-center items-center rounded-md bg-white"
       >
         <img src={CheckData_plus} />

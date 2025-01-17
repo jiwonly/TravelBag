@@ -6,7 +6,6 @@ import MajorAirline from "./MajorAirline";
 import ExchangeRate from "./ExchangeRate";
 import EatEnjoyShop from "./EatEnjoyShop";
 
-
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { fetchLocationsAPI } from "@/api/api";
 import { locationsState } from "@/api/atom";

@@ -1,6 +1,5 @@
 import axios from "axios";
-
-export const API_BASE_URL = "http://localhost:8080";
+import { API_BASE_URL } from "../../api/api";
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -74,6 +73,19 @@ export const updateBagNameAPI = (memberId, bagId, newName) =>
 // 3. 가방 전체 조회 (홈 화면)
 export const getBagsAPI = (memberId) =>
   apiRequest("get", `/member/${memberId}/bags`);
+
+// 임시 가방 전체 조회 - 지원
+export const getBagsAPI2 = async (memberId) => {
+  try {
+    const response = await axios.get(
+      `${API_BASE_URL}/api/member/${memberId}/bags`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
 
 // 4. 가방 상세 조회 (챙길것들 화면)
 export const getBagDetailsAPI = (memberId, bagId) =>

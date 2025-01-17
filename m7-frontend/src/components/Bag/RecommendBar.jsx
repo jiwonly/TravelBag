@@ -14,7 +14,7 @@ const RecommendBar = ({ icon }) => {
           </section>
         </div>
       </div>
-      <div className="px-[20px] py-[0px]flex items-start flex-[1_0_0] self-stretch rounded-b-[16px] border-[1px] h-full min-h-[695px] bg-gray-100">
+      <div className="px-[15px] py-[0px] flex items-start flex-[1_0_0] self-stretch rounded-b-[16px] border-[1px] h-full min-h-[695px] bg-gray-100">
         <RecommendAccordionList />
       </div>
     </aside>

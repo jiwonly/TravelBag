@@ -22,7 +22,8 @@ import logout from "../../assets/sidebar/logout.svg";
 import { EditStateContext } from "@/pages/Bag";
 import { useParams } from "react-router-dom";
 import { bagItemState, bagState } from "@/api/Bag/atom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { authState } from "@/api/auth";
+import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
 import {
   bagReducerSelector,
   getBagDetailsById,
@@ -97,9 +98,13 @@ export function SideBar() {
   const location = useLocation();
   const isTemplate = location.pathname.includes("bag");
   const templateItemOfFREESTYLE = useRecoilValue(getThisTemplateItemById(1));
+
+  const [isAuthenticated, setIsAuthenticated] = useRecoilState(authState);
+
   const onLogoutClick = () => {
     if (window.confirm("정말 로그아웃하시겠습니까?")) {
       nav("/login");
+      setIsAuthenticated(false);
     }
   };
 
@@ -107,6 +112,7 @@ export function SideBar() {
 
   const bagsDispatch = useSetRecoilState(bagReducerSelector);
   const bagItemsDispatch = useSetRecoilState(bagItemState);
+
   const handleBagCreate = (templateName) => {
     // 새 가방 생성
     bagsDispatch({

@@ -4,10 +4,11 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { createContext, useRef, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { createContext, useRef, useState, useEffect } from "react";
+import { useRecoilValue, useRecoilState } from "recoil";
+import { authState } from "./api/auth";
 import { bagState } from "./api/Bag/atom";
-// import { getAuthStatus } from "./api/auth";
+import { getAuthStatus } from "./api/auth";
 
 import Home from "./pages/Home";
 import Tip from "./pages/Tip";
@@ -25,7 +26,7 @@ export const BagIdRefContext = createContext();
 function App() {
   const bags = useRecoilValue(bagState);
 
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useRecoilState(authState);
   const bagIdRef = useRef(
     bags.length > 0 ? Math.max(...bags.map((bag) => bag.id)) + 1 : 1
   );
@@ -33,6 +34,16 @@ function App() {
   const handleLogin = () => {
     setIsAuthenticated(true);
   };
+
+  // 로그인 쓸 때 주석 풀기
+
+  // useEffect(() => {
+  //   const fetchAuthStatus = async () => {
+  //     const status = await getAuthStatus();
+  //     setIsAuthenticated(status.isAuthenticated);
+  //   };
+  //   fetchAuthStatus();
+  // }, []);
 
   return (
     <>
