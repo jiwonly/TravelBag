@@ -21,7 +21,6 @@ export function CheckData({
   const handleThisBagITemByCategoryUpdateName = (e) => {
     onUpdateName(itemId, e.target.value);
   };
-  console.log(itemId, itemName);
 
   return (
     <div

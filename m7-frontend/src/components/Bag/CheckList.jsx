@@ -1,6 +1,6 @@
 import { CheckData } from "./CheckData";
 import { CheckInput } from "./CheckInput";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import "../../styles/scrollbar.css";
 import { EditStateContext } from "@/pages/Bag";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
@@ -10,12 +10,16 @@ import { NewItemsStateContext } from "./BagDashboard";
 import { NewItemDispatchContext } from "./BagDashboard";
 import { AddedItemStateContext } from "./BagDashboard";
 import {
-  getBagDetailsById,
-  getThisBagItemById,
-  getThisBagItemByCategory,
-} from "@/api/Bag/selector";
+  createBagItemAPI,
+  deleteItemAPI,
+  getBagItemsByCategoryAPI,
+  toggleItemPackedAPI,
+  updateItemNameAPI,
+} from "@/api/api";
 
 export function CheckList({ bagId, categoryId }) {
+  const memberId = 1;
+  const [itmesByCategory, setItemsByCategory] = useState([]);
   let categoryName = "";
   switch (categoryId) {
     case 1:
@@ -38,65 +42,68 @@ export function CheckList({ bagId, categoryId }) {
       break;
   }
 
-  const added = useContext(AddedItemStateContext);
-  console.log(added);
-  const thisBag = useRecoilValue(getBagDetailsById(bagId));
-
-  const thisBagItemsByCategory = useRecoilValue(
-    getThisBagItemByCategory({ bagId, categoryId })
-  );
-
-  const setThisBagItemsByCategory = useSetRecoilState(
-    getThisBagItemByCategory({ bagId, categoryId })
-  );
+  useEffect(() => {
+    const fetchItemsByCategory = async () => {
+      try {
+        const itemByCategoryResponse = await getBagItemsByCategoryAPI(
+          memberId,
+          bagId,
+          categoryId
+        );
+        setItemsByCategory(itemByCategoryResponse);
+      } catch (error) {
+        console.error("Error fetching bagItemsByCategory:", error);
+      }
+    };
+    fetchItemsByCategory();
+  }, [memberId, bagId, categoryId]);
 
   const isEditing = useContext(EditStateContext);
-
-  useEffect(() => {
-    if (thisBag && thisBag.items) {
-      const categoryItems = thisBag.items.find(
-        (item) => item.categoryId === categoryId
-      );
-      setThisBagItemsByCategory(categoryItems ? categoryItems.item : []);
-    }
-  }, [thisBag, categoryId, setThisBagItemsByCategory]);
-
   const thisBagItemByCategoryIdRef = useContext(
     thisBagItemByCategoryIdRefContext
   );
 
-  const handleThisBagItemByCategoryCreate = (itemName) => {
-    const newItem = {
-      id: thisBagItemByCategoryIdRef.current, // 고유 ID
-      name: itemName,
-      packed: false,
-    };
-
-    // 🔄 기존 배열을 복사하여 새 아이템 추가
-    setThisBagItemsByCategory((prevItems) => [...prevItems, newItem]);
-    thisBagItemByCategoryIdRef.current += 1; // ID 증가
+  const handleThisBagItemByCategoryCreate = async (itemName) => {
+    try {
+      const response = await createBagItemAPI(
+        memberId,
+        bagId,
+        categoryId,
+        itemName
+      );
+      thisBagItemByCategoryIdRef.current++;
+    } catch (error) {
+      console.error("Error creating item:", error);
+    }
   };
 
-  const handleThisBagITemByCategoryUpdateName = (id, newName) => {
-    setThisBagItemsByCategory((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id ? { ...item, name: newName } : item
-      )
-    );
+  const handleThisBagITemByCategoryUpdateName = async (itemId, itemName) => {
+    try {
+      const response = await updateItemNameAPI(
+        memberId,
+        bagId,
+        itemId,
+        itemName
+      );
+    } catch (error) {
+      console.error("Error updating item name:", error);
+    }
   };
 
-  const handleThisBagItemByCategoryUpdatePacked = (id) => {
-    setThisBagItemsByCategory((prevItems) =>
-      prevItems.map(
-        (item) => (item.id === id ? { ...item, packed: !item.packed } : item) // packed 값을 반전
-      )
-    );
+  const handleThisBagItemByCategoryUpdatePacked = async (itemId) => {
+    try {
+      const response = await toggleItemPackedAPI(memberId, bagId, itemId);
+    } catch (error) {
+      console.error("Error toggle item packed:", error);
+    }
   };
 
-  const handleThisBagItemCategoryDelete = (id) => {
-    setThisBagItemsByCategory(
-      (prevItems) => prevItems.filter((item) => item.id !== id) // 해당 ID를 제외한 새로운 배열 반환
-    );
+  const handleThisBagItemCategoryDelete = async (itemId) => {
+    try {
+      const response = await deleteItemAPI(memberId, bagId, itemId);
+    } catch (error) {
+      console.error("Error delete item:", error);
+    }
   };
 
   return (
@@ -104,7 +111,7 @@ export function CheckList({ bagId, categoryId }) {
       <p className="font-bold mb-1 ml-6 text-sm">{categoryName}</p>
 
       <div className="flex flex-col items-center gap-[14px] max-h-[400px] overflow-y-auto scrollbar-thin">
-        {thisBagItemsByCategory.map((item) => (
+        {itmesByCategory.map((item) => (
           <CheckData
             key={item.id}
             bagId={bagId}
