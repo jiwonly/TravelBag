@@ -4,12 +4,24 @@ import Checkbox_No from "../../assets/Checkbox_No.svg";
 import CheckData_minus from "../../assets/CheckData_minus.svg";
 import { EditStateContext } from "@/pages/Bag";
 
-export function CheckData({ itemId, itemName, isPacked, onToggle, onDelete }) {
+export function CheckData({
+  itemId,
+  itemName,
+  isPacked,
+  onUpdateName,
+  onToggle,
+  onDelete,
+}) {
   const isEditing = useContext(EditStateContext);
 
   const handleDelete = () => {
     onDelete(itemId);
   };
+
+  const handleThisBagITemByCategoryUpdateName = (e) => {
+    onUpdateName(itemId, e.target.value);
+  };
+  console.log(itemId, itemName);
 
   return (
     <div
@@ -23,7 +35,15 @@ export function CheckData({ itemId, itemName, isPacked, onToggle, onDelete }) {
           className="cursor-pointer"
           onClick={() => onToggle(itemId)}
         />
-        <p className="text-sm text-gray-800">{itemName}</p>
+        {isEditing ? (
+          <input
+            className="text-gray-800 text-sm outline-none w-[200px]"
+            value={itemName}
+            onChange={handleThisBagITemByCategoryUpdateName}
+          />
+        ) : (
+          <p className="text-sm text-gray-800">{itemName} </p>
+        )}
       </div>
       {isEditing ? (
         <button

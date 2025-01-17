@@ -77,6 +77,14 @@ export function CheckList({ bagId, categoryId }) {
     thisBagItemByCategoryIdRef.current += 1; // ID 증가
   };
 
+  const handleThisBagITemByCategoryUpdateName = (id, newName) => {
+    setThisBagItemsByCategory((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id ? { ...item, name: newName } : item
+      )
+    );
+  };
+
   const handleThisBagItemByCategoryUpdatePacked = (id) => {
     setThisBagItemsByCategory((prevItems) =>
       prevItems.map(
@@ -103,6 +111,7 @@ export function CheckList({ bagId, categoryId }) {
             itemId={item.id}
             itemName={item.name}
             isPacked={item.packed}
+            onUpdateName={handleThisBagITemByCategoryUpdateName}
             onToggle={handleThisBagItemByCategoryUpdatePacked}
             onDelete={handleThisBagItemCategoryDelete}
           />
