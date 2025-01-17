@@ -6,11 +6,12 @@ import { createContext, useState, useRef } from "react";
 import RecommendBar from "@/components/Bag/RecommendBar";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { getBagDetailsById } from "@/api/Bag/selector";
-import { bagState2 } from "@/api/Bag/atom";
+// import { bagState2 } from "@/api/Bag/atom";
 import { getThisBagItemById } from "@/api/Bag/selector";
 import NotFound from "./NotFound";
-import { getBagsAPI2 } from "@/api/Bag/api";
+// import { getBagsAPI2 } from "@/api/Bag/api";
 import { useEffect } from "react";
+import { bagState } from "@/api/Bag/atom";
 
 export const SelectedSateData = createContext();
 export const SelectedDisplatchData = createContext();
@@ -19,22 +20,22 @@ export const EditStateContext = createContext();
 export const EditDispatchContext = createContext();
 
 const Bag = ({ children }) => {
-  // 데이터 잘 불러지는 코드
-  const [bags, setBags] = useRecoilState(bagState2);
-  const memberId = 1; // 임시로 memberId 1로 설정
-  useEffect(() => {
-    const fetchBags = async () => {
-      try {
-        const data = await getBagsAPI2(memberId); // 임시로 memberId 1로 설정
-        setBags(data);
-        console.log(data);
-      } catch (err) {
-        console.error("Error:", err);
-      }
-    };
+  // // 데이터 잘 불러지는 코드
+  const [bags, setBags] = useRecoilState(bagState);
+  // const memberId = 1; // 임시로 memberId 1로 설정
+  // useEffect(() => {
+  //   const fetchBags = async () => {
+  //     try {
+  //       const data = await getBagsAPI2(memberId); // 임시로 memberId 1로 설정
+  //       setBags(data);
+  //       console.log(data);
+  //     } catch (err) {
+  //       console.error("Error:", err);
+  //     }
+  //   };
 
-    fetchBags();
-  }, []);
+  //   fetchBags();
+  // }, []);
 
   const nav = useNavigate();
   const params = useParams();
