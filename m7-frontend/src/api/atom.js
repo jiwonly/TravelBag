@@ -1,5 +1,10 @@
 import { atom } from "recoil";
 
+export const membersState = atom({
+  key: "membersState",
+  default: [],
+});
+
 export const locationsState = atom({
   key: "locationsState",
   default: [],
