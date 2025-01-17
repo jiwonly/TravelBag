@@ -41,7 +41,7 @@ const RecommendAccordionItem = ({ categoryId, ItemByCategory }) => {
       <Accordion type="single" collapsible className="w-full">
         <AccordionItem value="item-1">
           <AccordionTrigger>{name}</AccordionTrigger>
-          <AccordionContent className="max-h-[250px] overflow-y-auto scrollbar-thin">
+          <AccordionContent className="max-h-[250px] overflow-y-auto overflow-x-hidden scrollbar-thin">
             <RecommendPlusList
               categoryId={categoryId}
               ItemByCategory={ItemByCategory}
