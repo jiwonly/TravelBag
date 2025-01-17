@@ -58,7 +58,7 @@ export function CheckInput({ onCreateItem }) {
         />
       </div>
       <button
-        onClick={onClickAdd}
+        onClick={inputValue !== "" ? onClickAdd : null}
         className="flex justify-center items-center rounded-md bg-white"
       >
         <img src={CheckData_plus} />
