@@ -80,8 +80,8 @@ const BagHeader = ({ icon }) => {
   const nav = useNavigate();
   const { onChangeBagName } = useContext(SelectedDisplatchData);
   const onChange = onChangeBagName; // 올바른 함수 참조
-  const [selectedBagName, setSelectedBagName] = useState([]);
-  const [editedBagName, setEditedBagName] = useState([]);
+  const [selectedBagName, setSelectedBagName] = useState("");
+  const [editedBagName, setEditedBagName] = useState("");
 
   useEffect(() => {
     if (thisBag && thisBag.name) {
@@ -116,7 +116,6 @@ const BagHeader = ({ icon }) => {
       console.error("Error updating bag name:", error);
     }
   };
-
   const handleBagUpdateTemporary = async () => {
     try {
       const response = await toggleBagTemporaryAPI(memberId, bagId);
@@ -125,7 +124,7 @@ const BagHeader = ({ icon }) => {
         // thisBag 업데이트
         setThisBag((prev) => {
           const updatedBag = { ...prev, temporary: !prev.temporary };
-          console.log("Updated thisBag state:", updatedBag); // 상태 변경 로그
+          console.log("Updated thisBag:", updatedBag); // 상태 디버깅
           return updatedBag;
         });
 
@@ -139,7 +138,7 @@ const BagHeader = ({ icon }) => {
         console.error("No response data from toggleBagTemporaryAPI");
       }
     } catch (error) {
-      console.error("Error toggling bag temporary:", error);
+      console.error("Error toggling bag temporary:", error); // 에러 디버깅
     }
   };
 
@@ -174,6 +173,7 @@ const BagHeader = ({ icon }) => {
         return;
       } else if (!thisBag.temporary) {
         await handleBagUpdateName(editedBagName);
+        console.log("editedBagName", editedBagName);
         setSelectedBagName(editedBagName);
         onSetEditing(false);
         onSetEdit(false);
