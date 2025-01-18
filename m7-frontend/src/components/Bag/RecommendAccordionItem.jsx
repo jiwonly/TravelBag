@@ -20,16 +20,16 @@ const RecommendAccordionItem = ({ categoryId, ItemByCategory }) => {
       name = "필수품";
       break;
     case "CLOTHING":
-      name = "의류";
+      name = "의료품";
       break;
     case "TOILETRIES":
-      name = "위생용품";
+      name = "의류";
       break;
     case "ELECTRONICS":
-      name = "전자기기";
+      name = "위생용품";
       break;
     case "MEDICALS":
-      name = "의료품";
+      name = "전자기기";
       break;
     case "OTHER":
       name = "기타";
@@ -40,7 +40,7 @@ const RecommendAccordionItem = ({ categoryId, ItemByCategory }) => {
     <div className="flex w-full">
       <Accordion type="single" collapsible className="w-full">
         <AccordionItem value="item-1">
-          <AccordionTrigger>{categoryId}</AccordionTrigger>
+          <AccordionTrigger>{name}</AccordionTrigger>
           <AccordionContent className="max-h-[250px] overflow-y-auto overflow-x-hidden scrollbar-thin">
             <RecommendPlusList categoryId={categoryId} />
           </AccordionContent>

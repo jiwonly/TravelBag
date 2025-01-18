@@ -26,16 +26,16 @@ export function CheckList({ bagId, categoryId }) {
       categoryName = "필수품";
       break;
     case 2:
-      categoryName = "의류";
+      categoryName = "의료품";
       break;
     case 3:
-      categoryName = "위생용품";
+      categoryName = "의류";
       break;
     case 4:
-      categoryName = "전자기기";
+      categoryName = "위생용품";
       break;
     case 5:
-      categoryName = "의료품";
+      categoryName = "전자기기";
       break;
     case 6:
       categoryName = "기타";
@@ -115,6 +115,7 @@ export function CheckList({ bagId, categoryId }) {
       console.error("Error delete item:", error);
     }
   };
+  console.log("CategoryItems", categoryId, itemsByCategory);
 
   return (
     <div className="flex flex-col bg-gray-100 py-4 px-1 rounded-md w-[340px] h-auto gap-[14px] shadow-[0px_4px_12px_0px_rgba(0,0,0,0.12)]">
