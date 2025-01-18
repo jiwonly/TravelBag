@@ -22,16 +22,16 @@ const HalfTemplate = ({ type, onLogin }) => {
 
         {type === "login" ? (
           <div className="flex flex-col gap-[13px]">
-            <InfoInputButton content="아이디" type="text" name="id" />
+            {/* <InfoInputButton content="아이디" type="text" name="id" />
             <InfoInputButton content="비밀번호" type="password" name="pwd" />
-            <div></div>
+            <div></div> */}
 
-            <LoginButton content="로그인" onClick={handleLoginClick} />
+            {/* <LoginButton content="로그인" onClick={handleLoginClick} />
             <RegisterButton
               onClick={() => {
                 nav("/register");
               }}
-            />
+            /> */}
 
             {/* 카카오 로그인 버튼 */}
             <KakaoButton
