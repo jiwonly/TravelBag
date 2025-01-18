@@ -40,6 +40,7 @@ function App() {
   // useEffect(() => {
   //   const fetchAuthStatus = async () => {
   //     const status = await getAuthStatus();
+  //     console.log(status);
   //     setIsAuthenticated(status.isAuthenticated);
   //   };
   //   fetchAuthStatus();
