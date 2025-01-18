@@ -7,10 +7,10 @@ import { API_BASE_URL } from "@/api/api";
 const HalfTemplate = ({ type, onLogin }) => {
   const nav = useNavigate();
 
-  const handleLoginClick = () => {
-    onLogin();
-    nav("/");
-  };
+  // const handleLoginClick = () => {
+  //   onLogin();
+  //   nav("/");
+  // };
 
   return (
     <div className="flex justify-center items-center gap-[30px] p-[28px] h-screen bg-white">

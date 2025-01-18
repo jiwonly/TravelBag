@@ -1,8 +1,13 @@
 import BagList from "./BagList";
 import CommonHeader from "../common/CommonHeader";
 import TemplateList from "./TemplateList";
+import { useRecoilValue } from "recoil";
+import { authState } from "../../api/auth";
 
 const Dashboard = () => {
+  const isAuthenticated = useRecoilValue(authState);
+  console.log("authenticated:", isAuthenticated);
+
   return (
     <div className="mt-[29px]">
       <CommonHeader icon="home" title="홈" memo="어서오세요!" />
