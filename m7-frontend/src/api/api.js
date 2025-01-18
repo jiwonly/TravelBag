@@ -315,11 +315,7 @@ export const toggleItemPackedAPI = async (memberId, bagId, itemId) => {
     );
     return response.data;
   } catch (error) {
-    console.error(
-      `Error toggling is_packed for item ${itemId} in bag ${bagId} of member ${memberId}:`,
-      error
-    );
-    throw error;
+    console.error("Error toggling is_packed:", error);
   }
 };
 

@@ -36,7 +36,6 @@ const BagDashboard = ({ icon }) => {
   const onSetAdded = (value) => {
     setAdded(value);
   };
-  console.log(thisBagItems);
 
   return (
     <>
