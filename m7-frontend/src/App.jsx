@@ -25,6 +25,7 @@ export const BagIdRefContext = createContext();
 
 function App() {
   const bags = useRecoilValue(bagState);
+  const [auth, setAuth] = useRecoilState(authState);
 
   const [isAuthenticated, setIsAuthenticated] = useRecoilState(authState);
   const bagIdRef = useRef(
@@ -46,6 +47,37 @@ function App() {
   //   fetchAuthStatus();
   // }, []);
 
+  // 동규 오빠 새로운 코드
+  useEffect(() => {
+    const fetchAuthStatus = async () => {
+      try {
+        const status = await getAuthStatus();
+        console.log("인증 상태 확인:", status);
+        console.log("인증 상태 확인2:", status.isAuthenticated);
+
+        // 인증 상태 업데이트
+        setAuth({
+          isAuthenticated: status.isAuthenticated,
+          kakaoId: status.kakaoId,
+          email: status.email,
+          nickname: status.nickname,
+        });
+      } catch (error) {
+        console.error("인증 상태 확인 실패:", error);
+
+        // 인증 실패 시 기본값 설정
+        setAuth({
+          isAuthenticated: false,
+          kakaoId: null,
+          email: null,
+          nickname: null,
+        });
+      }
+    };
+
+    fetchAuthStatus(); // 백엔드에서 인증 상태 가져오기
+  }, [setAuth]);
+
   return (
     <>
       <BagIdRefContext.Provider value={bagIdRef}>
@@ -57,7 +89,7 @@ function App() {
             <Route
               path="/"
               element={
-                <PrivateRoute isAuthenticated={isAuthenticated}>
+                <PrivateRoute isAuthenticated={auth.isAuthenticated}>
                   <Home />
                 </PrivateRoute>
               }
@@ -65,7 +97,7 @@ function App() {
             <Route
               path="/tip"
               element={
-                <PrivateRoute isAuthenticated={isAuthenticated}>
+                <PrivateRoute isAuthenticated={auth.isAuthenticated}>
                   <Tip />
                 </PrivateRoute>
               }
@@ -73,7 +105,7 @@ function App() {
             <Route
               path="/bag/:id"
               element={
-                <PrivateRoute isAuthenticated={isAuthenticated}>
+                <PrivateRoute isAuthenticated={auth.isAuthenticated}>
                   <Bag />
                 </PrivateRoute>
               }
