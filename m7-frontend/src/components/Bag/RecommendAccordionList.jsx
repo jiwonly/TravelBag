@@ -24,7 +24,6 @@ const RecommendAccordionList = () => {
     };
     fetchrecommendItems();
   }, [memberId, bagId]);
-  console.log(recommendItems);
 
   return (
     <div className="flex flex-col w-full">

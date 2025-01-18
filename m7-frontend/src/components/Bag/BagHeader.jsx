@@ -10,58 +10,89 @@ import trashIcon from "../../assets/icon/trash.svg";
 import { SelectedDisplatchData } from "@/pages/Bag";
 import HeaderButton from "./HeaderButton";
 import { useParams, useNavigate } from "react-router-dom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { getBags } from "@/api/Bag/selector";
-import { bagReducerSelector } from "@/api/Bag/selector";
+import { useRecoilState } from "recoil";
 import { AddedItemStateContext } from "./BagDashboard";
 import { EditStateContext } from "@/pages/Bag";
 import { EditDispatchContext } from "@/pages/Bag";
-import { getBagDetailsById } from "@/api/Bag/selector";
 import { getIconImage } from "@/util/get-icon-image";
+import { bagsState, realBagsState } from "@/api/atom";
+import {
+  deleteBagAPI,
+  getBagDetailsAPI,
+  getBagsAPI,
+  toggleBagTemporaryAPI,
+  updateBagNameAPI,
+} from "@/api/api";
 
 const BagHeader = ({ icon }) => {
   const added = useContext(AddedItemStateContext);
   const params = useParams();
-  const bags = useRecoilValue(getBags);
-  const thisBag = useRecoilValue(getBagDetailsById(params.id));
+  const memberId = 1;
+  const bagId = params.id;
+  const [bags, setBags] = useRecoilState(bagsState);
+  const [thisBag, setThisBag] = useState([]);
+  const [realBags, setRealBags] = useRecoilState(realBagsState);
 
-  const realBags = bags.filter((bag) => !bag.temporary);
+  // 가방 데이터 가져오기
+  useEffect(() => {
+    const fetchBags = async () => {
+      try {
+        const response = await getBagsAPI(memberId); // API 호출
+        if (Array.isArray(response)) {
+          setBags(response); // bags 상태 업데이트
+        } else {
+          console.error("Invalid bags response format:", response);
+        }
+      } catch (error) {
+        console.error("Error fetching bags:", error);
+      }
+    };
+
+    fetchBags();
+  }, [memberId, setBags]); // memberId가 변경될 때만 실행
+
+  // 현재 가방 데이터 가져오기
+  useEffect(() => {
+    const fetchThisBag = async () => {
+      try {
+        const response = await getBagDetailsAPI(memberId, bagId); // API 호출
+        if (response) {
+          setThisBag(response); // thisBag 상태 업데이트
+        } else {
+          console.error("Invalid bagDetails response format:", response);
+        }
+      } catch (error) {
+        console.error("Error fetching bag details:", error);
+      }
+    };
+
+    if (bagId) {
+      fetchThisBag(); // bagId가 존재할 때만 호출
+    }
+  }, [memberId, bagId]); // memberId와 bagId 변경 시 호출
+
+  // realBags 업데이트
+  useEffect(() => {
+    const filteredBags = bags.filter((bag) => !bag.temporary); // temporary가 false인 가방만 필터링
+    setRealBags(filteredBags); // realBags 상태 업데이트
+  }, [bags, setRealBags]);
+
+  const nav = useNavigate();
   const { onChangeBagName } = useContext(SelectedDisplatchData);
   const onChange = onChangeBagName; // 올바른 함수 참조
+  const [selectedBagName, setSelectedBagName] = useState([]);
+  const [editedBagName, setEditedBagName] = useState([]);
 
-  const [selectedBagName, setSelectedBagName] = useState(thisBag.name);
-  const [editedBagName, setEditedBagName] = useState(thisBag.name);
+  useEffect(() => {
+    if (thisBag && thisBag.name) {
+      setSelectedBagName(thisBag.name); // thisBag의 name으로 초기화
+      setEditedBagName(thisBag.name); // thisBag의 name으로 초기화
+    }
+  }, [thisBag]); // thisBag 변경 시 실행
 
   const isEditing = useContext(EditStateContext);
   const { onSetEditing } = useContext(EditDispatchContext);
   const [edit, setEdit] = useState(false);
-  const bagsDispatch = useSetRecoilState(bagReducerSelector);
-
-  const handleBagUpdateName = (id, name) => {
-    bagsDispatch({
-      type: "UPDATE_NAME",
-      data: { id, name },
-    });
-  };
-
-  const handleBagUpdateTemporary = (id, temporary) => {
-    bagsDispatch({
-      type: "UPDATE_TEMPORARY",
-      data: { id, temporary },
-    });
-  };
-
-  const handleBagDelete = (id) => {
-    bagsDispatch({
-      type: "DELETE",
-      id,
-    });
-  };
-
-  const nav = useNavigate();
-  useEffect(() => {
-    onSetEditing(thisBag.temporary);
-  }, [thisBag.id]);
 
   const onSetEdit = (value) => {
     setEdit(value);
@@ -73,10 +104,66 @@ const BagHeader = ({ icon }) => {
     setEditedBagName(value);
   };
 
-  const onUpdateButton = () => {
+  const handleBagUpdateName = async (bagName) => {
+    try {
+      const response = await updateBagNameAPI(memberId, bagId, bagName);
+
+      setThisBag((prev) => {
+        const updatedBag = { ...prev, name: bagName };
+        return updatedBag;
+      });
+    } catch (error) {
+      console.error("Error updating bag name:", error);
+    }
+  };
+
+  const handleBagUpdateTemporary = async () => {
+    try {
+      const response = await toggleBagTemporaryAPI(memberId, bagId);
+
+      if (response) {
+        // thisBag 업데이트
+        setThisBag((prev) => {
+          const updatedBag = { ...prev, temporary: !prev.temporary };
+          console.log("Updated thisBag state:", updatedBag); // 상태 변경 로그
+          return updatedBag;
+        });
+
+        // bags 업데이트
+        setBags((prevItems) =>
+          prevItems.map((bag) =>
+            bag.id === bagId ? { ...bag, temporary: !bag.temporary } : bag
+          )
+        );
+      } else {
+        console.error("No response data from toggleBagTemporaryAPI");
+      }
+    } catch (error) {
+      console.error("Error toggling bag temporary:", error);
+    }
+  };
+
+  const handleBagDelete = async () => {
+    try {
+      await deleteBagAPI(memberId, bagId);
+      setBags((prevItems) => prevItems.filter((bag) => bag.id !== bagId));
+      nav("/", { replace: true }); // 삭제 후 메인 페이지로 이동
+    } catch (error) {
+      console.error("Error deleting bag:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (thisBag?.temporary !== undefined) {
+      onSetEditing(thisBag.temporary);
+    }
+  }, [thisBag]); // thisBag 변경 시 실행
+
+  const onUpdateButton = async () => {
     const existingTemplate = realBags.find(
       (item) => String(item.name) === String(editedBagName)
     );
+
     if (isEditing) {
       if (added !== 0) {
         alert("물품 추가를 완료해주세요!");
@@ -86,7 +173,7 @@ const BagHeader = ({ icon }) => {
         alert("이미 존재하는 템플릿입니다!");
         return;
       } else if (!thisBag.temporary) {
-        handleBagUpdateName(thisBag.id, editedBagName);
+        await handleBagUpdateName(editedBagName);
         setSelectedBagName(editedBagName);
         onSetEditing(false);
         onSetEdit(false);
@@ -94,6 +181,7 @@ const BagHeader = ({ icon }) => {
     } else {
       onSetEditing(true);
     }
+
     if (thisBag.temporary) {
       if (added !== 0) {
         alert("물품 추가를 완료해주세요!");
@@ -104,17 +192,15 @@ const BagHeader = ({ icon }) => {
         onSetEditing(true);
         return;
       } else {
-        handleBagUpdateTemporary(thisBag.id, false);
-        handleBagUpdateName(thisBag.id, editedBagName);
-        onSetEdit;
+        await handleBagUpdateTemporary();
+        await handleBagUpdateName(editedBagName);
         nav("/");
       }
     }
   };
-  const onDeleteButton = () => {
-    const bagId = thisBag.id;
-    handleBagDelete(bagId);
-    nav("/", { replace: true });
+
+  const onDeleteButton = async () => {
+    await handleBagDelete();
   };
 
   const updateStyle =

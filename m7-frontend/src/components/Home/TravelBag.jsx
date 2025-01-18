@@ -35,6 +35,9 @@ const TravelBag = () => {
     setRealBags(filteredBags); // realBags 상태 업데이트
   }, [bags, setRealBags]);
 
+  console.log("bags", bags);
+  console.log("realBags", realBags);
+
   const style =
     "w-[240px] h-[53px] min-w-[240px] p-[20px] flex items-center rounded-[12px] border-[1px] bg-[var(--Gray-50,_#F5F5F6)] [box-shadow:0px] shadow-custom text-[16px] font-[Pretendard] text-gray-800";
   return (

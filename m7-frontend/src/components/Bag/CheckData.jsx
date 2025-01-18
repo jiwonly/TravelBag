@@ -23,8 +23,6 @@ export function CheckData({
     onUpdateName(itemId, e.target.value);
   };
 
-  console.log(itemId, categoryId, itemName);
-
   return (
     <div
       className="flex justify-between items-center border bg-white w-[300px] h-[45px] px-3 py-1.5 rounded-lg"
