@@ -61,8 +61,12 @@ const apiRequest = async (method, url, data = null) => {
 // API 함수들
 
 // 1. 가방 생성 (홈 화면)
-export const createBagAPI = (memberId, bagData) =>
-  apiRequest("post", `/member/${memberId}/bags/template`, bagData);
+export const createBagAPI = (memberId, templateId, bagData) =>
+  apiRequest(
+    "post",
+    `/member/${memberId}/bags/template/${templateId}`,
+    bagData
+  );
 
 // 2. 가방 이름 수정 (챙길것들 화면)
 export const updateBagNameAPI = (memberId, bagId, newName) =>

@@ -44,3 +44,23 @@ export const signupMessageState = atom({
   key: "signupMessageState",
   default: "",
 });
+
+export const bagsState = atom({
+  key: "bagsState",
+  default: [],
+});
+
+export const realBagsState = atom({
+  key: "realBagsState",
+  default: [],
+});
+
+export const thisBagItemsState = atom({
+  key: "itemsByCategory",
+  default: [],
+});
+
+export const recommendItemsState = atom({
+  key: "recommendItemsState",
+  default: [],
+});

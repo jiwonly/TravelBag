@@ -1,35 +1,55 @@
 import CheckData_plus from "../../assets/CheckData_plus.svg";
 import { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { EditStateContext } from "@/pages/Bag";
 import {
   getBagDetailsById,
   getThisBagItemByCategory,
 } from "@/api/Bag/selector";
-import { thisBagItemByCategoryIdRefContext } from "@/pages/Bag";
+import { addRecommendItemAPI, getBagItemsByCategoryAPI } from "@/api/api";
+import { thisBagItemsState } from "@/api/atom";
 
 const RecommendPlusItem = ({ categoryId, itemName }) => {
   const params = useParams();
+  const memberId = 1;
   const bagId = params.id;
   const isEditiing = useContext(EditStateContext);
+  const [itemsByCategory, setItemsByCategory] = useState([]);
 
-  const thisBagItemByCategoryIdRef = useContext(
-    thisBagItemByCategoryIdRefContext
-  );
-  const setThisBagItemsByCategory = useSetRecoilState(
-    getThisBagItemByCategory({ bagId, categoryId })
-  );
-  const handleThisBagItemByCategoryCreate = (itemName) => {
-    const newItem = {
-      id: thisBagItemByCategoryIdRef.current, // 고유 ID
-      name: itemName,
-      packed: false,
+  useEffect(() => {
+    const fetchItemsByCategory = async () => {
+      try {
+        const itemByCategoryResponse = await getBagItemsByCategoryAPI(
+          memberId,
+          bagId,
+          categoryId
+        );
+        setItemsByCategory(itemByCategoryResponse);
+      } catch (error) {
+        console.error("Error fetching bagItemsByCategory:", error);
+      }
     };
+    fetchItemsByCategory();
+  }, [memberId, bagId, categoryId]);
 
-    // 🔄 기존 배열을 복사하여 새 아이템 추가
-    setThisBagItemsByCategory((prevItems) => [...prevItems, newItem]);
-    thisBagItemByCategoryIdRef.current += 1; // ID 증가
+  const handleThisBagItemByCategoryCreate = async (itemName) => {
+    try {
+      const response = await addRecommendItemAPI(
+        memberId,
+        bagId,
+        categoryId,
+        itemName
+      );
+
+      // API 응답을 기반으로 새 아이템 추가
+      const newItem = response; // 응답이 새로 생성된 아이템의 정보를 포함한다고 가정
+      setItemsByCategory((prevItems) => [...prevItems, newItem]);
+
+      // 참조 값 업데이트
+    } catch (error) {
+      console.error("Error creating item:", error);
+    }
   };
 
   return (

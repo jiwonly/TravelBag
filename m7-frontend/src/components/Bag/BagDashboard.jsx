@@ -2,8 +2,9 @@ import BagHeader from "./BagHeader";
 import { CheckList } from "./CheckList";
 import { useRecoilValue } from "recoil";
 import { useParams } from "react-router-dom";
-import { createContext, useState } from "react";
-import { getThisBagItemById, getBagDetailsById } from "@/api/Bag/selector";
+import { createContext, useEffect, useState } from "react";
+import { selectThisBag } from "@/api/selector";
+import { getBagItemsAPI } from "@/api/api";
 
 export const NewItemsStateContext = createContext();
 export const NewItemDispatchContext = createContext();
@@ -12,18 +13,8 @@ export const AddedItemDispatchContext = createContext();
 
 const BagDashboard = ({ icon }) => {
   const params = useParams();
-  const thisBag = useRecoilValue(getBagDetailsById(params.id));
-  const thisBagItems = useRecoilValue(getThisBagItemById(params.id));
-  const [newItemsList, setNewItemsList] = useState([]);
-  const [added, setAdded] = useState(0);
-  const onSetAdded = (value) => {
-    setAdded(value);
-  };
-
-  //API 연결시 사용!!!(14부터 지우고 사용)
-  /**
-   *   const params = useParams();
-  const [thisBag, setThisBag] = useState(null);
+  const memberId = 1;
+  const bagId = params.id;
   const [thisBagItems, setThisBagItems] = useState([]);
   const [newItemsList, setNewItemsList] = useState([]);
   const [added, setAdded] = useState(0);
@@ -31,29 +22,20 @@ const BagDashboard = ({ icon }) => {
   useEffect(() => {
     const fetchBagData = async () => {
       try {
-        const bagResponse = await api.get(`/members/bags/${params.id}`);
-        setThisBag(bagResponse.data);
-
-        const bagItemsResponse = await api.get(
-          `/members/bags/${params.id}/items`
-        );
-        setThisBagItems(bagItemsResponse.data);
+        const bagDataResponse = await getBagItemsAPI(memberId, bagId);
+        const bagItemsResponse = bagDataResponse.items;
+        setThisBagItems(bagItemsResponse);
       } catch (error) {
-        console.error("Error fetching bag data:", error);
+        console.error("Error fetching bagItems:", error);
       }
     };
 
-    fetchBagData();
-  }, [params.id]);
+    fetchBagData(); // 함수 호출
+  }, [bagId]); // 의존성에 bagId 포함
 
   const onSetAdded = (value) => {
     setAdded(value);
   };
-
-  if (!thisBag) {
-    return <div>Loading...</div>; // 데이터 로드 전 로딩 표시
-  }
-   */
 
   return (
     <>
@@ -68,7 +50,7 @@ const BagDashboard = ({ icon }) => {
                     {thisBagItems.map((item) => (
                       <CheckList
                         key={item.categoryId}
-                        bagId={thisBag.id}
+                        bagId={bagId}
                         categoryId={item.categoryId}
                       />
                     ))}
