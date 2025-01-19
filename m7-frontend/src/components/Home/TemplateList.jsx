@@ -1,7 +1,4 @@
 import TemplateItem from "./TemplateItem";
-import { useRecoilValue } from "recoil";
-import { useEffect, useState } from "react";
-import api from "@/api/Bag/api";
 import { templateList } from "@/util/get-template-list";
 
 const TemplateList = () => {

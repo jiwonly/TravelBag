@@ -1,4 +1,3 @@
-import { bagState } from "@/api/Bag/atom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import BagButton from "./BagButton";
 import { bagsState, realBagsState, sortedRealBagsState } from "@/api/atom";
@@ -51,7 +50,7 @@ const TravelBag = () => {
         columnGap: "30px",
       }}
     >
-      {realBags.map((item) => (
+      {sortedRealBags.map((item) => (
         <BagButton
           key={item.id}
           {...item}

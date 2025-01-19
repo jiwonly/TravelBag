@@ -33,25 +33,6 @@ const RecommendPlusItem = ({ categoryId, itemName }) => {
     fetchItemsByCategory();
   }, [memberId, bagId, categoryId]);
 
-  // const handleThisBagItemByCategoryCreate = async (itemName) => {
-  //   try {
-  //     const response = await createBagItemAPI(
-  //       memberId,
-  //       bagId,
-  //       categoryId,
-  //       itemName
-  //     );
-
-  //     // API 응답을 기반으로 새 아이템 추가
-  //     const newItem = response; // 응답이 새로 생성된 아이템의 정보를 포함한다고 가정
-  //     setItemsByCategory((prevItems) => [...prevItems, newItem]);
-
-  //     // 참조 값 업데이트
-  //   } catch (error) {
-  //     console.error("Error creating item:", error);
-  //   }
-  // };
-
   const handleThisBagItemByCategoryCreate = async (itemName) => {
     try {
       const response = await createBagItemAPI(
