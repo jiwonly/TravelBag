@@ -1,13 +1,8 @@
 import CheckData_plus from "../../assets/CheckData_plus.svg";
 import { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useRecoilState, useSetRecoilState } from "recoil";
 import { EditStateContext } from "@/pages/Bag";
-import {
-  addRecommendItemAPI,
-  createBagItemAPI,
-  getBagItemsByCategoryAPI,
-} from "@/api/api";
+import { createBagItemAPI, getBagItemsByCategoryAPI } from "@/api/api";
 import { thisBagItemsState } from "@/api/atom";
 
 const RecommendPlusItem = ({ categoryId, itemName }) => {
