@@ -15,7 +15,6 @@ import {
   toggleItemPackedAPI,
   updateItemNameAPI,
 } from "@/api/api";
-import { thisBagItemsState } from "@/api/atom";
 
 export function CheckList({ bagId, categoryId }) {
   const memberId = 1;
@@ -115,7 +114,6 @@ export function CheckList({ bagId, categoryId }) {
       console.error("Error delete item:", error);
     }
   };
-  console.log("CategoryItems", categoryId, itemsByCategory);
 
   return (
     <div className="flex flex-col bg-gray-100 py-4 px-1 rounded-md w-[340px] h-auto gap-[14px] shadow-[0px_4px_12px_0px_rgba(0,0,0,0.12)]">

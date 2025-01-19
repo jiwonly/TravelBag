@@ -33,6 +33,8 @@ const BagHeader = ({ icon }) => {
   const [thisBag, setThisBag] = useState([]);
   const [realBags, setRealBags] = useRecoilState(realBagsState);
 
+  console.log("thisBag", thisBag);
+
   // 가방 데이터 가져오기
   useEffect(() => {
     const fetchBags = async () => {
@@ -99,9 +101,12 @@ const BagHeader = ({ icon }) => {
   };
 
   const onSelected = (value) => {
-    onChange(value);
-    setSelectedBagName(value);
-    setEditedBagName(value);
+    const selectedBag = bags.find((bag) => bag.name === value); // 이름으로 가방 찾기
+    if (selectedBag) {
+      setSelectedBagName(value); // 선택된 이름 설정
+      setEditedBagName(value); // 편집 이름 설정
+      nav(`/bag/${selectedBag.id}`); // URL 업데이트
+    }
   };
 
   const handleBagUpdateName = async (bagName) => {
