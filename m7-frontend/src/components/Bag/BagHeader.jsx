@@ -7,7 +7,7 @@ import {
   SelectItem,
 } from "../ui/select.jsx";
 import trashIcon from "../../assets/icon/trash.svg";
-import { SelectedDisplatchData } from "@/pages/Bag";
+import { SelectedDisplatchData } from "@/pages/Bag.jsx";
 import HeaderButton from "./HeaderButton.jsx";
 import { useParams, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";

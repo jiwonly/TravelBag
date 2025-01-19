@@ -3,7 +3,7 @@ import { exchangeRatesState } from "@/api/atom.js";
 import { fetchExchangeRatesAPI } from "@/api/api.js";
 import React, { useEffect } from "react";
 
-import RateItem from "./RateItem";
+import RateItem from "./RateItem.jsx";
 
 
 const ExchangeRate = ({ location_id }) => {
