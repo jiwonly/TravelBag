@@ -84,9 +84,8 @@ export function SideBar() {
   const location = useLocation();
   const isBag = location.pathname.includes("bag");
 
-  const [isAuthenticated, setIsAuthenticated] = useRecoilState(authState);
   const params = useParams();
-  const auth = useRecoilValue(authState); // Recoil 상태 읽기만 사용
+  const [auth, setAuth] = useRecoilState(authState);
   const memberId = auth.kakaoId;
   const bagId = isBag ? params.id : null;
   const isEditing = useContext(EditStateContext);
@@ -141,8 +140,13 @@ export function SideBar() {
 
   const onLogoutClick = () => {
     if (window.confirm("정말 로그아웃하시겠습니까?")) {
+      setAuth({
+        isAuthenticated: undefined,
+        kakaoId: null,
+        email: null,
+        nickname: null,
+      });
       nav("/login");
-      setIsAuthenticated(false);
     }
   };
 
