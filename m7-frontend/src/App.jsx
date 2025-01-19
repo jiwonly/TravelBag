@@ -33,8 +33,9 @@ function App() {
     }
   }, []);
 
-  const memberId = 1;
   const [auth, setAuth] = useRecoilState(authState);
+  const memberId = auth.kakaoId;
+
   const [bags, setBags] = useRecoilState(bagsState);
 
   console.log(auth);
@@ -74,8 +75,8 @@ function App() {
     const fetchAuthStatus = async () => {
       try {
         const status = await getAuthStatus();
-        console.log("인증 상태 확인:", status);
-        console.log("인증 상태 확인2:", status.isAuthenticated);
+        // console.log("인증 상태 확인:", status);
+        // console.log("인증 상태 확인2:", status.isAuthenticated);
 
         //인증 상태 업데이트
         setAuth({

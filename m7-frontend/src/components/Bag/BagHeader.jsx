@@ -10,7 +10,7 @@ import trashIcon from "../../assets/icon/trash.svg";
 import { SelectedDisplatchData } from "@/pages/Bag";
 import HeaderButton from "./HeaderButton";
 import { useParams, useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { AddedItemStateContext } from "./BagDashboard";
 import { EditStateContext } from "@/pages/Bag";
 import { EditDispatchContext } from "@/pages/Bag";
@@ -23,11 +23,13 @@ import {
   toggleBagTemporaryAPI,
   updateBagNameAPI,
 } from "@/api/api";
+import { authState } from "@/api/auth";
 
 const BagHeader = ({ icon }) => {
   const added = useContext(AddedItemStateContext);
   const params = useParams();
-  const memberId = 1;
+  const auth = useRecoilValue(authState); // Recoil 상태 읽기만 사용
+  const memberId = auth.kakaoId;
   const bagId = params.id;
   const [bags, setBags] = useRecoilState(bagsState);
   const [thisBag, setThisBag] = useState([]);

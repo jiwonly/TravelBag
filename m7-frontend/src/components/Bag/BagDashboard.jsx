@@ -3,6 +3,8 @@ import { CheckList } from "./CheckList";
 import { useParams } from "react-router-dom";
 import { createContext, useEffect, useState } from "react";
 import { getBagItemsAPI } from "@/api/api";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { authState } from "@/api/auth";
 
 export const NewItemsStateContext = createContext();
 export const NewItemDispatchContext = createContext();
@@ -11,7 +13,8 @@ export const AddedItemDispatchContext = createContext();
 
 const BagDashboard = ({ icon }) => {
   const params = useParams();
-  const memberId = 1;
+  const auth = useRecoilValue(authState); // Recoil 상태 읽기만 사용
+  const memberId = auth.kakaoId;
   const bagId = params.id;
   const [thisBagItems, setThisBagItems] = useState([]);
   const [newItemsList, setNewItemsList] = useState([]);

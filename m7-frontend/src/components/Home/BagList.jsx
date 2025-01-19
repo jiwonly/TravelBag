@@ -1,12 +1,14 @@
 import TravelBag from "./TravelBag";
 import { getMemberAPI } from "@/api/api";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { membersState } from "@/api/atom";
 import { useEffect } from "react";
+import { authState } from "@/api/auth";
 
 const BagList = () => {
   const [members, setMembers] = useRecoilState(membersState);
-  const memberId = 1;
+  const auth = useRecoilValue(authState); // Recoil 상태 읽기만 사용
+  const memberId = auth.kakaoId;
 
   useEffect(() => {
     const fetchMembers = async () => {

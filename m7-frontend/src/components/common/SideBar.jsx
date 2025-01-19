@@ -22,7 +22,7 @@ import logout from "../../assets/sidebar/logout.svg";
 import { EditStateContext } from "@/pages/Bag";
 import { useParams } from "react-router-dom";
 import { authState } from "@/api/auth";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { BagIdRefContext } from "@/App";
 import { createBagAPI, getBagDetailsAPI, getBagsAPI } from "@/api/api";
 import { bagsState, realBagsState } from "@/api/atom";
@@ -86,7 +86,8 @@ export function SideBar() {
 
   const [isAuthenticated, setIsAuthenticated] = useRecoilState(authState);
   const params = useParams();
-  const memberId = 1;
+  const auth = useRecoilValue(authState); // Recoil 상태 읽기만 사용
+  const memberId = auth.kakaoId;
   const bagId = isBag ? params.id : null;
   const isEditing = useContext(EditStateContext);
   const [bags, setBags] = useRecoilState(bagsState);

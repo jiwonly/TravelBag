@@ -4,11 +4,12 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import BagDashboard from "@/components/Bag/BagDashboard";
 import { createContext, useState } from "react";
 import RecommendBar from "@/components/Bag/RecommendBar";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import NotFound from "./NotFound";
 import { useEffect } from "react";
 import { bagsState } from "@/api/atom";
 import { getBagDetailsAPI, getBagsAPI } from "@/api/api";
+import { authState } from "@/api/auth";
 
 export const SelectedSateData = createContext();
 export const SelectedDisplatchData = createContext();
@@ -17,7 +18,8 @@ export const EditDispatchContext = createContext();
 
 const Bag = ({ children }) => {
   const nav = useNavigate();
-  const memberId = 1;
+  const auth = useRecoilValue(authState); // Recoil 상태 읽기만 사용
+  const memberId = auth.kakaoId;
   const params = useParams();
   const bagId = params.id;
   const [bags, setBags] = useRecoilState(bagsState);

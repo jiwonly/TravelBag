@@ -10,9 +10,12 @@ import {
   toggleItemPackedAPI,
   updateItemNameAPI,
 } from "@/api/api";
+import { useRecoilValue } from "recoil";
+import { authState } from "@/api/auth";
 
 export function CheckList({ bagId, categoryId }) {
-  const memberId = 1;
+  const auth = useRecoilValue(authState); // Recoil 상태 읽기만 사용
+  const memberId = auth.kakaoId;
   const [itemsByCategory, setItemsByCategory] = useState([]);
   let categoryName = "";
   switch (categoryId) {
