@@ -25,12 +25,31 @@ function PrivateRoute({ isAuthenticated, children }) {
 export const BagIdRefContext = createContext();
 
 function App() {
-  // const bags = useRecoilValue(bagState);
   const memberId = 1;
   const [auth, setAuth] = useRecoilState(authState);
   const [bags, setBags] = useRecoilState(bagsState);
 
   // const [isAuthenticated, setIsAuthenticated] = useRecoilState(authState);
+
+
+  // 가방 데이터 가져오기
+  useEffect(() => {
+    const fetchBags = async () => {
+      try {
+        const response = await getBagsAPI(memberId); // API 호출
+        if (Array.isArray(response)) {
+          setBags(response); // bags 상태 업데이트
+        } else {
+          console.error("Invalid bags response format:", response);
+        }
+      } catch (error) {
+        console.error("Error fetching bags:", error);
+      }
+    };
+
+    fetchBags();
+  }, [memberId, setBags]); // memberId가 변경될 때만 실행
+
   const bagIdRef = useRef(
     bags.length > 0 ? Math.max(...bags.map((bag) => bag.id)) + 1 : 1
   );
@@ -49,6 +68,7 @@ function App() {
         const status = await getAuthStatus();
         console.log("인증 상태 확인:", status);
         console.log("인증 상태 확인2:", status.isAuthenticated);
+
 
         //인증 상태 업데이트
         setAuth({

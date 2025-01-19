@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/accordion";
 import RecommendPlusList from "./RecommendPlusList";
 
-const RecommendAccordionItem = ({ categoryId, ItemByCategory }) => {
+const RecommendAccordionItem = ({ categoryId }) => {
   let name = "";
   switch (categoryId) {
     case 1:
