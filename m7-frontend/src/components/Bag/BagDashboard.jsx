@@ -1,10 +1,10 @@
-import BagHeader from "./BagHeader";
-import { CheckList } from "./CheckList";
+import BagHeader from "./BagHeader.jsx";
+import { CheckList } from "./CheckList.jsx";
 import { useParams } from "react-router-dom";
 import { createContext, useEffect, useState } from "react";
-import { getBagItemsAPI } from "@/api/api";
+import { getBagItemsAPI } from "@/api/api.js";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { authState } from "@/api/auth";
+import { authState } from "@/api/auth.js";
 
 export const NewItemsStateContext = createContext();
 export const NewItemDispatchContext = createContext();

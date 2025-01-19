@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getAirlineImage } from "@/util/get-airline-image";
+import { getAirlineImage } from "@/util/get-airline-image.js";
 
 const AirlineItem = ({ location_id, name, id, url }) => {
   const onURL = () => {

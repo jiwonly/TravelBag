@@ -1,6 +1,6 @@
-import { getEatImage } from "@/util/get-eat-image";
-import { getEnjoyImage } from "@/util/get-enjoy-image";
-import { getShopImage } from "@/util/get-shop-image";
+import { getEatImage } from "@/util/get-eat-image.js";
+import { getEnjoyImage } from "@/util/get-enjoy-image.js";
+import { getShopImage } from "@/util/get-shop-image.js";
 
 const EESItem = ({ content, id, name, signature, url }) => {
   const getImage = (content, id) => {

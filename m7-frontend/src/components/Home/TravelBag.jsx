@@ -1,9 +1,9 @@
 import { useRecoilState, useRecoilValue } from "recoil";
-import BagButton from "./BagButton";
-import { bagsState, realBagsState, sortedRealBagsState } from "@/api/atom";
+import BagButton from "./BagButton.jsx";
+import { bagsState, realBagsState, sortedRealBagsState } from "@/api/atom.js";
 import { useEffect } from "react";
-import { getBagsAPI } from "@/api/api";
-import { authState } from "@/api/auth";
+import { getBagsAPI } from "@/api/api.js";
+import { authState } from "@/api/auth.js";
 
 const TravelBag = () => {
   const auth = useRecoilValue(authState); // Recoil 상태 읽기만 사용

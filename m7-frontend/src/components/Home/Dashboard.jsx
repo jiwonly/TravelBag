@@ -1,8 +1,8 @@
-import BagList from "./BagList";
-import CommonHeader from "../common/CommonHeader";
-import TemplateList from "./TemplateList";
+import BagList from "./BagList.jsx";
+import CommonHeader from "../common/CommonHeader.jsx";
+import TemplateList from "./TemplateList.jsx";
 import { useRecoilValue } from "recoil";
-import { authState } from "../../api/auth";
+import { authState } from "../../api/auth.js";
 
 const Dashboard = () => {
   const isAuthenticated = useRecoilValue(authState);

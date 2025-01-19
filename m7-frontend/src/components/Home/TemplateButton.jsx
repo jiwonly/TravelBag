@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import { BagIdRefContext } from "@/App";
-import { createBagAPI } from "@/api/api";
+import { BagIdRefContext } from "../../App.jsx";
+import { createBagAPI } from "@/api/api.js";
 import { useRecoilValue } from "recoil";
-import { authState } from "@/api/auth";
+import { authState } from "@/api/auth.js";
 
 const TemplateButton = ({ templateId, style }) => {
   const auth = useRecoilValue(authState); // Recoil 상태 읽기만 사용

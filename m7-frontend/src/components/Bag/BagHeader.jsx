@@ -5,25 +5,25 @@ import {
   SelectValue,
   SelectContent,
   SelectItem,
-} from "../ui/select";
+} from "../ui/select.jsx";
 import trashIcon from "../../assets/icon/trash.svg";
 import { SelectedDisplatchData } from "@/pages/Bag";
-import HeaderButton from "./HeaderButton";
+import HeaderButton from "./HeaderButton.jsx";
 import { useParams, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { AddedItemStateContext } from "./BagDashboard";
-import { EditStateContext } from "@/pages/Bag";
-import { EditDispatchContext } from "@/pages/Bag";
-import { getIconImage } from "@/util/get-icon-image";
-import { bagsState, realBagsState, sortedRealBagsState } from "@/api/atom";
+import { AddedItemStateContext } from "./BagDashboard.jsx";
+import { EditStateContext } from "@/pages/Bag.jsx";
+import { EditDispatchContext } from "@/pages/Bag.jsx";
+import { getIconImage } from "@/util/get-icon-image.js";
+import { bagsState, realBagsState, sortedRealBagsState } from "@/api/atom.js";
 import {
   deleteBagAPI,
   getBagDetailsAPI,
   getBagsAPI,
   toggleBagTemporaryAPI,
   updateBagNameAPI,
-} from "@/api/api";
-import { authState } from "@/api/auth";
+} from "@/api/api.js";
+import { authState } from "@/api/auth.js";
 
 const BagHeader = ({ icon }) => {
   const added = useContext(AddedItemStateContext);
