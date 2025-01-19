@@ -25,12 +25,19 @@ function PrivateRoute({ isAuthenticated, children }) {
 export const BagIdRefContext = createContext();
 
 function App() {
+  // URL 끝의 / 제거하는 useEffect 추가
+  useEffect(() => {
+    if (window.location.pathname.endsWith("/")) {
+      const newPath = window.location.pathname.slice(0, -1); // 끝의 / 제거
+      window.history.replaceState(null, "", newPath); // URL 변경
+    }
+  }, []);
+
   const memberId = 1;
   const [auth, setAuth] = useRecoilState(authState);
   const [bags, setBags] = useRecoilState(bagsState);
 
   // const [isAuthenticated, setIsAuthenticated] = useRecoilState(authState);
-
 
   // 가방 데이터 가져오기
   useEffect(() => {
@@ -68,7 +75,6 @@ function App() {
         const status = await getAuthStatus();
         console.log("인증 상태 확인:", status);
         console.log("인증 상태 확인2:", status.isAuthenticated);
-
 
         //인증 상태 업데이트
         setAuth({
