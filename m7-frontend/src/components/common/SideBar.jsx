@@ -140,12 +140,12 @@ export function SideBar() {
 
   const onLogoutClick = () => {
     if (window.confirm("정말 로그아웃하시겠습니까?")) {
-      // setAuth({
-      //   isAuthenticated: undefined,
-      //   kakaoId: null,
-      //   email: null,
-      //   nickname: null,
-      // });
+      setAuth({
+        isAuthenticated: undefined,
+        kakaoId: null,
+        email: null,
+        nickname: null,
+      });
       nav("/login");
     }
   };

@@ -4,7 +4,7 @@ import CheckData_plus from "../../assets/CheckData_plus.svg";
 import {
   AddedItemStateContext,
   AddedItemDispatchContext,
-} from "./BagDashboard.jsx";
+} from "./BagDashboard";
 
 export function CheckInput({ onCreateItem }) {
   const added = useContext(AddedItemStateContext);
@@ -15,11 +15,17 @@ export function CheckInput({ onCreateItem }) {
 
   const handleChange = (e) => {
     setInputValue(e.target.value);
-    // onSetAdded 호출 여부 확인
+    // 입력이 변경되었을 때, onSetAdded가 아직 호출되지 않은 경우에만 호출
     if (!isAddedCalled) {
-      onSetAdded(added + 1);
-      setIsAddedCalled(true);
+      onSetAdded(added + 1); // 입력이 시작되었음을 알림
+      setIsAddedCalled(true); // 이후로는 다시 호출되지 않음
     }
+  };
+  const onClickAdd = () => {
+    onCreateItem(inputValue);
+    onSetAdded(added - 1);
+    setInputValue("");
+    setIsAddedCalled(false);
   };
 
   const handleCompositionStart = () => {
@@ -28,21 +34,13 @@ export function CheckInput({ onCreateItem }) {
 
   const handleCompositionEnd = (e) => {
     setIsComposing(false);
-    setInputValue(e.target.value); // 입력값 최종 반영
+    setInputValue(e.target.value);
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter" && !isComposing && inputValue.trim() !== "") {
+    if (e.key === "Enter" && !isComposing) {
       onClickAdd();
     }
-  };
-
-  const onClickAdd = () => {
-    if (inputValue.trim() === "") return; // 빈 문자열 방지
-    onCreateItem(inputValue); // 아이템 추가
-    onSetAdded(added - 1); // 추가 상태 업데이트
-    setInputValue(""); // 입력값 초기화
-    setIsAddedCalled(false); // 호출 상태 초기화
   };
 
   return (
@@ -52,8 +50,8 @@ export function CheckInput({ onCreateItem }) {
         <input
           className="text-gray-800 text-sm outline-none w-[200px]"
           placeholder="원하는 물품을 입력하세요"
-          value={inputValue} // state와 연결
-          onChange={handleChange} // 변경 핸들러
+          value={inputValue}
+          onChange={handleChange}
           onCompositionStart={handleCompositionStart}
           onCompositionEnd={handleCompositionEnd}
           onKeyDown={handleKeyDown}

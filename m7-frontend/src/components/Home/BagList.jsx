@@ -30,7 +30,7 @@ const BagList = () => {
 
   return (
     <div className="baglist mt-[20px] mb-[10PX] min-h-[200px]">
-      <div className="title text-[17px] text-gray-900">나의 여행가방</div>
+      <div className="title text-[17px] text-gray-900 font-bold">나의 여행가방</div>
       <div className="memo text-[13px] text-gray-500 mb-[15px]">
         {auth.nickname}님의 여행가방입니다.
       </div>

@@ -184,8 +184,18 @@ const BagHeader = ({ icon }) => {
         return;
       } else if (!thisBag.temporary) {
         await handleBagUpdateName(editedBagName);
-        console.log("editedBagName", editedBagName);
+        setBags((prevBags) =>
+          prevBags.map((bag) =>
+            bag.id === thisBag.id ? { ...bag, name: editedBagName } : bag
+          )
+        );
         setSelectedBagName(editedBagName);
+        setSortedRealBags((prevBags) => {
+          const updatedBags = prevBags.map((bag) =>
+            bag.id === thisBag.id ? { ...bag, name: editedBagName } : bag
+          );
+          return updatedBags.sort((a, b) => b.id - a.id); // 정렬 유지
+        });
         onSetEditing(false);
         onSetEdit(false);
       }
@@ -205,6 +215,17 @@ const BagHeader = ({ icon }) => {
       } else {
         await handleBagUpdateTemporary();
         await handleBagUpdateName(editedBagName);
+        setBags((prevBags) =>
+          prevBags.map((bag) =>
+            bag.id === thisBag.id ? { ...bag, name: editedBagName } : bag
+          )
+        );
+        setSortedRealBags((prevBags) => {
+          const updatedBags = prevBags.map((bag) =>
+            bag.id === thisBag.id ? { ...bag, name: editedBagName } : bag
+          );
+          return updatedBags.sort((a, b) => b.id - a.id); // 정렬 유지
+        });
         nav("/");
       }
     }
