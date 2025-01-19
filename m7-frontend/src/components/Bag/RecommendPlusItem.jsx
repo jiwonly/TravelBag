@@ -9,29 +9,32 @@ import {
   getBagItemsByCategoryAPI,
 } from "@/api/api";
 import { thisBagItemsState } from "@/api/atom";
+import { recommendItemsList } from "@/util/get-recomment-supplies-list";
 
 const RecommendPlusItem = ({ categoryId, itemName }) => {
   const params = useParams();
   const memberId = 1;
   const bagId = params.id;
   const isEditiing = useContext(EditStateContext);
-  const [itemsByCategory, setItemsByCategory] = useState([]);
+  const [recommendItems, setRecommendItems] = useState([]);
+  const [recommendItemsByCategory, setRecommendItemsByCategory] = useState([]);
 
   useEffect(() => {
-    const fetchItemsByCategory = async () => {
-      try {
-        const itemByCategoryResponse = await getBagItemsByCategoryAPI(
-          memberId,
-          bagId,
-          categoryId
-        );
-        setItemsByCategory(itemByCategoryResponse);
-      } catch (error) {
-        console.error("Error fetching bagItemsByCategory:", error);
-      }
-    };
-    fetchItemsByCategory();
-  }, [memberId, bagId, categoryId]);
+    // categoryId에 해당하는 추천 아이템 가져오기
+    const filteredItems = recommendItemsList.filter(
+      (items) => items.categoryId === categoryId
+    );
+
+    if (filteredItems.length > 0) {
+      const firstItem = filteredItems[0]; // 필터 결과에서 첫 번째 항목 가져오기
+      setRecommendItems(firstItem);
+      setRecommendItemsByCategory(firstItem.items);
+    } else {
+      // 해당 categoryId에 대한 추천 아이템이 없는 경우
+      setRecommendItems([]);
+      setRecommendItemsByCategory([]);
+    }
+  }, [categoryId]); // 의존성 배열 추가
 
   const handleThisBagItemByCategoryCreate = async (itemName) => {
     try {
@@ -44,7 +47,7 @@ const RecommendPlusItem = ({ categoryId, itemName }) => {
 
       // API 응답을 기반으로 새 아이템 추가
       const newItem = response; // 응답이 새로 생성된 아이템의 정보를 포함한다고 가정
-      setItemsByCategory((prevItems) => [...prevItems, newItem]);
+      setRecommendItemsByCategory((prevItems) => [...prevItems, newItem]);
 
       // 참조 값 업데이트
     } catch (error) {
