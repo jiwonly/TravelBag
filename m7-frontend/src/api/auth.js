@@ -12,7 +12,7 @@ export const getAuthStatus = async () => {
   } catch (error) {
     console.error("Failed to fetch auth status:", error);
     return {
-      isAuthenticated: false,
+      isAuthenticated: undefined,
       kakaoId: null,
       email: null,
       nickname: null,
@@ -24,7 +24,7 @@ export const getAuthStatus = async () => {
 export const authState = atom({
   key: "authState",
   default: {
-    isAuthenticated: false,
+    isAuthenticated: undefined,
     kakaoId: null,
     email: null,
     nickname: null,
