@@ -27,7 +27,6 @@ function App() {
   const bags = useRecoilValue(bagState);
   const [auth, setAuth] = useRecoilState(authState);
 
-  // const [isAuthenticated, setIsAuthenticated] = useRecoilState(authState);
   const bagIdRef = useRef(
     bags.length > 0 ? Math.max(...bags.map((bag) => bag.id)) + 1 : 1
   );
