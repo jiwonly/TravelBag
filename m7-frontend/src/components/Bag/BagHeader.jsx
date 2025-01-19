@@ -10,12 +10,12 @@ import trashIcon from "../../assets/icon/trash.svg";
 import { SelectedDisplatchData } from "@/pages/Bag";
 import HeaderButton from "./HeaderButton";
 import { useParams, useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { AddedItemStateContext } from "./BagDashboard";
 import { EditStateContext } from "@/pages/Bag";
 import { EditDispatchContext } from "@/pages/Bag";
 import { getIconImage } from "@/util/get-icon-image";
-import { bagsState, realBagsState } from "@/api/atom";
+import { bagsState, realBagsState, sortedRealBagsState } from "@/api/atom";
 import {
   deleteBagAPI,
   getBagDetailsAPI,
@@ -32,6 +32,8 @@ const BagHeader = ({ icon }) => {
   const [bags, setBags] = useRecoilState(bagsState);
   const [thisBag, setThisBag] = useState([]);
   const [realBags, setRealBags] = useRecoilState(realBagsState);
+  const [sortedRealBags, setSortedRealBags] =
+    useRecoilState(sortedRealBagsState);
 
   console.log("thisBag", thisBag);
 
@@ -76,7 +78,9 @@ const BagHeader = ({ icon }) => {
   // realBags 업데이트
   useEffect(() => {
     const filteredBags = bags.filter((bag) => !bag.temporary); // temporary가 false인 가방만 필터링
+    const sortedBags = [...filteredBags].sort((a, b) => b.id - a.id);
     setRealBags(filteredBags); // realBags 상태 업데이트
+    setSortedRealBags(sortedBags);
   }, [bags, setRealBags]);
 
   const nav = useNavigate();
@@ -237,7 +241,7 @@ const BagHeader = ({ icon }) => {
               <SelectValue placeholder={selectedBagName} />
             </SelectTrigger>
             <SelectContent>
-              {realBags.map((bag) => (
+              {sortedRealBags.map((bag) => (
                 <SelectItem key={bag.id} value={bag.name}>
                   {bag.name}
                 </SelectItem>

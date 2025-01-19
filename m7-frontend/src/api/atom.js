@@ -61,6 +61,11 @@ export const realBagsState = atom({
   default: [],
 });
 
+export const sortedRealBagsState = atom({
+  key: "sortedRealBagsState",
+  default: [],
+});
+
 export const thisBagItemsState = atom({
   key: "itemsByCategory",
   default: [],

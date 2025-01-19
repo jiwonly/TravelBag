@@ -16,7 +16,7 @@ const TemplateButton = ({ templateId, style }) => {
 
   switch (templateId) {
     case 1:
-      templateTitle = "내 맘대로 시작하기";
+      templateTitle = "내 마음대로 시작하기";
       break;
     case 2:
       templateTitle = "여자 혼자 여행";

@@ -1,7 +1,7 @@
 import { bagState } from "@/api/Bag/atom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import BagButton from "./BagButton";
-import { bagsState, realBagsState } from "@/api/atom";
+import { bagsState, realBagsState, sortedRealBagsState } from "@/api/atom";
 import { useEffect } from "react";
 import { getBagsAPI } from "@/api/api";
 
@@ -9,6 +9,8 @@ const TravelBag = () => {
   const memberId = 1;
   const [bags, setBags] = useRecoilState(bagsState);
   const [realBags, setRealBags] = useRecoilState(realBagsState);
+  const [sortedRealBags, setSortedRealBags] =
+    useRecoilState(sortedRealBagsState);
 
   // 가방 데이터 가져오기
   useEffect(() => {
@@ -31,8 +33,9 @@ const TravelBag = () => {
   // realBags 업데이트
   useEffect(() => {
     const filteredBags = bags.filter((bag) => !bag.temporary); // temporary가 false인 가방만 필터링
-    console.log("Filtered realBags:", filteredBags);
+    const sortedBags = filteredBags.sort((a, b) => b.id - a.id);
     setRealBags(filteredBags); // realBags 상태 업데이트
+    setSortedRealBags(sortedBags);
   }, [bags, setRealBags]);
 
   console.log("bags", bags);
