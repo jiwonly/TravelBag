@@ -25,7 +25,8 @@ const BagDashboard = ({ icon }) => {
   useEffect(() => {
     const fetchBagItems = async () => {
       try {
-        const response = await getBagItemsAPI(memberId, bagId); // API 호출
+        const response = await getBagItemsAPI(memberId, bagId); // 서버에서 가방 데이터 가져오기
+        console.log("API Response:", response); // **응답 데이터 확인**
         const itemsByCategory = response.items.reduce((acc, item) => {
           const { categoryId, ...itemData } = item;
           acc[categoryId] = acc[categoryId] || [];
@@ -33,18 +34,17 @@ const BagDashboard = ({ icon }) => {
           return acc;
         }, {});
 
-        setBagItems(itemsByCategory); // Recoil 상태 업데이트
+        console.log("Transformed Items:", itemsByCategory); // **변환된 데이터 확인**
+        setBagItems(itemsByCategory); // 가져온 데이터를 Recoil 상태에 업데이트
       } catch (error) {
         console.error("Error fetching bag items:", error);
       }
     };
 
-    fetchBagItems();
-  }, [bagId, setBagItems]);
-
-  const onSetAdded = (value) => {
-    setAdded(value);
-  };
+    if (bagId && memberId) {
+      fetchBagItems(); // bagId와 memberId가 유효할 때만 호출
+    }
+  }, [bagId, memberId, setBagItems]); // **의존성 추가: bagId와 memberId**
 
   return (
     <>
