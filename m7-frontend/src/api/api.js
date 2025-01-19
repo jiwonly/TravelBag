@@ -5,7 +5,9 @@ export const API_BASE_URL = "https://api.jionly.tech";
 // 회원 조회
 export const getMemberAPI = async (memberId) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/api/member/${memberId}`);
+    const response = await axios.get(`${API_BASE_URL}/api/member/${memberId}`, {
+      withCredentials: true, // 세션 쿠키 포함
+    });
     return response.data;
   } catch (error) {
     console.error("Error fetching member:", error);

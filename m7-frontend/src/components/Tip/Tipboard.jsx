@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import CommonHeader from "../common/CommonHeader";
 import PopularDestinations from "./PopularDestinations";
@@ -30,7 +29,7 @@ const Tipboard = () => {
     };
 
     fetchLocations();
-  }, [setLocations, locations]);
+  }, []);
 
   return (
     <div className="mt-[29px]">
@@ -57,4 +56,3 @@ const Tipboard = () => {
 };
 
 export default Tipboard;
-
