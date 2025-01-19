@@ -39,7 +39,7 @@ function App() {
   const [bags, setBags] = useRecoilState(bagsState);
   console.log(auth);
 
-  // 가방 데이터 가져오기
+  // 가방 데이터 가져옴
   useEffect(() => {
     const fetchBags = async () => {
       try {
