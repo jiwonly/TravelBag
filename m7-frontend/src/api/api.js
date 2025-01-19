@@ -28,7 +28,10 @@ export const fetchLocationsAPI = async () => {
 export const fetchExchangeRatesAPI = async (location_id) => {
   try {
     const response = await axios.get(
-      `${API_BASE_URL}/api/location/exchange-rate/${location_id}`
+      `${API_BASE_URL}/api/location/exchange-rate/${location_id}`,
+      {
+        withCredentials: true, // 세션 쿠키 포함
+      }
     );
     return response.data;
   } catch (error) {
@@ -41,7 +44,10 @@ export const fetchExchangeRatesAPI = async (location_id) => {
 export const fetchAirlinesAPI = async (location_id) => {
   try {
     const response = await axios.get(
-      `${API_BASE_URL}/api/location/airline/${location_id}`
+      `${API_BASE_URL}/api/location/airline/${location_id}`,
+      {
+        withCredentials: true, // 세션 쿠키 포함
+      }
     );
     return response.data;
   } catch (error) {
@@ -54,7 +60,10 @@ export const fetchAirlinesAPI = async (location_id) => {
 export const fetchRestaurantsAPI = async (location_id) => {
   try {
     const response = await axios.get(
-      `${API_BASE_URL}/api/restaurant/${location_id}`
+      `${API_BASE_URL}/api/restaurant/${location_id}`,
+      {
+        withCredentials: true, // 세션 쿠키 포함
+      }
     );
     return response.data;
   } catch (error) {
@@ -67,7 +76,10 @@ export const fetchRestaurantsAPI = async (location_id) => {
 export const fetchAttractionsAPI = async (location_id) => {
   try {
     const response = await axios.get(
-      `${API_BASE_URL}/api/attraction/${location_id}`
+      `${API_BASE_URL}/api/attraction/${location_id}`,
+      {
+        withCredentials: true, // 세션 쿠키 포함
+      }
     );
     return response.data;
   } catch (error) {
@@ -80,7 +92,10 @@ export const fetchAttractionsAPI = async (location_id) => {
 export const fetchSouvenirsAPI = async (location_id) => {
   try {
     const response = await axios.get(
-      `${API_BASE_URL}/api/souvenir/${location_id}`
+      `${API_BASE_URL}/api/souvenir/${location_id}`,
+      {
+        withCredentials: true, // 세션 쿠키 포함
+      }
     );
     return response.data;
   } catch (error) {
