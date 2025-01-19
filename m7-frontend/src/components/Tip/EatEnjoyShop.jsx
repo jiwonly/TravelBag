@@ -1,16 +1,16 @@
-import EESItem from "./EESItem";
+import EESItem from "./EESItem.jsx";
 import { useRecoilState } from "recoil";
 import {
   restaurantsState,
   attractionsState,
   souvenirsState,
-} from "../../api/atom";
+} from "../../api/atom.js";
 
 import {
   fetchRestaurantsAPI,
   fetchAttractionsAPI,
   fetchSouvenirsAPI,
-} from "../../api/api";
+} from "../../api/api.js";
 import { useEffect } from "react";
 
 const EatEnjoyShop = ({ location_id }) => {

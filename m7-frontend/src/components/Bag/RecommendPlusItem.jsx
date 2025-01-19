@@ -1,13 +1,17 @@
 import CheckData_plus from "../../assets/CheckData_plus.svg";
 import { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { EditStateContext } from "@/pages/Bag";
-import { createBagItemAPI, getBagItemsByCategoryAPI } from "@/api/api";
-import { thisBagItemsState } from "@/api/atom";
+import { EditStateContext } from "@/pages/Bag.jsx";
+import { createBagItemAPI, getBagItemsByCategoryAPI } from "@/api/api.js";
+import { thisBagItemsState } from "@/api/atom.js";
+import { useRecoilValue } from "recoil";
+import { authState } from "@/api/auth.js";
 
 const RecommendPlusItem = ({ categoryId, itemName }) => {
+  console.log("itemName", itemName);
   const params = useParams();
-  const memberId = 1;
+  const auth = useRecoilValue(authState); // Recoil 상태 읽기만 사용
+  const memberId = auth.kakaoId;
   const bagId = params.id;
   const isEditiing = useContext(EditStateContext);
   const [itemsByCategory, setItemsByCategory] = useState([]);
@@ -20,6 +24,7 @@ const RecommendPlusItem = ({ categoryId, itemName }) => {
           bagId,
           categoryId
         );
+        console.log("Fetched items by category:", itemByCategoryResponse);
         setItemsByCategory(itemByCategoryResponse);
       } catch (error) {
         console.error("Error fetching bagItemsByCategory:", error);
@@ -29,6 +34,10 @@ const RecommendPlusItem = ({ categoryId, itemName }) => {
   }, [memberId, bagId, categoryId]);
 
   const handleThisBagItemByCategoryCreate = async (itemName) => {
+    if (!itemName) {
+      console.error("Item name is empty!");
+      return;
+    }
     try {
       const response = await createBagItemAPI(
         memberId,
@@ -36,12 +45,8 @@ const RecommendPlusItem = ({ categoryId, itemName }) => {
         categoryId,
         itemName
       );
-
-      // API 응답을 기반으로 새 아이템 추가
-      const newItem = response; // 응답이 새로 생성된 아이템의 정보를 포함한다고 가정
-      setItemsByCategory((prevItems) => [...prevItems, newItem]);
-
-      // 참조 값 업데이트
+      console.log("New item created:", response);
+      setItemsByCategory((prevItems) => [...prevItems, response]);
     } catch (error) {
       console.error("Error creating item:", error);
     }

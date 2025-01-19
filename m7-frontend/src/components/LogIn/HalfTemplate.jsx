@@ -1,8 +1,8 @@
 import LoginImage from "../../assets/LoginImage.png";
 import LoginLogo from "../../assets/LoginLogo.svg";
-import KakaoButton from "./KakaoButton";
+import KakaoButton from "./KakaoButton.jsx";
 import { useNavigate } from "react-router-dom";
-import { API_BASE_URL } from "@/api/api";
+import { API_BASE_URL } from "@/api/api.js";
 
 const HalfTemplate = ({ type }) => {
   const nav = useNavigate();

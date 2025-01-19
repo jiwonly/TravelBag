@@ -1,6 +1,6 @@
-import { SideBar } from "@/components/common/SideBar";
-import Tipboard from "@/components/Tip/Tipboard";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SideBar } from "@/components/common/SideBar.jsx";
+import Tipboard from "@/components/Tip/Tipboard.jsx";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar.jsx";
 
 const Tip = ({ children }) => {
   return (

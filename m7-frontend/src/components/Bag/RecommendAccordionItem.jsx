@@ -3,8 +3,8 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
-import RecommendPlusList from "./RecommendPlusList";
+} from "@/components/ui/accordion.jsx";
+import RecommendPlusList from "./RecommendPlusList.jsx";
 
 const RecommendAccordionItem = ({ categoryId }) => {
   let name = "";

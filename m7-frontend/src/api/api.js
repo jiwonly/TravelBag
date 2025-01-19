@@ -5,7 +5,9 @@ export const API_BASE_URL = "https://api.jionly.tech";
 // 회원 조회
 export const getMemberAPI = async (memberId) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/api/member/${memberId}`);
+    const response = await axios.get(`${API_BASE_URL}/api/member/${memberId}`, {
+      withCredentials: true, // 세션 쿠키 포함
+    });
     return response.data;
   } catch (error) {
     console.error("Error fetching member:", error);
@@ -111,7 +113,10 @@ export const createBagAPI = async (memberId, templateId, bagName) => {
   try {
     const response = await axios.post(
       `${API_BASE_URL}/api/member/${memberId}/bags/template/${templateId}`,
-      { name: bagName }
+      { name: bagName },
+      {
+        withCredentials: true, // 세션 쿠키 포함
+      }
     );
     return response.data;
   } catch (error) {
@@ -125,7 +130,10 @@ export const updateBagNameAPI = async (memberId, bagId, bagName) => {
   try {
     const response = await axios.patch(
       `${API_BASE_URL}/api/member/${memberId}/bags/${bagId}/name`,
-      { name: bagName }
+      { name: bagName },
+      {
+        withCredentials: true, // 세션 쿠키 포함
+      }
     );
     return response.data;
   } catch (error) {
@@ -141,7 +149,10 @@ export const updateBagNameAPI = async (memberId, bagId, bagName) => {
 export const toggleBagTemporaryAPI = async (memberId, bagId) => {
   try {
     const response = await axios.patch(
-      `${API_BASE_URL}/api/member/${memberId}/bags/${bagId}/toggle-temporary`
+      `${API_BASE_URL}/api/member/${memberId}/bags/${bagId}/toggle-temporary`,
+      {
+        withCredentials: true, // 세션 쿠키 포함
+      }
     );
     return response.data;
   } catch (error) {
@@ -157,7 +168,10 @@ export const toggleBagTemporaryAPI = async (memberId, bagId) => {
 export const getBagsAPI = async (memberId) => {
   try {
     const response = await axios.get(
-      `${API_BASE_URL}/api/member/${memberId}/bags`
+      `${API_BASE_URL}/api/member/${memberId}/bags`,
+      {
+        withCredentials: true, // 세션 쿠키 포함
+      }
     );
     return response.data;
   } catch (error) {
@@ -170,7 +184,10 @@ export const getBagsAPI = async (memberId) => {
 export const getBagDetailsAPI = async (memberId, bagId) => {
   try {
     const response = await axios.get(
-      `${API_BASE_URL}/api/member/${memberId}/bags/${bagId}`
+      `${API_BASE_URL}/api/member/${memberId}/bags/${bagId}`,
+      {
+        withCredentials: true, // 세션 쿠키 포함
+      }
     );
     return response.data;
   } catch (error) {
@@ -186,7 +203,10 @@ export const getBagDetailsAPI = async (memberId, bagId) => {
 export const deleteBagAPI = async (memberId, bagId) => {
   try {
     const response = await axios.delete(
-      `${API_BASE_URL}/api/member/${memberId}/bags/${bagId}`
+      `${API_BASE_URL}/api/member/${memberId}/bags/${bagId}`,
+      {
+        withCredentials: true, // 세션 쿠키 포함
+      }
     );
     return response.data;
   } catch (error) {
@@ -199,7 +219,10 @@ export const deleteBagAPI = async (memberId, bagId) => {
 export const getBagItemsAPI = async (memberId, bagId) => {
   try {
     const response = await axios.get(
-      `${API_BASE_URL}/api/feature/member/${memberId}/bag/${bagId}`
+      `${API_BASE_URL}/api/feature/member/${memberId}/bag/${bagId}`,
+      {
+        withCredentials: true, // 세션 쿠키 포함
+      }
     );
     return response.data;
   } catch (error) {
@@ -215,7 +238,10 @@ export const getBagItemsAPI = async (memberId, bagId) => {
 export const getBagItemsByCategoryAPI = async (memberId, bagId, categoryId) => {
   try {
     const response = await axios.get(
-      `${API_BASE_URL}/api/member/${memberId}/bags/${bagId}/item/category/${categoryId}`
+      `${API_BASE_URL}/api/member/${memberId}/bags/${bagId}/item/category/${categoryId}`,
+      {
+        withCredentials: true, // 세션 쿠키 포함
+      }
     );
     return response.data;
   } catch (error) {
@@ -237,7 +263,10 @@ export const createBagItemAPI = async (
   try {
     const response = await axios.post(
       `${API_BASE_URL}/api/member/${memberId}/bags/${bagId}/item/category/${categoryId}`,
-      { name: itemName }
+      { name: itemName },
+      {
+        withCredentials: true, // 세션 쿠키 포함
+      }
     );
     return response.data;
   } catch (error) {
@@ -253,7 +282,10 @@ export const createBagItemAPI = async (
 export const toggleItemPackedAPI = async (memberId, bagId, itemId) => {
   try {
     const response = await axios.patch(
-      `${API_BASE_URL}/api/member/${memberId}/bags/${bagId}/item/${itemId}/toggle-packed`
+      `${API_BASE_URL}/api/member/${memberId}/bags/${bagId}/item/${itemId}/toggle-packed`,
+      {
+        withCredentials: true, // 세션 쿠키 포함
+      }
     );
     return response.data;
   } catch (error) {
@@ -266,7 +298,10 @@ export const updateItemNameAPI = async (memberId, bagId, itemId, itemName) => {
   try {
     const response = await axios.patch(
       `${API_BASE_URL}/api/member/${memberId}/bags/${bagId}/item/${itemId}/name`,
-      { name: itemName }
+      { name: itemName },
+      {
+        withCredentials: true, // 세션 쿠키 포함
+      }
     );
     return response.data;
   } catch (error) {
@@ -282,7 +317,10 @@ export const updateItemNameAPI = async (memberId, bagId, itemId, itemName) => {
 export const deleteItemAPI = async (memberId, bagId, itemId) => {
   try {
     const response = await axios.delete(
-      `${API_BASE_URL}/api/member/${memberId}/bags/${bagId}/item/${itemId}`
+      `${API_BASE_URL}/api/member/${memberId}/bags/${bagId}/item/${itemId}`,
+      {
+        withCredentials: true, // 세션 쿠키 포함
+      }
     );
     return response.data;
   } catch (error) {
@@ -298,7 +336,10 @@ export const deleteItemAPI = async (memberId, bagId, itemId) => {
 export const getRecommendItemsAPI = async (memberId, bagId) => {
   try {
     const response = await axios.get(
-      `${API_BASE_URL}/api/feature/member/${memberId}/bag/${bagId}/recommended-items`
+      `${API_BASE_URL}/api/feature/member/${memberId}/bag/${bagId}/recommended-items`,
+      {
+        withCredentials: true, // 세션 쿠키 포함
+      }
     );
     return response.data;
   } catch (error) {
@@ -318,7 +359,10 @@ export const getRecommendItemsByCategoryAPI = async (
 ) => {
   try {
     const response = await axios.get(
-      `${API_BASE_URL}/api/member/${memberId}/bags/${bagId}/recommendeditem/category/${categoryId}`
+      `${API_BASE_URL}/api/member/${memberId}/bags/${bagId}/recommendeditem/category/${categoryId}`,
+      {
+        withCredentials: true, // 세션 쿠키 포함
+      }
     );
     return response.data;
   } catch (error) {
@@ -340,7 +384,10 @@ export const addRecommendItemAPI = async (
   try {
     const response = await axios.post(
       `${API_BASE_URL}/api/member/${memberId}/bags/${bagId}/recommendeditem/category/${categoryId}`,
-      { name: itemName }
+      { name: itemName },
+      {
+        withCredentials: true, // 세션 쿠키 포함
+      }
     );
     return response.data;
   } catch (error) {

@@ -1,5 +1,5 @@
-import { getTemplateImage } from "@/util/get-template-image";
-import TemplateButton from "./TemplateButton";
+import { getTemplateImage } from "@/util/get-template-image.js";
+import TemplateButton from "./TemplateButton.jsx";
 
 const TemplateItem = ({ id, name }) => {
   let templateTitle = "";

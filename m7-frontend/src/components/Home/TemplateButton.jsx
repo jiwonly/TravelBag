@@ -1,10 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import { BagIdRefContext } from "@/App";
-import { createBagAPI } from "@/api/api";
+import { BagIdRefContext } from "../../App.jsx";
+import { createBagAPI } from "@/api/api.js";
+import { useRecoilValue } from "recoil";
+import { authState } from "@/api/auth.js";
 
 const TemplateButton = ({ templateId, style }) => {
-  const memberId = 1;
+  const auth = useRecoilValue(authState); // Recoil 상태 읽기만 사용
+  const memberId = auth.kakaoId;
   const bagIdRef = useContext(BagIdRefContext);
   const nav = useNavigate();
   let templateTitle = "";

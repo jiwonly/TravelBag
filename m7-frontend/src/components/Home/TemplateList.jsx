@@ -1,5 +1,5 @@
-import TemplateItem from "./TemplateItem";
-import { templateList } from "@/util/get-template-list";
+import TemplateItem from "./TemplateItem.jsx";
+import { templateList } from "@/util/get-template-list.js";
 
 const TemplateList = () => {
   const templates = templateList;

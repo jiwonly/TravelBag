@@ -1,11 +1,13 @@
 import { useRecoilState, useRecoilValue } from "recoil";
-import BagButton from "./BagButton";
-import { bagsState, realBagsState, sortedRealBagsState } from "@/api/atom";
+import BagButton from "./BagButton.jsx";
+import { bagsState, realBagsState, sortedRealBagsState } from "@/api/atom.js";
 import { useEffect } from "react";
-import { getBagsAPI } from "@/api/api";
+import { getBagsAPI } from "@/api/api.js";
+import { authState } from "@/api/auth.js";
 
 const TravelBag = () => {
-  const memberId = 1;
+  const auth = useRecoilValue(authState); // Recoil 상태 읽기만 사용
+  const memberId = auth.kakaoId;
   const [bags, setBags] = useRecoilState(bagsState);
   const [realBags, setRealBags] = useRecoilState(realBagsState);
   const [sortedRealBags, setSortedRealBags] =

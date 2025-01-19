@@ -1,10 +1,10 @@
-import { recommendItemsState } from "@/api/atom";
-import RecommendAccordionItem from "./RecommendAccordionItem";
+import { recommendItemsState } from "@/api/atom.js";
+import RecommendAccordionItem from "./RecommendAccordionItem.jsx";
 import { useRecoilState } from "recoil";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getRecommendItemsAPI } from "@/api/api";
-import { recommendItemsList } from "@/util/get-recomment-supplies-list";
+import { getRecommendItemsAPI } from "@/api/api.js";
+import { recommendItemsList } from "@/util/get-recomment-supplies-list.js";
 
 const RecommendAccordionList = () => {
   // const memberId = 1;

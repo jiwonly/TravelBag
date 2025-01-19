@@ -6,17 +6,17 @@ import {
 } from "react-router-dom";
 import { createContext, useRef, useState, useEffect } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { authState } from "./api/auth";
-import { getAuthStatus } from "./api/auth";
+import { authState } from "./api/auth.js";
+import { getAuthStatus } from "./api/auth.js";
 
-import Home from "./pages/Home";
-import Tip from "./pages/Tip";
-import Bag from "./pages/Bag";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import NotFound from "./pages/NotFound";
-import { getBagsAPI } from "./api/api";
-import { bagsState } from "./api/atom";
+import Home from "./pages/Home.jsx";
+import Tip from "./pages/Tip.jsx";
+import Bag from "./pages/Bag.jsx";
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
+import NotFound from "./pages/NotFound.jsx";
+import { getBagsAPI } from "./api/api.js";
+import { bagsState } from "./api/atom.js";
 
 function PrivateRoute({ isAuthenticated, children }) {
   return isAuthenticated ? children : <Navigate to="/login" />;
@@ -33,13 +33,13 @@ function App() {
     }
   }, []);
 
-  const memberId = 1;
   const [auth, setAuth] = useRecoilState(authState);
+  const memberId = auth.kakaoId;
+
   const [bags, setBags] = useRecoilState(bagsState);
+  console.log(auth);
 
-  // const [isAuthenticated, setIsAuthenticated] = useRecoilState(authState);
-
-  // 가방 데이터 가져오기
+  // 가방 데이터 가져옴
   useEffect(() => {
     const fetchBags = async () => {
       try {
@@ -73,8 +73,8 @@ function App() {
     const fetchAuthStatus = async () => {
       try {
         const status = await getAuthStatus();
-        console.log("인증 상태 확인:", status);
-        console.log("인증 상태 확인2:", status.isAuthenticated);
+        // console.log("인증 상태 확인:", status);
+        // console.log("인증 상태 확인2:", status.isAuthenticated);
 
         //인증 상태 업데이트
         setAuth({

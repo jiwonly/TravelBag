@@ -2,7 +2,7 @@ import { useContext } from "react";
 import Checkbox_Yes from "../../assets/Checkbox_Yes.svg";
 import Checkbox_No from "../../assets/Checkbox_No.svg";
 import CheckData_minus from "../../assets/CheckData_minus.svg";
-import { EditStateContext } from "@/pages/Bag";
+import { EditStateContext } from "@/pages/Bag.jsx";
 
 export function CheckData({
   itemId,
