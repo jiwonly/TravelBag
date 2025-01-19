@@ -10,13 +10,16 @@ import {
   toggleItemPackedAPI,
   updateItemNameAPI,
 } from "@/api/api.js";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { authState } from "@/api/auth.js";
+import { bagItemsState } from "@/api/atom.js";
 
 export function CheckList({ bagId, categoryId }) {
   const auth = useRecoilValue(authState); // Recoil 상태 읽기만 사용
   const memberId = auth.kakaoId;
-  const [itemsByCategory, setItemsByCategory] = useState([]);
+  const bagItems = useRecoilValue(bagItemsState);
+  const setBagItems = useSetRecoilState(bagItemsState);
+  const itemsByCategory = bagItems[categoryId] || [];
   let categoryName = "";
   switch (categoryId) {
     case 1:
@@ -38,41 +41,38 @@ export function CheckList({ bagId, categoryId }) {
       categoryName = "기타";
       break;
   }
-
-  useEffect(() => {
-    const fetchItemsByCategory = async () => {
-      try {
-        const itemByCategoryResponse = await getBagItemsByCategoryAPI(
-          memberId,
-          bagId,
-          categoryId
-        );
-        setItemsByCategory(itemByCategoryResponse);
-      } catch (error) {
-        console.error("Error fetching bagItemsByCategory:", error);
-      }
-    };
-    fetchItemsByCategory();
-  }, [memberId, bagId, categoryId]);
-
   const isEditing = useContext(EditStateContext);
 
-  const handleThisBagItemByCategoryCreate = async (itemName) => {
+  // 아이템 추가
+  const handleAddItem = async (itemName) => {
     try {
-      const response = await createBagItemAPI(
+      const newItem = await createBagItemAPI(
         memberId,
         bagId,
         categoryId,
         itemName
-      );
-
-      // API 응답을 기반으로 새 아이템 추가
-      const newItem = response; // 응답이 새로 생성된 아이템의 정보를 포함한다고 가정
-      setItemsByCategory((prevItems) => [...prevItems, newItem]);
-
-      // 참조 값 업데이트
+      ); // 서버에 아이템 추가
+      setBagItems((prevItems) => ({
+        ...prevItems,
+        [categoryId]: [...(prevItems[categoryId] || []), newItem], // 상태 업데이트
+      }));
     } catch (error) {
-      console.error("Error creating item:", error);
+      console.error("Error adding item:", error);
+    }
+  };
+
+  // 아이템 isPacked 상태 토글
+  const handleTogglePacked = async (itemId) => {
+    try {
+      await toggleItemPackedAPI(memberId, bagId, itemId); // 서버 업데이트
+      setBagItems((prevItems) => ({
+        ...prevItems,
+        [categoryId]: prevItems[categoryId].map((item) =>
+          item.id === itemId ? { ...item, packed: !item.packed } : item
+        ),
+      }));
+    } catch (error) {
+      console.error("Error toggling item packed:", error);
     }
   };
 
@@ -89,27 +89,18 @@ export function CheckList({ bagId, categoryId }) {
     }
   };
 
-  const handleThisBagItemByCategoryUpdatePacked = async (itemId) => {
+  // 아이템 삭제
+  const handleDeleteItem = async (itemId) => {
     try {
-      const response = await toggleItemPackedAPI(memberId, bagId, itemId);
-      setItemsByCategory((prevItems) =>
-        prevItems.map((item) =>
-          item.id === itemId ? { ...item, packed: !item.packed } : item
-        )
-      );
+      await deleteItemAPI(memberId, bagId, itemId); // 서버에서 아이템 삭제
+      setBagItems((prevItems) => ({
+        ...prevItems,
+        [categoryId]: prevItems[categoryId].filter(
+          (item) => item.id !== itemId
+        ),
+      }));
     } catch (error) {
-      console.error("Error toggle item packed:", error);
-    }
-  };
-
-  const handleThisBagItemCategoryDelete = async (itemId) => {
-    try {
-      const response = await deleteItemAPI(memberId, bagId, itemId);
-      setItemsByCategory((prevItems) =>
-        prevItems.filter((item) => item.id !== itemId)
-      );
-    } catch (error) {
-      console.error("Error delete item:", error);
+      console.error("Error deleting item:", error);
     }
   };
 
@@ -127,14 +118,12 @@ export function CheckList({ bagId, categoryId }) {
             itemName={item.name}
             isPacked={item.packed}
             onUpdateName={handleThisBagITemByCategoryUpdateName}
-            onToggle={handleThisBagItemByCategoryUpdatePacked}
-            onDelete={handleThisBagItemCategoryDelete}
+            onToggle={handleTogglePacked}
+            onDelete={handleDeleteItem}
           />
         ))}
 
-        {isEditing ? (
-          <CheckInput onCreateItem={handleThisBagItemByCategoryCreate} />
-        ) : null}
+        {isEditing ? <CheckInput onCreateItem={handleAddItem} /> : null}
       </div>
     </div>
   );

@@ -3,8 +3,9 @@ import { CheckList } from "./CheckList.jsx";
 import { useParams } from "react-router-dom";
 import { createContext, useEffect, useState } from "react";
 import { getBagItemsAPI } from "@/api/api.js";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { authState } from "@/api/auth.js";
+import { bagItemsState } from "@/api/atom.js";
 
 export const NewItemsStateContext = createContext();
 export const NewItemDispatchContext = createContext();
@@ -16,23 +17,30 @@ const BagDashboard = ({ icon }) => {
   const auth = useRecoilValue(authState); // Recoil 상태 읽기만 사용
   const memberId = auth.kakaoId;
   const bagId = params.id;
-  const [thisBagItems, setThisBagItems] = useState([]);
+  const [thisBagItems, setThisBagItems] = useRecoilState(bagItemsState);
+  const setBagItems = useSetRecoilState(bagItemsState);
   const [newItemsList, setNewItemsList] = useState([]);
   const [added, setAdded] = useState(0);
 
   useEffect(() => {
-    const fetchBagData = async () => {
+    const fetchBagItems = async () => {
       try {
-        const bagDataResponse = await getBagItemsAPI(memberId, bagId);
-        const bagItemsResponse = bagDataResponse.items;
-        setThisBagItems(bagItemsResponse);
+        const response = await getBagItemsAPI(memberId, bagId); // API 호출
+        const itemsByCategory = response.items.reduce((acc, item) => {
+          const { categoryId, ...itemData } = item;
+          acc[categoryId] = acc[categoryId] || [];
+          acc[categoryId].push(itemData);
+          return acc;
+        }, {});
+
+        setBagItems(itemsByCategory); // Recoil 상태 업데이트
       } catch (error) {
-        console.error("Error fetching bagItems:", error);
+        console.error("Error fetching bag items:", error);
       }
     };
 
-    fetchBagData(); // 함수 호출
-  }, [bagId]); // 의존성에 bagId 포함
+    fetchBagItems();
+  }, [bagId, setBagItems]);
 
   const onSetAdded = (value) => {
     setAdded(value);
@@ -48,11 +56,11 @@ const BagDashboard = ({ icon }) => {
                 <BagHeader icon={icon} />
                 <div className="Custom px-[30px] py-[40px] flex flex-col items-start flex-[1_0_0] self-stretch rounded-b-[16px] border-[1px] bg-[var(--White,_#FFF)] min-h-[685px]">
                   <div className="grid grid-cols-2 gap-[25px] w-full">
-                    {thisBagItems.map((item) => (
+                    {Object.keys(thisBagItems).map((categoryId) => (
                       <CheckList
-                        key={item.categoryId}
+                        key={categoryId}
                         bagId={bagId}
-                        categoryId={item.categoryId}
+                        categoryId={categoryId}
                       />
                     ))}
                   </div>
