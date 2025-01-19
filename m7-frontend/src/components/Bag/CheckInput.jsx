@@ -15,10 +15,9 @@ export function CheckInput({ onCreateItem }) {
 
   const handleChange = (e) => {
     setInputValue(e.target.value);
-    // onSetAdded 호출 여부 확인
-    if (!isAddedCalled) {
+    if (!isComposing) {
+      // 입력 도중 호출되지 않도록 제어
       onSetAdded(added + 1);
-      setIsAddedCalled(true);
     }
   };
 
@@ -28,7 +27,7 @@ export function CheckInput({ onCreateItem }) {
 
   const handleCompositionEnd = (e) => {
     setIsComposing(false);
-    setInputValue(e.target.value); // 입력값 최종 반영
+    setInputValue(e.target.value); // 최종 입력값 반영
   };
 
   const handleKeyDown = (e) => {
@@ -38,11 +37,10 @@ export function CheckInput({ onCreateItem }) {
   };
 
   const onClickAdd = () => {
-    if (inputValue.trim() === "") return; // 빈 문자열 방지
-    onCreateItem(inputValue); // 아이템 추가
-    onSetAdded(added - 1); // 추가 상태 업데이트
+    if (inputValue.trim() === "") return; // 빈 값 방지
+    onCreateItem(inputValue); // 새로운 아이템 생성
     setInputValue(""); // 입력값 초기화
-    setIsAddedCalled(false); // 호출 상태 초기화
+    onSetAdded(added - 1); // 추가 상태 업데이트
   };
 
   return (
