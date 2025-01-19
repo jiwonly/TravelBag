@@ -115,7 +115,7 @@ export function CheckList({ bagId, categoryId }) {
 
   return (
     <div className="flex flex-col bg-gray-100 py-4 px-1 rounded-md w-[340px] h-auto gap-[14px] shadow-[0px_4px_12px_0px_rgba(0,0,0,0.12)]">
-      <p className="font-bold mb-1 ml-6 text-[15px]">{categoryName}</p>
+      <p className="font-bold mb-1 ml-6 text-[14px]">{categoryName}</p>
 
       <div className="flex flex-col items-center gap-[14px] max-h-[400px] overflow-y-auto scrollbar-thin">
         {itemsByCategory.map((item) => (
