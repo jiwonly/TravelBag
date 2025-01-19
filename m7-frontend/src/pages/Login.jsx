@@ -38,7 +38,7 @@ const Login = () => {
 
   return (
     <div>
-      <HalfTemplate type="login" onLogin={handleKakaoLogin} />
+      <HalfTemplate type="login" />
     </div>
   );
 };

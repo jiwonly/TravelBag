@@ -24,7 +24,7 @@ export const getAuthStatus = async () => {
 export const authState = atom({
   key: "authState",
   default: {
-    isAuthenticated: true,
+    isAuthenticated: false,
     kakaoId: null,
     email: null,
     nickname: null,
