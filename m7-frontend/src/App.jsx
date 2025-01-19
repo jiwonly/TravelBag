@@ -27,27 +27,19 @@ function App() {
   const bags = useRecoilValue(bagState);
   const [auth, setAuth] = useRecoilState(authState);
 
-  const [isAuthenticated, setIsAuthenticated] = useRecoilState(authState);
+  // const [isAuthenticated, setIsAuthenticated] = useRecoilState(authState);
   const bagIdRef = useRef(
     bags.length > 0 ? Math.max(...bags.map((bag) => bag.id)) + 1 : 1
   );
 
   const handleLogin = () => {
-    setIsAuthenticated(true);
+    setAuth({
+      ...auth,
+      isAuthenticated: true,
+    });
   };
 
   // 로그인 쓸 때 주석 풀기
-
-  // useEffect(() => {
-  //   const fetchAuthStatus = async () => {
-  //     const status = await getAuthStatus();
-  //     console.log(status);
-  //     setIsAuthenticated(status.isAuthenticated);
-  //   };
-  //   fetchAuthStatus();
-  // }, []);
-
-  // 동규 오빠 새로운 코드
   useEffect(() => {
     const fetchAuthStatus = async () => {
       try {
