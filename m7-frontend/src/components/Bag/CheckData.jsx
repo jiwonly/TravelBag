@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Checkbox_Yes from "../../assets/Checkbox_Yes.svg";
 import Checkbox_No from "../../assets/Checkbox_No.svg";
 import CheckData_minus from "../../assets/CheckData_minus.svg";
@@ -13,13 +13,16 @@ export function CheckData({
   onDelete,
 }) {
   const isEditing = useContext(EditStateContext);
+  const [localItemName, setLocalItemName] = useState(itemName); // 로컬 상태 추가
 
   const handleDelete = () => {
     onDelete(itemId);
   };
 
-  const handleThisBagITemByCategoryUpdateName = (e) => {
-    onUpdateName(itemId, e.target.value);
+  const handleNameChange = (e) => {
+    const updatedName = e.target.value;
+    setLocalItemName(updatedName); // 로컬 상태 업데이트
+    onUpdateName(itemId, updatedName); // 부모 상태 업데이트
   };
 
   return (
@@ -37,8 +40,8 @@ export function CheckData({
         {isEditing ? (
           <input
             className="text-gray-800 text-sm outline-none w-[200px]"
-            value={itemName}
-            onChange={handleThisBagITemByCategoryUpdateName}
+            value={localItemName} // 로컬 상태와 연결
+            onChange={handleNameChange} // 로컬 및 부모 상태 업데이트
           />
         ) : (
           <p className="text-sm text-gray-800">{itemName} </p>
