@@ -1,4 +1,4 @@
-import { getDestinationImage } from "@/util/get-destination-image";
+import { getDestinationImage } from "@/util/get-destination-image.js";
 
 const DestinationItem = ({ id, name, selectedId, showContent }) => {
   const isSelected = selectedId; // 상위 컴포넌트에서 전달받은 선택 상태

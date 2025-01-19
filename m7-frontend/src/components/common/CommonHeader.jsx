@@ -1,4 +1,4 @@
-import { getIconImage } from "@/util/get-icon-image";
+import { getIconImage } from "@/util/get-icon-image.js";
 
 const CommonHeader = ({ icon, title, memo }) => {
   return (

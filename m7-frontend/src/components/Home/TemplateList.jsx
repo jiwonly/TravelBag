@@ -1,9 +1,5 @@
-import TemplateItem from "./TemplateItem";
-import { useRecoilValue } from "recoil";
-import { templateState } from "@/api/Bag/atom";
-import { useEffect, useState } from "react";
-import api from "@/api/Bag/api";
-import { templateList } from "@/util/get-template-list";
+import TemplateItem from "./TemplateItem.jsx";
+import { templateList } from "@/util/get-template-list.js";
 
 const TemplateList = () => {
   const templates = templateList;

@@ -1,4 +1,4 @@
-import RecommendAccordionList from "./RecommendAccordionList";
+import RecommendAccordionList from "./RecommendAccordionList.jsx";
 
 const RecommendBar = ({ icon }) => {
   return (

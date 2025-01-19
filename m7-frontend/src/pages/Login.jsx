@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAuthStatus } from "@/api/auth";
-import HalfTemplate from "@/components/LogIn/HalfTemplate";
-import { API_BASE_URL } from "@/api/api";
+import { getAuthStatus } from "@/api/auth.js";
+import HalfTemplate from "@/components/LogIn/HalfTemplate.jsx";
+import { API_BASE_URL } from "@/api/api.js";
 
 const Login = () => {
   const nav = useNavigate();
@@ -38,7 +38,7 @@ const Login = () => {
 
   return (
     <div>
-      <HalfTemplate type="login" onLogin={handleKakaoLogin} />
+      <HalfTemplate type="login" />
     </div>
   );
 };

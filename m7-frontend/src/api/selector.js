@@ -1,4 +1,4 @@
-import { selector } from "recoil";
+import { selector, selectorFamily } from "recoil";
 import {
   locationsState,
   exchangeRatesState,
@@ -6,6 +6,7 @@ import {
   restaurantsState,
   attractionsState,
   souvenirsState,
+  bagsState,
 } from "./atom";
 
 export const selectLocations = selector({
@@ -54,4 +55,15 @@ export const selectSouvenirs = selector({
     const souvenirs = get(souvenirsState);
     return souvenirs;
   },
+});
+
+// 현재 가방을 ID로 가져오는 selectorFamily
+export const selectThisBag = selectorFamily({
+  key: "selectThisBag",
+  get:
+    (bagId) =>
+    ({ get }) => {
+      const allBags = get(bagsState);
+      return allBags.find((bag) => bag.id === bagId) || null;
+    },
 });

@@ -1,17 +1,16 @@
-import EESItem from "./EESItem";
+import EESItem from "./EESItem.jsx";
 import { useRecoilState } from "recoil";
 import {
   restaurantsState,
   attractionsState,
   souvenirsState,
-} from "../../api/atom"
+} from "../../api/atom.js";
 
 import {
   fetchRestaurantsAPI,
   fetchAttractionsAPI,
   fetchSouvenirsAPI,
-
-} from "../../api/api";
+} from "../../api/api.js";
 import { useEffect } from "react";
 
 const EatEnjoyShop = ({ location_id }) => {
@@ -71,7 +70,7 @@ const EatEnjoyShop = ({ location_id }) => {
         맛보고, 즐기고, 담아가기
       </div>
       <div className="text-[13px] text-gray-500 mb-[10px]">
-        식당 사진을 클릭하면 구글맵으로 연결됩니다.
+        식당과 관광지 사진을 클릭하면 구글맵으로 연결됩니다.
       </div>
       <div className="flex flex-col items-start">
         <li className="text-[17px] font-bold py-5">맛집</li>

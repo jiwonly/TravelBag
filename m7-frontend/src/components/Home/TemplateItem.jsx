@@ -1,14 +1,12 @@
-import { getTemplateImage } from "@/util/get-template-image";
-import TemplateButton from "./TemplateButton";
-// import { useEffect, useState } from "react";
-// import api from "@/api/Bag/api";
+import { getTemplateImage } from "@/util/get-template-image.js";
+import TemplateButton from "./TemplateButton.jsx";
 
 const TemplateItem = ({ id, name }) => {
   let templateTitle = "";
 
   switch (id) {
     case 1:
-      templateTitle = "내 맘대로 시작하기";
+      templateTitle = "내 마음대로 시작하기";
       break;
     case 2:
       templateTitle = "여자 혼자 여행";

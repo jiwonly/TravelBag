@@ -1,11 +1,29 @@
-import { useRecoilValue } from "recoil";
-import RecommendPlusItem from "./RecommendPlusItem";
-import { getRecommendItemsByCategory } from "@/api/Bag/selector";
+import RecommendPlusItem from "./RecommendPlusItem.jsx";
+import { useEffect, useState } from "react";
+import { getRecommendItemsByCategoryAPI } from "@/api/api.js";
+import { useParams } from "react-router-dom";
+import { recommendItemsList } from "@/util/get-recomment-supplies-list.js";
 
 const RecommendPlusList = ({ categoryId }) => {
-  const recommendItemsByCategory = useRecoilValue(
-    getRecommendItemsByCategory(categoryId) // 올바른 호출 방식
-  );
+  const [recommendItems, setRecommendItems] = useState([]);
+  const [recommendItemsByCategory, setRecommendItemsByCategory] = useState([]);
+
+  useEffect(() => {
+    // categoryId에 해당하는 추천 아이템 가져오기
+    const filteredItems = recommendItemsList.filter(
+      (items) => items.categoryId === categoryId
+    );
+
+    if (filteredItems.length > 0) {
+      const firstItem = filteredItems[0]; // 필터 결과에서 첫 번째 항목 가져오기
+      setRecommendItems(firstItem);
+      setRecommendItemsByCategory(firstItem.items);
+    } else {
+      // 해당 categoryId에 대한 추천 아이템이 없는 경우
+      setRecommendItems([]);
+      setRecommendItemsByCategory([]);
+    }
+  }, [categoryId]); // 의존성 배열 추가
 
   return (
     <div className="flex flex-col gap-3 ">

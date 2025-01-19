@@ -6,16 +6,17 @@ import {
 } from "react-router-dom";
 import { createContext, useRef, useState, useEffect } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { authState } from "./api/auth";
-import { bagState } from "./api/Bag/atom";
-import { getAuthStatus } from "./api/auth";
+import { authState } from "./api/auth.js";
+import { getAuthStatus } from "./api/auth.js";
 
-import Home from "./pages/Home";
-import Tip from "./pages/Tip";
-import Bag from "./pages/Bag";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import NotFound from "./pages/NotFound";
+import Home from "./pages/Home.jsx";
+import Tip from "./pages/Tip.jsx";
+import Bag from "./pages/Bag.jsx";
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
+import NotFound from "./pages/NotFound.jsx";
+import { getBagsAPI } from "./api/api.js";
+import { bagsState } from "./api/atom.js";
 
 function PrivateRoute({ isAuthenticated, children }) {
   return isAuthenticated ? children : <Navigate to="/login" />;
@@ -24,26 +25,79 @@ function PrivateRoute({ isAuthenticated, children }) {
 export const BagIdRefContext = createContext();
 
 function App() {
-  const bags = useRecoilValue(bagState);
+  // URL 끝의 / 제거하는 useEffect 추가
+  useEffect(() => {
+    if (window.location.pathname.endsWith("/")) {
+      const newPath = window.location.pathname.slice(0, -1); // 끝의 / 제거
+      window.history.replaceState(null, "", newPath); // URL 변경
+    }
+  }, []);
 
-  const [isAuthenticated, setIsAuthenticated] = useRecoilState(authState);
+  const [auth, setAuth] = useRecoilState(authState);
+  const memberId = auth.kakaoId;
+
+  const [bags, setBags] = useRecoilState(bagsState);
+  console.log(auth);
+
+  // 가방 데이터 가져옴
+  useEffect(() => {
+    const fetchBags = async () => {
+      try {
+        const response = await getBagsAPI(memberId); // API 호출
+        if (Array.isArray(response)) {
+          setBags(response); // bags 상태 업데이트
+        } else {
+          console.error("Invalid bags response format:", response);
+        }
+      } catch (error) {
+        console.error("Error fetching bags:", error);
+      }
+    };
+
+    fetchBags();
+  }, [memberId, setBags]); // memberId가 변경될 때만 실행
+
   const bagIdRef = useRef(
     bags.length > 0 ? Math.max(...bags.map((bag) => bag.id)) + 1 : 1
   );
 
   const handleLogin = () => {
-    setIsAuthenticated(true);
+    setAuth({
+      ...auth,
+      isAuthenticated: true,
+    });
   };
 
   // 로그인 쓸 때 주석 풀기
+  useEffect(() => {
+    const fetchAuthStatus = async () => {
+      try {
+        const status = await getAuthStatus();
+        // console.log("인증 상태 확인:", status);
+        // console.log("인증 상태 확인2:", status.isAuthenticated);
 
-  // useEffect(() => {
-  //   const fetchAuthStatus = async () => {
-  //     const status = await getAuthStatus();
-  //     setIsAuthenticated(status.isAuthenticated);
-  //   };
-  //   fetchAuthStatus();
-  // }, []);
+        //인증 상태 업데이트
+        setAuth({
+          isAuthenticated: status.isAuthenticated,
+          kakaoId: status.kakaoId,
+          email: status.email,
+          nickname: status.nickname,
+        });
+      } catch (error) {
+        console.error("인증 상태 확인 실패:", error);
+
+        // 인증 실패 시 기본값 설정
+        setAuth({
+          isAuthenticated: false,
+          kakaoId: null,
+          email: null,
+          nickname: null,
+        });
+      }
+    };
+
+    fetchAuthStatus(); // 백엔드에서 인증 상태 가져오기
+  }, [setAuth]);
 
   return (
     <>
@@ -56,7 +110,7 @@ function App() {
             <Route
               path="/"
               element={
-                <PrivateRoute isAuthenticated={isAuthenticated}>
+                <PrivateRoute isAuthenticated={auth.isAuthenticated}>
                   <Home />
                 </PrivateRoute>
               }
@@ -64,7 +118,7 @@ function App() {
             <Route
               path="/tip"
               element={
-                <PrivateRoute isAuthenticated={isAuthenticated}>
+                <PrivateRoute isAuthenticated={auth.isAuthenticated}>
                   <Tip />
                 </PrivateRoute>
               }
@@ -72,7 +126,7 @@ function App() {
             <Route
               path="/bag/:id"
               element={
-                <PrivateRoute isAuthenticated={isAuthenticated}>
+                <PrivateRoute isAuthenticated={auth.isAuthenticated}>
                   <Bag />
                 </PrivateRoute>
               }

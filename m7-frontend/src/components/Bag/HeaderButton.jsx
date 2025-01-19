@@ -1,6 +1,3 @@
-import { bagState } from "@/api/Bag/atom";
-import { useRecoilValue } from "recoil";
-
 const HeaderButton = ({
   bagTemporary,
   style,
@@ -8,8 +5,6 @@ const HeaderButton = ({
   onClick,
   isEditing,
 }) => {
-  const bags = useRecoilValue(bagState);
-
   return (
     <div>
       <button onClick={onClick} className={`Button ${style}`}>

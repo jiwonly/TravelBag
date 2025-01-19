@@ -3,35 +3,28 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
-import RecommendPlusList from "./RecommendPlusList";
-import { categoryState } from "@/api/Bag/atom";
-import { useRecoilValue } from "recoil";
+} from "@/components/ui/accordion.jsx";
+import RecommendPlusList from "./RecommendPlusList.jsx";
 
-const RecommendAccordionItem = ({ categoryId, ItemByCategory }) => {
-  const categories = useRecoilValue(categoryState);
-  const thisCategory = categories.find(
-    (category) => String(category.id) === String(categoryId)
-  );
-
+const RecommendAccordionItem = ({ categoryId }) => {
   let name = "";
-  switch (thisCategory.name) {
-    case "ESSENTIAL":
+  switch (categoryId) {
+    case 1:
       name = "필수품";
       break;
-    case "CLOTHING":
-      name = "의류";
-      break;
-    case "TOILETRIES":
-      name = "위생용품";
-      break;
-    case "ELECTRONICS":
-      name = "전자기기";
-      break;
-    case "MEDICALS":
+    case 2:
       name = "의료품";
       break;
-    case "OTHER":
+    case 3:
+      name = "의류";
+      break;
+    case 4:
+      name = "위생용품";
+      break;
+    case 5:
+      name = "전자기기";
+      break;
+    case 6:
       name = "기타";
       break;
   }
@@ -42,10 +35,7 @@ const RecommendAccordionItem = ({ categoryId, ItemByCategory }) => {
         <AccordionItem value="item-1">
           <AccordionTrigger>{name}</AccordionTrigger>
           <AccordionContent className="max-h-[250px] overflow-y-auto overflow-x-hidden scrollbar-thin">
-            <RecommendPlusList
-              categoryId={categoryId}
-              ItemByCategory={ItemByCategory}
-            />
+            <RecommendPlusList categoryId={categoryId} />
           </AccordionContent>
         </AccordionItem>
       </Accordion>

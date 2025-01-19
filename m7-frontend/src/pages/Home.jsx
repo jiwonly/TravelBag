@@ -1,6 +1,6 @@
-import { SideBar } from "@/components/common/SideBar";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import Dashboard from "@/components/Home/Dashboard";
+import { SideBar } from "@/components/common/SideBar.jsx";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar.jsx";
+import Dashboard from "@/components/Home/Dashboard.jsx";
 
 const Home = ({ children }) => {
   return (

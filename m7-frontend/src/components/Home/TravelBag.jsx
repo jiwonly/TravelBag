@@ -1,31 +1,43 @@
-import { bagState } from "@/api/Bag/atom";
-import { useRecoilValue } from "recoil";
-import BagButton from "./BagButton";
+import { useRecoilState, useRecoilValue } from "recoil";
+import BagButton from "./BagButton.jsx";
+import { bagsState, realBagsState, sortedRealBagsState } from "@/api/atom.js";
+import { useEffect } from "react";
+import { getBagsAPI } from "@/api/api.js";
+import { authState } from "@/api/auth.js";
 
 const TravelBag = () => {
-  const bags = useRecoilValue(bagState);
-  const realBags = bags.filter((bag) => !bag.temporary);
+  const auth = useRecoilValue(authState); // Recoil 상태 읽기만 사용
+  const memberId = auth.kakaoId;
+  const [bags, setBags] = useRecoilState(bagsState);
+  const [realBags, setRealBags] = useRecoilState(realBagsState);
+  const [sortedRealBags, setSortedRealBags] =
+    useRecoilState(sortedRealBagsState);
 
-  // API 연결 시 사용!!!(6번부터 위 내용 지우고 사용)
-  /**
-  const [bags, setBags] = useState([]);
-  const [realBags, setRealBags] = useState([]);
-
+  // 가방 데이터 가져오기
   useEffect(() => {
     const fetchBags = async () => {
       try {
-        const response = await api.get("/members/bags");
-        setBags(response.data);
-        const filteredBags = response.data.filter((bag) => !bag.temporary);
-        setRealBags(filteredBags);
+        const response = await getBagsAPI(memberId); // API 호출
+        if (Array.isArray(response)) {
+          setBags(response); // bags 상태 업데이트
+        } else {
+          console.error("Invalid bags response format:", response);
+        }
       } catch (error) {
         console.error("Error fetching bags:", error);
       }
     };
 
     fetchBags();
-  }, []);
-   */
+  }, [memberId, setBags]); // memberId가 변경될 때만 실행
+
+  // realBags 업데이트
+  useEffect(() => {
+    const filteredBags = bags.filter((bag) => !bag.temporary); // temporary가 false인 가방만 필터링
+    const sortedBags = filteredBags.sort((a, b) => b.id - a.id);
+    setRealBags(filteredBags); // realBags 상태 업데이트
+    setSortedRealBags(sortedBags);
+  }, [bags, setRealBags]);
 
   const style =
     "w-[240px] h-[53px] min-w-[240px] p-[20px] flex items-center rounded-[12px] border-[1px] bg-[var(--Gray-50,_#F5F5F6)] [box-shadow:0px] shadow-custom text-[16px] font-[Pretendard] text-gray-800";
@@ -37,7 +49,7 @@ const TravelBag = () => {
         columnGap: "30px",
       }}
     >
-      {realBags.map((item) => (
+      {sortedRealBags.map((item) => (
         <BagButton
           key={item.id}
           {...item}

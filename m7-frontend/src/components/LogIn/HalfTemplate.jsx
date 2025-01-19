@@ -1,62 +1,36 @@
 import LoginImage from "../../assets/LoginImage.png";
 import LoginLogo from "../../assets/LoginLogo.svg";
-import InfoInputButton from "./InfoInputButton";
-import LoginButton from "./LoginButton";
-import KakaoButton from "./KakaoButton";
-import RegisterButton from "./RegisterButton";
+import KakaoButton from "./KakaoButton.jsx";
 import { useNavigate } from "react-router-dom";
-import { API_BASE_URL } from "@/api/api";
+import { API_BASE_URL } from "@/api/api.js";
 
-const HalfTemplate = ({ type, onLogin }) => {
+const HalfTemplate = ({ type }) => {
   const nav = useNavigate();
-
-  const handleLoginClick = () => {
-    onLogin();
-    nav("/");
-  };
 
   return (
     <div className="flex justify-center items-center gap-[30px] p-[28px] h-screen bg-white">
       <div className="flex flex-col justify-center items-center w-[490px] h-[667px] px-20 py-6  border border-[color:var(--Gray-100,#E5E6E8)] [background:var(--Gradient---Off-White,linear-gradient(180deg,#F6F6F6_0%,#FFF_100%))] rounded-2xl border-solid">
-        <img src={LoginLogo} className="w-[220px] mb-[60px]" />
-
-        {type === "login" ? (
-          <div className="flex flex-col gap-[13px]">
-            <InfoInputButton content="아이디" type="text" name="id" />
-            <InfoInputButton content="비밀번호" type="password" name="pwd" />
-            <div></div>
-
-            <LoginButton content="로그인" onClick={handleLoginClick} />
-            <RegisterButton
-              onClick={() => {
-                nav("/register");
-              }}
-            />
-
-            {/* 카카오 로그인 버튼 */}
-            <KakaoButton
-              onClick={() => {
-                window.location.href = `${API_BASE_URL}/oauth2/authorization/kakao`;
-              }}
-            />
+        <img src={LoginLogo} className="w-[220px]" />
+        <div className="flex flex-col gap-[13px]">
+          {/* 카카오 로그인 버튼 */}
+          <div className="text-center">
+            <div className="m-[60px] text-[#393940] text-[17px]">
+              <p>여행 준비를 더 쉽게,</p>
+              <p>효율적인 여행 준비의 시작!</p>
+            </div>
+            <div className="mb-[20px] text-[#444444] text-[14px]">
+              간편 로그인으로 3초만에 시작!
+            </div>
           </div>
-        ) : (
-          <div className="flex flex-col gap-[13px]">
-            <InfoInputButton content="아이디" type="text" name="id" />
-            <InfoInputButton content="비밀번호" type="password" name="pwd" />
-            <InfoInputButton content="이메일" type="text" name="email" />
-            <div className="h-[10px]"></div>
-            <InfoInputButton content="이름" type="text" name="name" />
-            <InfoInputButton
-              content="생년월일 8자리"
-              type="text"
-              name="birthday"
-            />
-            <InfoInputButton content="전화번호" type="text" name="phone" />
-            <div></div>
-            <LoginButton content="회원가입" />
+          <KakaoButton
+            onClick={() => {
+              window.location.href = `${API_BASE_URL}/oauth2/authorization/kakao`;
+            }}
+          />
+          <div className="text-center text-[#444444] text-[10px] text-opacity-40">
+            여행가방은 회원의 개인 정보를 안전하게 보호합니다.
           </div>
-        )}
+        </div>
       </div>
       <img
         src={LoginImage}
