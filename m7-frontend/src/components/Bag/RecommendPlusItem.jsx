@@ -8,7 +8,6 @@ import { useRecoilValue } from "recoil";
 import { authState } from "@/api/auth.js";
 
 const RecommendPlusItem = ({ categoryId, itemName }) => {
-  console.log("itemName", itemName);
   const params = useParams();
   const auth = useRecoilValue(authState); // Recoil 상태 읽기만 사용
   const memberId = auth.kakaoId;

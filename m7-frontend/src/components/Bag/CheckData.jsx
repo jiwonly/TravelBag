@@ -56,7 +56,7 @@ export function CheckData({
             onBlur={handleNameBlur} // 포커스 해제 시 부모 상태 업데이트
           />
         ) : (
-          <p className="text-sm text-gray-800">{itemName} </p>
+          <p className="text-sm text-gray-800">{localItemName} </p>
         )}
       </div>
       {isEditing ? (
