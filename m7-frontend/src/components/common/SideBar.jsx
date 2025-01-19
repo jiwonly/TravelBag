@@ -8,7 +8,7 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarHeader,
-} from "@/components/ui/sidebar";
+} from "@/components/ui/sidebar.jsx";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Logo from "@/assets/LoginLogo.svg";
 import { useContext, useEffect, useState } from "react";
@@ -19,13 +19,13 @@ import onhome from "../../assets/sidebar/onhome.svg";
 import travel from "../../assets/sidebar/travel.svg";
 import ontravel from "../../assets/sidebar/ontravel.svg";
 import logout from "../../assets/sidebar/logout.svg";
-import { EditStateContext } from "@/pages/Bag";
+import { EditStateContext } from "@/pages/Bag.jsx";
 import { useParams } from "react-router-dom";
-import { authState } from "@/api/auth";
+import { authState } from "@/api/auth.js";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { BagIdRefContext } from "@/App";
-import { createBagAPI, getBagDetailsAPI, getBagsAPI } from "@/api/api";
-import { bagsState, realBagsState } from "@/api/atom";
+import { BagIdRefContext } from "@/App.jsx";
+import { createBagAPI, getBagDetailsAPI, getBagsAPI } from "@/api/api.js";
+import { bagsState, realBagsState } from "@/api/atom.js";
 
 function sidebarImage(id, isActive = false) {
   if (isActive) {

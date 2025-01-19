@@ -1,9 +1,9 @@
-import TravelBag from "./TravelBag";
-import { getMemberAPI } from "@/api/api";
+import TravelBag from "./TravelBag.jsx";
+import { getMemberAPI } from "@/api/api.js";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { membersState } from "@/api/atom";
+import { membersState } from "@/api/atom.js";
 import { useEffect } from "react";
-import { authState } from "@/api/auth";
+import { authState } from "@/api/auth.js";
 
 const BagList = () => {
   const [members, setMembers] = useRecoilState(membersState);

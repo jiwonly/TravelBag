@@ -1,11 +1,11 @@
 import CheckData_plus from "../../assets/CheckData_plus.svg";
 import { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { EditStateContext } from "@/pages/Bag";
-import { createBagItemAPI, getBagItemsByCategoryAPI } from "@/api/api";
-import { thisBagItemsState } from "@/api/atom";
+import { EditStateContext } from "@/pages/Bag.jsx";
+import { createBagItemAPI, getBagItemsByCategoryAPI } from "@/api/api.js";
+import { thisBagItemsState } from "@/api/atom.js";
 import { useRecoilValue } from "recoil";
-import { authState } from "@/api/auth";
+import { authState } from "@/api/auth.js";
 
 const RecommendPlusItem = ({ categoryId, itemName }) => {
   console.log("itemName", itemName);
