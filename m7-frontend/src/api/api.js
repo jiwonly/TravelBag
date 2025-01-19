@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const API_BASE_URL = "https://www.jionly.tech";
+export const API_BASE_URL = "https://api.jionly.tech";
 
 // 회원 조회
 export const getMemberAPI = async (memberId) => {
