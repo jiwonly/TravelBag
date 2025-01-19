@@ -3,10 +3,6 @@ import { CheckInput } from "./CheckInput";
 import { useContext, useEffect, useState } from "react";
 import "../../styles/scrollbar.css";
 import { EditStateContext } from "@/pages/Bag";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { NewItemsStateContext } from "./BagDashboard";
-import { NewItemDispatchContext } from "./BagDashboard";
-import { AddedItemStateContext } from "./BagDashboard";
 import {
   createBagItemAPI,
   deleteItemAPI,

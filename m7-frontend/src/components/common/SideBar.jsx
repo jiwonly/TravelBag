@@ -22,7 +22,7 @@ import logout from "../../assets/sidebar/logout.svg";
 import { EditStateContext } from "@/pages/Bag";
 import { useParams } from "react-router-dom";
 import { authState } from "@/api/auth";
-import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { BagIdRefContext } from "@/App";
 import { createBagAPI, getBagDetailsAPI, getBagsAPI } from "@/api/api";
 import { bagsState, realBagsState } from "@/api/atom";

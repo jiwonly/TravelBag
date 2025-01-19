@@ -1,4 +1,3 @@
-import { useRecoilValue } from "recoil";
 import RecommendPlusItem from "./RecommendPlusItem";
 import { useEffect, useState } from "react";
 import { getRecommendItemsByCategoryAPI } from "@/api/api";

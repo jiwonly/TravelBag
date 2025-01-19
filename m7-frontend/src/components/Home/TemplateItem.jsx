@@ -1,6 +1,5 @@
 import { getTemplateImage } from "@/util/get-template-image";
 import TemplateButton from "./TemplateButton";
-// import { useEffect, useState } from "react";
 
 const TemplateItem = ({ id, name }) => {
   let templateTitle = "";

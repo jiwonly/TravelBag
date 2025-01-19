@@ -50,7 +50,7 @@ const TravelBag = () => {
         columnGap: "30px",
       }}
     >
-      {realBags.map((item) => (
+      {sortedRealBags.map((item) => (
         <BagButton
           key={item.id}
           {...item}
