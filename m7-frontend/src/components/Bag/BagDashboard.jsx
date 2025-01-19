@@ -1,9 +1,7 @@
 import BagHeader from "./BagHeader";
 import { CheckList } from "./CheckList";
-import { useRecoilValue } from "recoil";
 import { useParams } from "react-router-dom";
 import { createContext, useEffect, useState } from "react";
-import { selectThisBag } from "@/api/selector";
 import { getBagItemsAPI } from "@/api/api";
 
 export const NewItemsStateContext = createContext();

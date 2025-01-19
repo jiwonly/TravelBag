@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/sidebar";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Logo from "@/assets/LoginLogo.svg";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import bag from "../../assets/sidebar/bag.svg";
 import onbag from "../../assets/sidebar/onbag.svg";
 import home from "../../assets/sidebar/home.svg";
@@ -30,6 +30,8 @@ import {
   getThisTemplateItemById,
 } from "@/api/Bag/selector";
 import { BagIdRefContext } from "@/App";
+import { createBagAPI, getBagDetailsAPI, getBagsAPI } from "@/api/api";
+import { bagsState, realBagsState } from "@/api/atom";
 
 function sidebarImage(id, isActive = false) {
   if (isActive) {
@@ -84,22 +86,64 @@ const items = [
 ];
 
 export function SideBar() {
-  const params = useParams();
-  const isEditing = useContext(EditStateContext);
-
-  const bags = useRecoilValue(bagState);
-  const thisBag = useRecoilValue(getBagDetailsById(params.id));
-
-  const realBags = bags.filter((bag) => !bag.temporary);
-  const curId =
-    realBags.length > 0 ? Math.max(...realBags.map((bag) => bag.id)) : 0;
-
   const nav = useNavigate();
   const location = useLocation();
-  const isTemplate = location.pathname.includes("bag");
+  const isBag = location.pathname.includes("bag");
   const templateItemOfFREESTYLE = useRecoilValue(getThisTemplateItemById(1));
 
   const [isAuthenticated, setIsAuthenticated] = useRecoilState(authState);
+  const params = useParams();
+  const memberId = 1;
+  const bagId = isBag ? params.id : null;
+  const isEditing = useContext(EditStateContext);
+  const [bags, setBags] = useRecoilState(bagsState);
+  const [thisBag, setThisBag] = useState([]);
+  const [realBags, setRealBags] = useRecoilState(realBagsState);
+
+  // 가방 데이터 가져오기
+  useEffect(() => {
+    const fetchBags = async () => {
+      try {
+        const response = await getBagsAPI(memberId); // API 호출
+        if (Array.isArray(response)) {
+          setBags(response); // bags 상태 업데이트
+        } else {
+          console.error("Invalid bags response format:", response);
+        }
+      } catch (error) {
+        console.error("Error fetching bags:", error);
+      }
+    };
+
+    fetchBags();
+  }, [memberId, setBags]); // memberId가 변경될 때만 실행
+
+  // 현재 가방 데이터 가져오기
+  useEffect(() => {
+    const fetchThisBag = async () => {
+      try {
+        const response = await getBagDetailsAPI(memberId, bagId); // API 호출
+        if (response) {
+          setThisBag(response); // thisBag 상태 업데이트
+        } else {
+          console.error("Invalid bagDetails response format:", response);
+        }
+      } catch (error) {
+        console.error("Error fetching bag details:", error);
+      }
+    };
+
+    if (bagId) {
+      fetchThisBag(); // bagId가 존재할 때만 호출
+    }
+  }, [memberId, bagId]); // memberId와 bagId 변경 시 호출
+
+  useEffect(() => {
+    const filteredBags = bags.filter((bag) => !bag.temporary); // temporary가 false인 가방만 필터링
+    setRealBags(filteredBags); // realBags 상태 업데이트
+  }, [bags, setRealBags]);
+  const curId =
+    realBags.length > 0 ? Math.max(...realBags.map((bag) => bag.id)) : 0;
 
   const onLogoutClick = () => {
     if (window.confirm("정말 로그아웃하시겠습니까?")) {
@@ -110,30 +154,14 @@ export function SideBar() {
 
   const bagIdRef = useContext(BagIdRefContext);
 
-  const bagsDispatch = useSetRecoilState(bagReducerSelector);
-  const bagItemsDispatch = useSetRecoilState(bagItemState);
-
-  const handleBagCreate = (templateName) => {
-    // 새 가방 생성
-    bagsDispatch({
-      type: "CREATE",
-      data: {
-        id: bagIdRef.current,
-        name: "내 마음대로 시작하기",
-        template: templateName,
-        temporary: true,
-      },
-    });
-
-    // 새 가방 아이템 생성
-    const newBagItems = {
-      bagId: bagIdRef.current,
-      items: templateItemOfFREESTYLE[0].items, // 템플릿의 아이템을 복사하여 추가
-    };
-
-    bagItemsDispatch((prev) => [...prev, newBagItems]); // bagItemState 업데이트
-    nav(`/bag/${bagIdRef.current}`);
-    bagIdRef.current++;
+  const handleBagCreate = async () => {
+    try {
+      const response = await createBagAPI(memberId, 1, "내 마음대로 시작하기");
+      bagIdRef.current++;
+      nav(`/bag/${response.id}`);
+    } catch (error) {
+      console.error("Error creating bag:", error);
+    }
   };
 
   const getLink = (id) => {
@@ -173,9 +201,7 @@ export function SideBar() {
           <SidebarMenu className="sidebarMenu gap-[15px]">
             {items.map((item) => {
               const isActive =
-                item.id != 1
-                  ? location.pathname === getLink(item.id)
-                  : isTemplate;
+                item.id != 1 ? location.pathname === getLink(item.id) : isBag;
               return (
                 <SidebarMenuItem key={item.title}>
                   {item.id === 3 ? (

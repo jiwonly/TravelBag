@@ -23,5 +23,10 @@ export const getAuthStatus = async () => {
 // 로그인 안 쓸 때는 true로 변경
 export const authState = atom({
   key: "authState",
-  default: {},
+  default: {
+    isAuthenticated: true,
+    kakaoId: null,
+    email: null,
+    nickname: null,
+  },
 });
