@@ -25,11 +25,14 @@ const RecommendPlusItem = ({ categoryId, itemName }) => {
         bagId,
         categoryId,
         itemName
-      ); // 서버에 추천 아이템 추가
+      ); // 서버 호출
       setBagItems((prevItems) => ({
         ...prevItems,
-        [categoryId]: [...(prevItems[categoryId] || []), newItem],
-      })); // **수정**: Recoil 상태 업데이트
+        [categoryId]: {
+          ...prevItems[categoryId],
+          item: [...(prevItems[categoryId]?.item || []), newItem], // **item 배열에 추가**
+        },
+      }));
     } catch (error) {
       console.error("Error adding recommended item:", error);
     }
