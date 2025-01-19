@@ -37,6 +37,7 @@ function App() {
   const [auth, setAuth] = useRecoilState(authState);
   const [bags, setBags] = useRecoilState(bagsState);
 
+  console.log(auth);
   // const [isAuthenticated, setIsAuthenticated] = useRecoilState(authState);
 
   // 가방 데이터 가져오기
