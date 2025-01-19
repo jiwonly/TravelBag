@@ -5,7 +5,7 @@ import BagDashboard from "@/components/Bag/BagDashboard.jsx";
 import { createContext, useState } from "react";
 import RecommendBar from "@/components/Bag/RecommendBar.jsx";
 import { useRecoilState, useRecoilValue } from "recoil";
-import NotFound from "./NotFound";
+import NotFound from "./NotFound.jsx";
 import { useEffect } from "react";
 import { bagsState } from "@/api/atom.js";
 import { getBagDetailsAPI, getBagsAPI } from "@/api/api.js";

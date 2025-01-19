@@ -37,7 +37,6 @@ function App() {
   const memberId = auth.kakaoId;
 
   const [bags, setBags] = useRecoilState(bagsState);
-  console.log(auth);
 
   // 가방 데이터 가져옴
   useEffect(() => {
