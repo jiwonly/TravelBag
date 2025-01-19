@@ -25,12 +25,12 @@ function PrivateRoute({ isAuthenticated, children }) {
 export const BagIdRefContext = createContext();
 
 function App() {
-  // const bags = useRecoilValue(bagState);
   const memberId = 1;
   const [auth, setAuth] = useRecoilState(authState);
   const [bags, setBags] = useRecoilState(bagsState);
 
   // const [isAuthenticated, setIsAuthenticated] = useRecoilState(authState);
+
   // 가방 데이터 가져오기
   useEffect(() => {
     const fetchBags = async () => {
@@ -67,7 +67,7 @@ function App() {
   //       console.log("인증 상태 확인:", status);
   //       console.log("인증 상태 확인2:", status.isAuthenticated);
 
-  // 인증 상태 업데이트
+  //       // 인증 상태 업데이트
   //       setAuth({
   //         isAuthenticated: status.isAuthenticated,
   //         kakaoId: status.kakaoId,
