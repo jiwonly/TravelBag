@@ -5,33 +5,26 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import RecommendPlusList from "./RecommendPlusList";
-import { categoryState } from "@/api/Bag/atom";
-import { useRecoilValue } from "recoil";
 
 const RecommendAccordionItem = ({ categoryId, ItemByCategory }) => {
-  const categories = useRecoilValue(categoryState);
-  const thisCategory = categories.find(
-    (category) => String(category.id) === String(categoryId)
-  );
-
   let name = "";
-  switch (thisCategory.name) {
-    case "ESSENTIAL":
+  switch (categoryId) {
+    case 1:
       name = "필수품";
       break;
-    case "CLOTHING":
+    case 2:
       name = "의료품";
       break;
-    case "TOILETRIES":
+    case 3:
       name = "의류";
       break;
-    case "ELECTRONICS":
+    case 4:
       name = "위생용품";
       break;
-    case "MEDICALS":
+    case 5:
       name = "전자기기";
       break;
-    case "OTHER":
+    case 6:
       name = "기타";
       break;
   }

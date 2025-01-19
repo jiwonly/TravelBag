@@ -6,7 +6,6 @@ import { EditStateContext } from "@/pages/Bag";
 
 export function CheckData({
   itemId,
-  categoryId,
   itemName,
   isPacked,
   onUpdateName,

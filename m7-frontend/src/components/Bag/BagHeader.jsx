@@ -10,7 +10,7 @@ import trashIcon from "../../assets/icon/trash.svg";
 import { SelectedDisplatchData } from "@/pages/Bag";
 import HeaderButton from "./HeaderButton";
 import { useParams, useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { AddedItemStateContext } from "./BagDashboard";
 import { EditStateContext } from "@/pages/Bag";
 import { EditDispatchContext } from "@/pages/Bag";

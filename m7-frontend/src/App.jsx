@@ -7,7 +7,6 @@ import {
 import { createContext, useRef, useState, useEffect } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { authState } from "./api/auth";
-import { bagState } from "./api/Bag/atom";
 import { getAuthStatus } from "./api/auth";
 
 import Home from "./pages/Home";
@@ -16,6 +15,8 @@ import Bag from "./pages/Bag";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
+import { getBagsAPI } from "./api/api";
+import { bagsState } from "./api/atom";
 
 function PrivateRoute({ isAuthenticated, children }) {
   return isAuthenticated ? children : <Navigate to="/login" />;
@@ -24,10 +25,29 @@ function PrivateRoute({ isAuthenticated, children }) {
 export const BagIdRefContext = createContext();
 
 function App() {
-  const bags = useRecoilValue(bagState);
+  // const bags = useRecoilValue(bagState);
+  const memberId = 1;
   const [auth, setAuth] = useRecoilState(authState);
+  const [bags, setBags] = useRecoilState(bagsState);
 
   // const [isAuthenticated, setIsAuthenticated] = useRecoilState(authState);
+  // 가방 데이터 가져오기
+  useEffect(() => {
+    const fetchBags = async () => {
+      try {
+        const response = await getBagsAPI(memberId); // API 호출
+        if (Array.isArray(response)) {
+          setBags(response); // bags 상태 업데이트
+        } else {
+          console.error("Invalid bags response format:", response);
+        }
+      } catch (error) {
+        console.error("Error fetching bags:", error);
+      }
+    };
+
+    fetchBags();
+  }, [memberId, setBags]); // memberId가 변경될 때만 실행
   const bagIdRef = useRef(
     bags.length > 0 ? Math.max(...bags.map((bag) => bag.id)) + 1 : 1
   );
@@ -39,36 +59,36 @@ function App() {
     });
   };
 
-  // 로그인 쓸 때 주석 풀기
-  useEffect(() => {
-    const fetchAuthStatus = async () => {
-      try {
-        const status = await getAuthStatus();
-        console.log("인증 상태 확인:", status);
-        console.log("인증 상태 확인2:", status.isAuthenticated);
+  // // 로그인 쓸 때 주석 풀기
+  // useEffect(() => {
+  //   const fetchAuthStatus = async () => {
+  //     try {
+  //       const status = await getAuthStatus();
+  //       console.log("인증 상태 확인:", status);
+  //       console.log("인증 상태 확인2:", status.isAuthenticated);
 
-        // 인증 상태 업데이트
-        setAuth({
-          isAuthenticated: status.isAuthenticated,
-          kakaoId: status.kakaoId,
-          email: status.email,
-          nickname: status.nickname,
-        });
-      } catch (error) {
-        console.error("인증 상태 확인 실패:", error);
+  // 인증 상태 업데이트
+  //       setAuth({
+  //         isAuthenticated: status.isAuthenticated,
+  //         kakaoId: status.kakaoId,
+  //         email: status.email,
+  //         nickname: status.nickname,
+  //       });
+  //     } catch (error) {
+  //       console.error("인증 상태 확인 실패:", error);
 
-        // 인증 실패 시 기본값 설정
-        setAuth({
-          isAuthenticated: false,
-          kakaoId: null,
-          email: null,
-          nickname: null,
-        });
-      }
-    };
+  //       // 인증 실패 시 기본값 설정
+  //       setAuth({
+  //         isAuthenticated: false,
+  //         kakaoId: null,
+  //         email: null,
+  //         nickname: null,
+  //       });
+  //     }
+  //   };
 
-    fetchAuthStatus(); // 백엔드에서 인증 상태 가져오기
-  }, [setAuth]);
+  //   fetchAuthStatus(); // 백엔드에서 인증 상태 가져오기
+  // }, [setAuth]);
 
   return (
     <>

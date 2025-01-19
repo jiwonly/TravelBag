@@ -21,14 +21,8 @@ import ontravel from "../../assets/sidebar/ontravel.svg";
 import logout from "../../assets/sidebar/logout.svg";
 import { EditStateContext } from "@/pages/Bag";
 import { useParams } from "react-router-dom";
-import { bagItemState, bagState } from "@/api/Bag/atom";
 import { authState } from "@/api/auth";
-import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
-import {
-  bagReducerSelector,
-  getBagDetailsById,
-  getThisTemplateItemById,
-} from "@/api/Bag/selector";
+import { useRecoilState } from "recoil";
 import { BagIdRefContext } from "@/App";
 import { createBagAPI, getBagDetailsAPI, getBagsAPI } from "@/api/api";
 import { bagsState, realBagsState } from "@/api/atom";
@@ -89,7 +83,6 @@ export function SideBar() {
   const nav = useNavigate();
   const location = useLocation();
   const isBag = location.pathname.includes("bag");
-  const templateItemOfFREESTYLE = useRecoilValue(getThisTemplateItemById(1));
 
   const [isAuthenticated, setIsAuthenticated] = useRecoilState(authState);
   const params = useParams();

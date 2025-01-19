@@ -1,11 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { BagIdRefContext } from "@/App";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import {
-  bagReducerSelector,
-  getThisTemplateItemById,
-} from "@/api/Bag/selector";
 import { createBagAPI } from "@/api/api";
 
 const TemplateButton = ({ templateId, style }) => {
