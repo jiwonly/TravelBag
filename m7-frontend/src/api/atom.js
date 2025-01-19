@@ -1,5 +1,11 @@
 import { atom } from "recoil";
 
+// 회원 카카오 ID 상태
+export const kakaoIdState = atom({
+  key: "kakaoIdState",
+  default: [],
+});
+
 export const membersState = atom({
   key: "membersState",
   default: [],

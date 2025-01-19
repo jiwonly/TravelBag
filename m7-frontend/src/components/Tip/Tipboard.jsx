@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import CommonHeader from "../common/CommonHeader";
-import PopularDestinations from "./PopularDestinations";
-import MajorAirline from "./MajorAirline";
-import ExchangeRate from "./ExchangeRate";
-import EatEnjoyShop from "./EatEnjoyShop";
+import CommonHeader from "../common/CommonHeader.jsx";
+import PopularDestinations from "./PopularDestinations.jsx";
+import MajorAirline from "./MajorAirline.jsx";
+import ExchangeRate from "./ExchangeRate.jsx";
+import EatEnjoyShop from "./EatEnjoyShop.jsx";
 
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { fetchLocationsAPI } from "@/api/api";
-import { locationsState } from "@/api/atom";
+import { fetchLocationsAPI } from "@/api/api.js";
+import { locationsState } from "@/api/atom.js";
 
 const Tipboard = () => {
   const [selectedDestination, setSelectedDestination] = useState(null);

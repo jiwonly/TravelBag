@@ -1,15 +1,15 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { SideBar } from "@/components/common/SideBar";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import BagDashboard from "@/components/Bag/BagDashboard";
+import { SideBar } from "@/components/common/SideBar.jsx";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar.jsx";
+import BagDashboard from "@/components/Bag/BagDashboard.jsx";
 import { createContext, useState } from "react";
-import RecommendBar from "@/components/Bag/RecommendBar";
+import RecommendBar from "@/components/Bag/RecommendBar.jsx";
 import { useRecoilState, useRecoilValue } from "recoil";
 import NotFound from "./NotFound";
 import { useEffect } from "react";
-import { bagsState } from "@/api/atom";
-import { getBagDetailsAPI, getBagsAPI } from "@/api/api";
-import { authState } from "@/api/auth";
+import { bagsState } from "@/api/atom.js";
+import { getBagDetailsAPI, getBagsAPI } from "@/api/api.js";
+import { authState } from "@/api/auth.js";
 
 export const SelectedSateData = createContext();
 export const SelectedDisplatchData = createContext();
