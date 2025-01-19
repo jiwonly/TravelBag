@@ -46,6 +46,10 @@ const BagDashboard = ({ icon }) => {
     }
   }, [bagId, memberId, setBagItems]); // **의존성 추가: bagId와 memberId**
 
+  const onSetAdded = (value) => {
+    setAdded(value);
+  };
+
   return (
     <>
       <NewItemsStateContext.Provider value={newItemsList}>
