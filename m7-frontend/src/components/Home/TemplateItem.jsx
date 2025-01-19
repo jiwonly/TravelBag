@@ -1,7 +1,6 @@
 import { getTemplateImage } from "@/util/get-template-image";
 import TemplateButton from "./TemplateButton";
 // import { useEffect, useState } from "react";
-// import api from "@/api/Bag/api";
 
 const TemplateItem = ({ id, name }) => {
   let templateTitle = "";

@@ -1,6 +1,5 @@
 import { recommendItemsState } from "@/api/atom";
 import RecommendAccordionItem from "./RecommendAccordionItem";
-import { getRecommendItems } from "@/api/Bag/selector";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";

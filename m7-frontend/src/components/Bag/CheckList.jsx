@@ -4,7 +4,6 @@ import { useContext, useEffect, useState } from "react";
 import "../../styles/scrollbar.css";
 import { EditStateContext } from "@/pages/Bag";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { bagState, categoryState } from "@/api/Bag/atom";
 import { NewItemsStateContext } from "./BagDashboard";
 import { NewItemDispatchContext } from "./BagDashboard";
 import { AddedItemStateContext } from "./BagDashboard";

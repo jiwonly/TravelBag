@@ -1,6 +1,5 @@
 import { useRecoilValue } from "recoil";
 import RecommendPlusItem from "./RecommendPlusItem";
-import { getRecommendItemsByCategory } from "@/api/Bag/selector";
 import { useEffect, useState } from "react";
 import { getRecommendItemsByCategoryAPI } from "@/api/api";
 import { useParams } from "react-router-dom";
