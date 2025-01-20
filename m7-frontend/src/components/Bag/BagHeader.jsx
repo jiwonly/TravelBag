@@ -260,7 +260,7 @@ const BagHeader = ({ icon }) => {
           />
         ) : (
           <Select onValueChange={(value) => onSelected(value)}>
-            <SelectTrigger className="w-[200px]">
+            <SelectTrigger className="w-[300px]">
               <SelectValue placeholder={selectedBagName} />
             </SelectTrigger>
             <SelectContent>
