@@ -143,7 +143,7 @@ export function SideBar() {
     if (window.confirm("정말 로그아웃하시겠습니까?")) {
       try {
         await postLogoutAPI();
-        localStorage.removeItem("token"); // 로컬 스토리지에서 토큰 삭제 (필요 시)
+        
         setAuth({
           isAuthenticated: false,
           kakaoId: null,

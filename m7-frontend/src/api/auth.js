@@ -38,6 +38,7 @@ export const postLogoutAPI = async () => {
       }
     );
     console.log("Logout successful:", response.data);
+    localStorage.removeItem("token"); // 로컬 스토리지에서 토큰 삭제 (필요 시)
     return response.data;
   } catch (error) {
     console.error("Failed to logout:", error.response || error.message);
