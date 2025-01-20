@@ -10,7 +10,8 @@ import {
   updateItemNameAPI,
 } from "@/api/api.js";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { authState, bagItemsState } from "@/api/atom.js";
+import { bagItemsState } from "@/api/atom.js";
+import { authState } from "../../api/auth.js";
 
 export function CheckList({ bagId, categoryId }) {
   const auth = useRecoilValue(authState); // Recoil 상태 읽기만 사용
