@@ -146,19 +146,16 @@ export function SideBar() {
         const response = await postLogoutAPI(); // 로그아웃 API 호출
         console.log("Logout API response:", response);
 
-        if (response.message === "Successfully logged out") {
-          console.log("Logout successful. Clearing auth state...");
-          setAuth({
-            isAuthenticated: false,
-            kakaoId: null,
-            email: null,
-            nickname: null,
-          }); // Recoil 상태 초기화
-          alert("로그아웃 성공!");
-          nav("/login"); // 로그인 페이지로 이동
-        } else {
-          throw new Error("Unexpected response from logout API");
-        }
+        // 로그아웃 성공 시 상태 초기화
+        setAuth({
+          isAuthenticated: false,
+          kakaoId: null,
+          email: null,
+          nickname: null,
+        });
+
+        alert("로그아웃 성공!");
+        nav("/login"); // 로그인 페이지로 리다이렉트
       } catch (error) {
         console.error("Logout error details:", error);
         alert(`로그아웃 실패! 이유: ${error.message || "다시 시도해주세요."}`);

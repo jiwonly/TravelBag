@@ -41,18 +41,27 @@ export const fetchAccessTokenAPI = async () => {
 
 export const postLogoutAPI = async () => {
   try {
+    const token = localStorage.getItem("authToken"); // localStorage에서 토큰 가져오기
+    if (!token) {
+      throw new Error("Token not found in localStorage");
+    }
+
     const response = await axios.post(
       `${API_BASE_URL}/api/auth/logout`,
-      {},
+      {}, // Body
       {
+        headers: {
+          Authorization: `Bearer ${token}`, // 헤더에 토큰 추가
+        },
         withCredentials: true, // 세션 쿠키 포함
       }
     );
-    console.log("Logout successful:", response.data);
 
+    console.log("Logout API response:", response.data);
+    localStorage.removeItem("authToken"); // 토큰 제거
     return response.data;
   } catch (error) {
-    console.error("Failed to logout:", error.response || error.message);
+    console.error("Logout failed:", error.response?.data || error.message);
     throw error;
   }
 };
