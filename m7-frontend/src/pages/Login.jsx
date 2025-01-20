@@ -29,7 +29,7 @@ const Login = () => {
   useEffect(() => {
     // 카카오 로그인 후 리다이렉트 처리  
     const fetchToken = async () => {
-      const token = await fetchAccessTokenAPI(); // 비동기 호출
+      const token = await fetchAccessTokenAPI(); 
       console.log("Token from API:", token);
     if (token) {
       localStorage.setItem("authToken", token);
@@ -40,6 +40,7 @@ const Login = () => {
       nav("/");
       }
     };
+    fetchToken();
   }, [nav]);
 
   return (
