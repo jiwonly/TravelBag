@@ -21,20 +21,25 @@ export const getAuthStatus = async () => {
 };
 
 // 로그아웃 함수 추가
-export const postLogoutAPI = async () => {
+export const logout = async () => {
   try {
+    const token = localStorage.getItem("token"); // 로컬 스토리지에서 토큰 가져오기
+    if (!token) throw new Error("Token not found"); // 토큰이 없을 때 예외 처리
+
     const response = await axios.post(
       `${API_BASE_URL}/api/auth/logout`,
       {},
       {
         withCredentials: true, // 세션 쿠키 포함
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
     );
     console.log("Logout successful:", response.data);
-
     return response.data;
   } catch (error) {
-    console.error("Failed to logout:", error.response || error.message);
+    console.error("Failed to logout:", error);
     throw error; // 에러를 상위 호출자로 전달
   }
 };
