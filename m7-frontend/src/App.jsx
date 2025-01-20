@@ -2,7 +2,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate, 
+  Navigate,
 } from "react-router-dom";
 import { createContext, useRef, useState, useEffect } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
@@ -95,7 +95,7 @@ function App() {
     };
 
     fetchAuthStatus(); // 백엔드에서 인증 상태 가져오기
-  }, [setAuth]);
+  }, []);
 
   // 이미 SideBar.jsx에 있어서 필요 없을 것 같은데 일단 냅둠
   // const handleLogout = async () => {
