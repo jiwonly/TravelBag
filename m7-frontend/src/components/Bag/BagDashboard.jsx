@@ -17,8 +17,7 @@ const BagDashboard = ({ icon }) => {
   const auth = useRecoilValue(authState); // Recoil 상태 읽기만 사용
   const memberId = auth.kakaoId;
   const bagId = params.id;
-  const [thisBagItems, setThisBagItems] = useRecoilState(bagItemsState);
-  const setBagItems = useSetRecoilState(bagItemsState);
+  const [bagItems, setBagItems] = useRecoilState(bagItemsState);
   const [newItemsList, setNewItemsList] = useState([]);
   const [added, setAdded] = useState(0);
 
@@ -26,15 +25,12 @@ const BagDashboard = ({ icon }) => {
     const fetchBagItems = async () => {
       try {
         const response = await getBagItemsAPI(memberId, bagId); // 서버에서 가방 데이터 가져오기
-        console.log("API Response:", response); // **응답 데이터 확인**
-        const itemsByCategory = response.items.reduce((acc, item) => {
-          const { categoryId, ...itemData } = item;
-          acc[categoryId] = acc[categoryId] || [];
-          acc[categoryId].push(itemData);
+        const itemsByCategory = response.items.reduce((acc, categoryData) => {
+          const { categoryId, item } = categoryData; // JSON 데이터 구조에 맞게 변경
+          acc[categoryId] = { item }; // categoryId를 키로, item 배열을 값으로 저장
           return acc;
         }, {});
 
-        console.log("Transformed Items:", itemsByCategory); // **변환된 데이터 확인**
         setBagItems(itemsByCategory); // 가져온 데이터를 Recoil 상태에 업데이트
       } catch (error) {
         console.error("Error fetching bag items:", error);
@@ -44,7 +40,7 @@ const BagDashboard = ({ icon }) => {
     if (bagId && memberId) {
       fetchBagItems(); // bagId와 memberId가 유효할 때만 호출
     }
-  }, [bagId, memberId, setBagItems]); // **의존성 추가: bagId와 memberId**
+  }, [bagId, memberId, setBagItems]);
 
   const onSetAdded = (value) => {
     setAdded(value);
@@ -60,7 +56,7 @@ const BagDashboard = ({ icon }) => {
                 <BagHeader icon={icon} />
                 <div className="Custom px-[30px] py-[40px] flex flex-col items-start flex-[1_0_0] self-stretch rounded-b-[16px] border-[1px] bg-[var(--White,_#FFF)] min-h-[685px]">
                   <div className="grid grid-cols-2 gap-[25px] w-full">
-                    {Object.keys(thisBagItems).map((categoryId) => (
+                    {Object.keys(bagItems).map((categoryId) => (
                       <CheckList
                         key={categoryId}
                         bagId={bagId}
