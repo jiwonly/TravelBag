@@ -147,28 +147,27 @@ export function SideBar() {
 
     if (window.confirm("정말 로그아웃하시겠습니까?")) {
       try {
-        console.log("Sending logout request...");
-        const response = await postLogoutAPI(); // 로그아웃 API 호출
+        const response = await postLogoutAPI();
         console.log("Logout API response:", response);
 
         if (response.message === "Successfully logged out") {
           console.log(
             "Logout successful. Clearing auth state and localStorage..."
           );
-          localStorage.removeItem("authToken"); // 로그아웃 성공 후 토큰 삭제
+          localStorage.removeItem("authToken"); // 로컬스토리지 초기화
           setAuth({
             isAuthenticated: false,
             kakaoId: null,
             email: null,
             nickname: null,
-          }); // authState 초기화
+          }); // Recoil 상태 초기화
           alert("로그아웃 성공!");
-          nav("/login"); // 로그인 페이지로 리다이렉트
+          nav("/login"); // 로그인 페이지로 이동
         } else {
-          throw new Error("로그아웃 응답이 올바르지 않습니다.");
+          throw new Error("Unexpected response from logout API");
         }
       } catch (error) {
-        console.error("Logout error details:", error); // 전체 에러 출력
+        console.error("Logout error details:", error);
         alert(`로그아웃 실패! 이유: ${error.message || "다시 시도해주세요."}`);
       }
     }

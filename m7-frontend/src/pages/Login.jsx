@@ -26,28 +26,28 @@ const Login = () => {
     checkAuthStatus();
   }, [nav]);
 
-  useEffect(() => {
-    // 리다이렉트 URL에서 인증 코드를 처리하고 액세스 토큰 저장
-    const fetchToken = async () => {
-      const searchParams = new URLSearchParams(window.location.search);
-      const authCode = searchParams.get("code"); // 백엔드에서 전달한 인증 코드
+  // useEffect(() => {
+  //   // 리다이렉트 URL에서 인증 코드를 처리하고 액세스 토큰 저장
+  //   const fetchToken = async () => {
+  //     const searchParams = new URLSearchParams(window.location.search);
+  //     const authCode = searchParams.get("code"); // 백엔드에서 전달한 인증 코드
 
-      if (authCode) {
-        try {
-          console.log("Auth code received:", authCode);
-          const token = await fetchAccessTokenAPI(authCode); // 백엔드에서 액세스 토큰 요청
-          if (token) {
-            localStorage.setItem("authToken", token); // 토큰 저장
-            console.log("Token stored in localStorage:", token);
-            nav("/"); // 로그인 후 홈으로 리다이렉트
-          }
-        } catch (error) {
-          console.error("Failed to fetch token:", error);
-        }
-      }
-    };
-    fetchToken();
-  }, [nav]);
+  //     if (authCode) {
+  //       try {
+  //         console.log("Auth code received:", authCode);
+  //         const token = await fetchAccessTokenAPI(authCode); // 백엔드에서 액세스 토큰 요청
+  //         if (token) {
+  //           localStorage.setItem("authToken", token); // 토큰 저장
+  //           console.log("Token stored in localStorage:", token);
+  //           nav("/"); // 로그인 후 홈으로 리다이렉트
+  //         }
+  //       } catch (error) {
+  //         console.error("Failed to fetch token:", error);
+  //       }
+  //     }
+  //   };
+  //   fetchToken();
+  // }, [nav]);
 
   return (
     <div>

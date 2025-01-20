@@ -23,7 +23,7 @@ export const getAuthStatus = async () => {
 export const fetchAccessTokenAPI = async () => {
   try {
     const response = await axios.get(`${API_BASE_URL}/api/auth/token`, {
-      withCredentials: true,
+      withCredentials: true, // 세션 쿠키 포함
     });
     const accessToken = response.data.accessToken;
 
@@ -31,9 +31,7 @@ export const fetchAccessTokenAPI = async () => {
       throw new Error("Access token not found in response.");
     }
 
-    // 통일된 키 사용
-    localStorage.setItem("authToken", accessToken);
-    console.log("Access Token fetched and stored:", accessToken);
+    console.log("Access Token fetched from API:", accessToken);
     return accessToken;
   } catch (error) {
     console.error("Failed to fetch access token:", error);
