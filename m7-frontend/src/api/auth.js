@@ -8,6 +8,7 @@ export const getAuthStatus = async () => {
       withCredentials: true, // 세션 쿠키 포함
     });
     console.log(response.data);
+    localStorage.setItem("token", response.data.token);
     return response.data;
   } catch (error) {
     console.error("Failed to fetch auth status:", error);
