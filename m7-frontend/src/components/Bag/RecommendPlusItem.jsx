@@ -3,8 +3,8 @@ import { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { EditStateContext } from "@/pages/Bag.jsx";
 import { createBagItemAPI, getBagItemsByCategoryAPI } from "@/api/api.js";
-import { thisBagItemsState } from "@/api/atom.js";
-import { useRecoilValue } from "recoil";
+import { bagItemsState, thisBagItemsState } from "@/api/atom.js";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { authState } from "@/api/auth.js";
 
 const RecommendPlusItem = ({ categoryId, itemName }) => {
@@ -15,39 +15,26 @@ const RecommendPlusItem = ({ categoryId, itemName }) => {
   const isEditiing = useContext(EditStateContext);
   const [itemsByCategory, setItemsByCategory] = useState([]);
 
-  useEffect(() => {
-    const fetchItemsByCategory = async () => {
-      try {
-        const itemByCategoryResponse = await getBagItemsByCategoryAPI(
-          memberId,
-          bagId,
-          categoryId
-        );
-        console.log("Fetched items by category:", itemByCategoryResponse);
-        setItemsByCategory(itemByCategoryResponse);
-      } catch (error) {
-        console.error("Error fetching bagItemsByCategory:", error);
-      }
-    };
-    fetchItemsByCategory();
-  }, [memberId, bagId, categoryId]);
+  const [bagItems, setBagItems] = useRecoilState(bagItemsState);
 
-  const handleThisBagItemByCategoryCreate = async (itemName) => {
-    if (!itemName) {
-      console.error("Item name is empty!");
-      return;
-    }
+  // 추천 아이템 추가 함수 - 수정
+  const handleAddRecommendedItem = async () => {
     try {
-      const response = await createBagItemAPI(
+      const newItem = await createBagItemAPI(
         memberId,
         bagId,
         categoryId,
         itemName
-      );
-      console.log("New item created:", response);
-      setItemsByCategory((prevItems) => [...prevItems, response]);
+      ); // 서버 호출
+      setBagItems((prevItems) => ({
+        ...prevItems,
+        [categoryId]: {
+          ...prevItems[categoryId],
+          item: [...(prevItems[categoryId]?.item || []), newItem], // **item 배열에 추가**
+        },
+      }));
     } catch (error) {
-      console.error("Error creating item:", error);
+      console.error("Error adding recommended item:", error);
     }
   };
 
@@ -58,7 +45,7 @@ const RecommendPlusItem = ({ categoryId, itemName }) => {
       </div>
       {isEditiing ? (
         <button
-          onClick={() => handleThisBagItemByCategoryCreate(itemName)}
+          onClick={() => handleAddRecommendedItem(itemName)}
           className="flex justify-center items-center rounded-md bg-white"
         >
           <img src={CheckData_plus} alt="plus" />

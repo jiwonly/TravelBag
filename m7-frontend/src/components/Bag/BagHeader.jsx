@@ -107,7 +107,7 @@ const BagHeader = ({ icon }) => {
   };
 
   const onSelected = (value) => {
-    const selectedBag = bags.find((bag) => bag.name === value); // 이름으로 가방 찾기
+    const selectedBag = realBags.find((bag) => bag.name === value); // 이름으로 가방 찾기
     if (selectedBag) {
       setSelectedBagName(value); // 선택된 이름 설정
       setEditedBagName(value); // 편집 이름 설정
@@ -260,7 +260,7 @@ const BagHeader = ({ icon }) => {
           />
         ) : (
           <Select onValueChange={(value) => onSelected(value)}>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-[220px]">
               <SelectValue placeholder={selectedBagName} />
             </SelectTrigger>
             <SelectContent>
