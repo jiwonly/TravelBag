@@ -66,11 +66,10 @@ export const postLogoutAPI = async () => {
   } catch (error) {
     console.error("Failed to logout:", error);
     return {
-          error: error.message || "Failed to logout",
-        };
+      error: error.message || "Failed to logout",
+    };
   }
 };
-
 
 // 로그인 안 쓸 때는 true로 변경
 export const authState = atom({
