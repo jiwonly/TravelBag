@@ -100,22 +100,22 @@ function App() {
   }, [setAuth]);
 
   // 이미 SideBar.jsx에 있어서 필요 없을 것 같은데 일단 냅둠
-  const handleLogout = async () => {
-    try {
-      await postLogoutAPI(); // 로그아웃 API 호출
-      setAuth({
-        isAuthenticated: false,
-        kakaoId: null,
-        email: null,
-        nickname: null,
-      });
-      alert("로그아웃 성공!");
-      nav("/login");
-    } catch (error) {
-      alert("로그아웃 실패!");
-      console.error("Logout error:", error);
-    }
-  };
+  // const handleLogout = async () => {
+  //   try {
+  //     await postLogoutAPI(); // 로그아웃 API 호출
+  //     setAuth({
+  //       isAuthenticated: false,
+  //       kakaoId: null,
+  //       email: null,
+  //       nickname: null,
+  //     });
+  //     alert("로그아웃 성공!");
+  //     nav("/login");
+  //   } catch (error) {
+  //     alert("로그아웃 실패!");
+  //     console.error("Logout error:", error);
+  //   }
+  // };
 
   return (
     <>

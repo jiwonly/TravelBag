@@ -142,7 +142,7 @@ export function SideBar() {
   const onLogoutClick = async () => {
     if (window.confirm("정말 로그아웃하시겠습니까?")) {
       try {
-        await postLogoutAPI(); // 로그아웃 API 호출
+        const response = await postLogoutAPI();
         localStorage.removeItem("token"); // 로컬 스토리지에서 토큰 삭제 (필요 시)
         setAuth({
           isAuthenticated: false,
