@@ -111,8 +111,9 @@ function App() {
       });
       alert("로그아웃 성공!");
       nav("/login");
-    } catch {
+    } catch (error) {
       alert("로그아웃 실패!");
+      console.error("Logout error:", error);
     }
   };
 

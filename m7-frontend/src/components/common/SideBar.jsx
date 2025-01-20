@@ -152,9 +152,9 @@ export function SideBar() {
         });
         alert("로그아웃 성공!");
         nav("/login");
-      } catch {
+      } catch (error) {
         alert("로그아웃 실패! 다시 시도해주세요.");
-        console.error("Logout error");
+        console.error("Logout error", error);
       }
     }
   };
