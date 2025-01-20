@@ -3,7 +3,7 @@ import {
   Routes,
   Route,
   Navigate,
-  useNavigate,
+  
 } from "react-router-dom";
 import { createContext, useRef, useState, useEffect } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
@@ -37,7 +37,7 @@ function App() {
   const memberId = auth.kakaoId;
 
   const [bags, setBags] = useRecoilState(bagsState);
-  const nav = useNavigate();
+  // const nav = useNavigate();
 
   // 가방 데이터 가져옴
   useEffect(() => {
