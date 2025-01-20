@@ -3,11 +3,11 @@ import {
   Routes,
   Route,
   Navigate,
+  useNavigate,
 } from "react-router-dom";
 import { createContext, useRef, useState, useEffect } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { authState } from "./api/auth.js";
-import { getAuthStatus } from "./api/auth.js";
+import { authState, getAuthStatus, postLogoutAPI } from "./api/auth.js";
 
 import Home from "./pages/Home.jsx";
 import Tip from "./pages/Tip.jsx";
@@ -37,6 +37,7 @@ function App() {
   const memberId = auth.kakaoId;
 
   const [bags, setBags] = useRecoilState(bagsState);
+  const nav = useNavigate();
 
   // 가방 데이터 가져옴
   useEffect(() => {
@@ -97,6 +98,23 @@ function App() {
 
     fetchAuthStatus(); // 백엔드에서 인증 상태 가져오기
   }, [setAuth]);
+
+  // 이미 SideBar.jsx에 있어서 필요 없을 것 같은데 일단 냅둠
+  const handleLogout = async () => {
+    try {
+      await postLogoutAPI(); // 로그아웃 API 호출
+      setAuth({
+        isAuthenticated: false,
+        kakaoId: null,
+        email: null,
+        nickname: null,
+      });
+      alert("로그아웃 성공!");
+      nav("/login");
+    } catch {
+      alert("로그아웃 실패!");
+    }
+  };
 
   return (
     <>

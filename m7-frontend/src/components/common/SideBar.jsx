@@ -26,6 +26,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { BagIdRefContext } from "@/App.jsx";
 import { createBagAPI, getBagDetailsAPI, getBagsAPI } from "@/api/api.js";
 import { bagsState, realBagsState } from "@/api/atom.js";
+import { postLogoutAPI } from "@/api/auth"; // auth.js에서 작성한 로그아웃 함수
 
 function sidebarImage(id, isActive = false) {
   if (isActive) {
@@ -138,15 +139,23 @@ export function SideBar() {
   const curId =
     realBags.length > 0 ? Math.max(...realBags.map((bag) => bag.id)) : 0;
 
-  const onLogoutClick = () => {
+  const onLogoutClick = async () => {
     if (window.confirm("정말 로그아웃하시겠습니까?")) {
-      setAuth({
-        isAuthenticated: undefined,
-        kakaoId: null,
-        email: null,
-        nickname: null,
-      });
-      nav("/login");
+      try {
+        await postLogoutAPI(); // 로그아웃 API 호출
+        localStorage.removeItem("token"); // 로컬 스토리지에서 토큰 삭제 (필요 시)
+        setAuth({
+          isAuthenticated: false,
+          kakaoId: null,
+          email: null,
+          nickname: null,
+        });
+        alert("로그아웃 성공!");
+        nav("/login");
+      } catch {
+        alert("로그아웃 실패! 다시 시도해주세요.");
+        console.error("Logout error");
+      }
     }
   };
 
