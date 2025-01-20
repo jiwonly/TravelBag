@@ -30,7 +30,6 @@ const Login = () => {
     // 카카오 로그인 후 리다이렉트 처리
     const fetchToken = async () => {
       const token = localStorage.getItem("authToken");
-      console.log("Stored token before logout:", token);
 
       if (!token) {
         console.warn(
