@@ -14,11 +14,11 @@ import { bagItemsState } from "@/api/atom.js";
 import { authState } from "../../api/auth.js";
 
 export function CheckList({ bagId, categoryId }) {
-  const auth = useRecoilValue(authState); // Recoil 상태 읽기만 사용
+  const auth = useRecoilValue(authState);
   const memberId = auth.kakaoId;
-  const bagItems = useRecoilValue(bagItemsState); // 현재 상태 읽기
-  const setBagItems = useSetRecoilState(bagItemsState); // 상태 업데이트
-  const itemsByCategory = bagItems[categoryId]?.item || []; // JSON 구조에 맞게 수정
+  const bagItems = useRecoilValue(bagItemsState);
+  const setBagItems = useSetRecoilState(bagItemsState);
+  const itemsByCategory = bagItems[categoryId]?.item || [];
   const isEditing = useContext(EditStateContext);
 
   // 카테고리 이름 매핑
