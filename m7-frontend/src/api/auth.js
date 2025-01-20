@@ -21,7 +21,7 @@ export const getAuthStatus = async () => {
 };
 
 // 로그아웃 함수 추가
-export const logout = async () => {
+export const postLogoutAPI = async () => {
   try {
     const token = localStorage.getItem("token"); // 로컬 스토리지에서 토큰 가져오기
     if (!token) throw new Error("Token not found"); // 토큰이 없을 때 예외 처리

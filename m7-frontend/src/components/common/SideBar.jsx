@@ -26,7 +26,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { BagIdRefContext } from "@/App.jsx";
 import { createBagAPI, getBagDetailsAPI, getBagsAPI } from "@/api/api.js";
 import { bagsState, realBagsState } from "@/api/atom.js";
-import { postLogoutAPI } from "@/api/auth.js"; // auth.js에서 작성한 로그아웃 함수
+import { postLogoutAPI } from "@/api/auth.js";
 
 function sidebarImage(id, isActive = false) {
   if (isActive) {
