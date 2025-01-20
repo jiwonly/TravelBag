@@ -140,14 +140,22 @@ export function SideBar() {
     realBags.length > 0 ? Math.max(...realBags.map((bag) => bag.id)) : 0;
 
   const onLogoutClick = async () => {
-    console.log("Stored token:", localStorage.getItem("authToken"));
+    console.log(
+      "Stored token before logout:",
+      localStorage.getItem("authToken")
+    );
 
     if (window.confirm("정말 로그아웃하시겠습니까?")) {
       try {
+        console.log("Sending logout request...");
         const response = await postLogoutAPI(); // 로그아웃 API 호출
-        console.log("Logout response:", response);
+        console.log("Logout API response:", response);
+
         if (response.message === "Successfully logged out") {
-          localStorage.removeItem("token"); // 로그아웃 성공 후 토큰 삭제
+          console.log(
+            "Logout successful. Clearing auth state and localStorage..."
+          );
+          localStorage.removeItem("authToken"); // 로그아웃 성공 후 토큰 삭제
           setAuth({
             isAuthenticated: false,
             kakaoId: null,
@@ -160,8 +168,8 @@ export function SideBar() {
           throw new Error("로그아웃 응답이 올바르지 않습니다.");
         }
       } catch (error) {
+        console.error("Logout error details:", error); // 전체 에러 출력
         alert(`로그아웃 실패! 이유: ${error.message || "다시 시도해주세요."}`);
-        console.error("Logout error:", error);
       }
     }
   };
