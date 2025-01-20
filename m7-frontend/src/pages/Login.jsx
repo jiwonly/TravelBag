@@ -11,41 +11,25 @@ const Login = () => {
     // 백엔드의 카카오 인증 엔드포인트로 이동
     window.location.href = `${API_BASE_URL}/oauth2/authorization/kakao`;
   };
+
   useEffect(() => {
-    // 새로고침 시 인증 상태 확인 및 복구
-    const checkAuthStatus = async () => {
+    const authenticate = async () => {
       try {
-        const status = await getAuthStatus();
+        const status = await getAuthStatus(); // 인증 상태 확인
+        console.log("Authentication status:", status);
         if (status.isAuthenticated) {
-          nav("/");
+          const token = await fetchAccessTokenAPI(); // 토큰 가져오기
+          if (token) {
+            localStorage.setItem("authToken", token);
+            console.log("Token saved:", token);
+            nav("/");
+          }
         }
       } catch (error) {
-        console.error("인증 상태 확인 실패:", error);
+        console.error("Error during authentication flow:", error);
       }
     };
-    checkAuthStatus();
-  }, [nav]);
-
-  useEffect(() => {
-    const fetchToken = async () => {
-      const searchParams = new URLSearchParams(window.location.search);
-      const authCode = searchParams.get("code"); // 백엔드에서 전달한 인증 코드
-
-      if (authCode) {
-        try {
-          console.log("Auth code received:", authCode);
-          const token = await fetchAccessTokenAPI(authCode); // 백엔드에서 액세스 토큰 요청
-          if (token) {
-            localStorage.setItem("authToken", token); // 토큰 저장
-            console.log("Token stored in localStorage:", token);
-            nav("/"); // 로그인 후 홈으로 리다이렉트
-          }
-        } catch (error) {
-          console.error("Failed to fetch token:", error);
-        }
-      }
-    };
-    fetchToken();
+    authenticate();
   }, [nav]);
 
   return (

@@ -142,23 +142,18 @@ export function SideBar() {
   const onLogoutClick = async () => {
     if (window.confirm("정말 로그아웃하시겠습니까?")) {
       try {
-        console.log("Sending logout request...");
-        const response = await postLogoutAPI(); // 로그아웃 API 호출
-        console.log("Logout API response:", response);
+        const response = await postLogoutAPI(setAuth); // 로그아웃 API 호출
+        console.log("Logout response:", response);
 
-        // 로그아웃 성공 시 상태 초기화
-        setAuth({
-          isAuthenticated: false,
-          kakaoId: null,
-          email: null,
-          nickname: null,
-        });
-
-        alert("로그아웃 성공!");
-        nav("/login"); // 로그인 페이지로 리다이렉트
+        if (response.message === "Successfully logged out") {
+          alert("로그아웃 성공!");
+          nav("/login"); // 로그인 페이지로 리다이렉트
+        } else {
+          throw new Error("로그아웃 응답이 올바르지 않습니다.");
+        }
       } catch (error) {
-        console.error("Logout error details:", error);
         alert(`로그아웃 실패! 이유: ${error.message || "다시 시도해주세요."}`);
+        console.error("Logout error:", error);
       }
     }
   };
