@@ -20,11 +20,10 @@ export const getAuthStatus = async () => {
   }
 };
 
-// Access Token 가져오기
 export const fetchAccessTokenAPI = async () => {
   try {
     const response = await axios.get(`${API_BASE_URL}/api/auth/token`, {
-      withCredentials: true, // 세션 쿠키 포함
+      withCredentials: true,
     });
     const accessToken = response.data.accessToken;
 
@@ -32,12 +31,12 @@ export const fetchAccessTokenAPI = async () => {
       throw new Error("Access token not found in response.");
     }
 
-    // localStorage.setItem("token", accessToken); // 로컬 저장은 이 함수를 호출하는 쪽에서 처리
+    localStorage.setItem("authToken", accessToken); // 토큰 저장
     console.log("Access Token fetched and stored:", accessToken);
     return accessToken;
   } catch (error) {
     console.error("Failed to fetch access token:", error);
-    return null; // 에러 발생 시 null 반환
+    return null;
   }
 };
 

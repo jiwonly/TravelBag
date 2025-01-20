@@ -27,18 +27,19 @@ const Login = () => {
   }, [nav]);
 
   useEffect(() => {
-    // 카카오 로그인 후 리다이렉트 처리  
+    // 카카오 로그인 후 리다이렉트 처리
     const fetchToken = async () => {
-      const token = await fetchAccessTokenAPI(); 
-      console.log("Token from API:", token);
-    if (token) {
-      localStorage.setItem("authToken", token);
-      console.log(
-        "Token saved in localStorage:",
-        localStorage.getItem("authToken")
-      );
-      nav("/");
+      const token = localStorage.getItem("authToken");
+      console.log("Stored token before logout:", token);
+
+      if (!token) {
+        console.warn(
+          "No valid authToken found in localStorage. Cannot logout."
+        );
+        alert("로그아웃 실패: 인증 정보가 없습니다.");
+        return;
       }
+      nav("/");
     };
     fetchToken();
   }, [nav]);
