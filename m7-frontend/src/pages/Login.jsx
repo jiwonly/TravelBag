@@ -30,9 +30,14 @@ const Login = () => {
     // 카카오 로그인 후 리다이렉트 처리
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get("token");
+    console.log("Token from URL:", token);
     if (token) {
-      localStorage.setItem("authToken", token); // 토큰 저장
-      nav("/"); // 홈 화면으로 이동
+      localStorage.setItem("authToken", token);
+      console.log(
+        "Token saved in localStorage:",
+        localStorage.getItem("authToken")
+      );
+      nav("/");
     }
   }, [nav]);
 
