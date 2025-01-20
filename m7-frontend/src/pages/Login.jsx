@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAuthStatus } from "@/api/auth.js";
+import { getAuthStatus, fetchAccessTokenAPI } from "@/api/auth.js";
 import HalfTemplate from "@/components/LogIn/HalfTemplate.jsx";
 import { API_BASE_URL } from "@/api/api.js";
 
@@ -27,10 +27,10 @@ const Login = () => {
   }, [nav]);
 
   useEffect(() => {
-    // 카카오 로그인 후 리다이렉트 처리
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get("token");
-    console.log("Token from URL:", token);
+    // 카카오 로그인 후 리다이렉트 처리  
+    const fetchToken = async () => {
+      const token = await fetchAccessTokenAPI(); // 비동기 호출
+      console.log("Token from API:", token);
     if (token) {
       localStorage.setItem("authToken", token);
       console.log(
@@ -38,7 +38,8 @@ const Login = () => {
         localStorage.getItem("authToken")
       );
       nav("/");
-    }
+      }
+    };
   }, [nav]);
 
   return (
