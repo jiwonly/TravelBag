@@ -23,10 +23,16 @@ export const getAuthStatus = async () => {
 // 로그아웃 함수 추가
 export const postLogoutAPI = async () => {
   try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("토큰이 없습니다.");
+
     const response = await axios.post(
       `${API_BASE_URL}/api/auth/logout`,
       {},
       {
+        headers: {
+          Authorization: `Bearer ${token}`, // Authorization 헤더 추가
+        },
         withCredentials: true, // 세션 쿠키 포함
       }
     );
