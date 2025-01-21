@@ -23,7 +23,7 @@ const HalfTemplate = () => {
                   "https://www.notion.so/FE-b933e32cb3734514a904392437039f06";
               }}
             >
-              사용 설명서 보러 가기
+              ↖︎사용 설명서 보러 가기
             </div>
           </div>
           <KakaoButton
