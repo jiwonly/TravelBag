@@ -30,6 +30,7 @@
 #### 기타
 [![Vite](https://img.shields.io/badge/-Vite-646CFF?logo=Vite&logoColor=white&style=flat)](https://vitejs.dev/)  [![npm](https://img.shields.io/badge/-npm-CB3837?logo=npm&logoColor=white&style=flat)](https://www.npmjs.com/)
 
+<br>
 
 ## 📝 규칙
 
