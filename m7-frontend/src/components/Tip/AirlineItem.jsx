@@ -1,10 +1,9 @@
-import { useState } from "react";
 import { getAirlineImage } from "@/util/get-airline-image.js";
 
 const AirlineItem = ({ location_id, name, id, url }) => {
   const onURL = () => {
     if (url) {
-      window.open(url, "_blank"); // 새 창에서 열기
+      window.open(url, "_blank");
     }
   };
 

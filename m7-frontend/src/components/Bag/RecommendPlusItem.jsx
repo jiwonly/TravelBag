@@ -13,8 +13,6 @@ const RecommendPlusItem = ({ categoryId, itemName }) => {
   const memberId = auth.kakaoId;
   const bagId = params.id;
   const isEditiing = useContext(EditStateContext);
-  const [itemsByCategory, setItemsByCategory] = useState([]);
-
   const [bagItems, setBagItems] = useRecoilState(bagItemsState);
 
   // 추천 아이템 추가 함수 - 수정

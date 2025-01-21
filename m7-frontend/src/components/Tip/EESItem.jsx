@@ -19,7 +19,7 @@ const EESItem = ({ content, id, name, signature, url }) => {
 
   const onURL = () => {
     if (url) {
-      window.open(url, "_blank"); // 새 창에서 열기
+      window.open(url, "_blank");
     }
   };
 
@@ -51,4 +51,3 @@ const EESItem = ({ content, id, name, signature, url }) => {
 };
 
 export default EESItem;
-

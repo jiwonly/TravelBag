@@ -1,11 +1,9 @@
 import DestinationItem from "./DestinationItem.jsx";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { fetchLocationsAPI } from "@/api/api.js";
-import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 import { locationsState } from "@/api/atom.js";
 
 const PopularDestinations = ({ selectedId, showContent }) => {
-  const locations = useRecoilValue(locationsState); // Recoil 상태 가져오기
+  const locations = useRecoilValue(locationsState);
 
   return (
     <div className="template_list mt-[40px] mb-[50px] ">

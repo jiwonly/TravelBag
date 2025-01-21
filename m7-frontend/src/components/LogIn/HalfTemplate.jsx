@@ -4,9 +4,7 @@ import KakaoButton from "./KakaoButton.jsx";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "@/api/api.js";
 
-const HalfTemplate = ({ type }) => {
-  const nav = useNavigate();
-
+const HalfTemplate = () => {
   return (
     <div className="flex justify-center items-center gap-[30px] p-[28px] h-screen bg-white">
       <div className="flex flex-col justify-center items-center w-[490px] h-[667px] px-20 py-6  border border-[color:var(--Gray-100,#E5E6E8)] [background:var(--Gradient---Off-White,linear-gradient(180deg,#F6F6F6_0%,#FFF_100%))] rounded-2xl border-solid">

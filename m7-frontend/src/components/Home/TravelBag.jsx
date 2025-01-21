@@ -6,7 +6,7 @@ import { getBagsAPI } from "@/api/api.js";
 import { authState } from "@/api/auth.js";
 
 const TravelBag = () => {
-  const auth = useRecoilValue(authState); // Recoil 상태 읽기만 사용
+  const auth = useRecoilValue(authState);
   const memberId = auth.kakaoId;
   const [bags, setBags] = useRecoilState(bagsState);
   const [realBags, setRealBags] = useRecoilState(realBagsState);
@@ -17,9 +17,9 @@ const TravelBag = () => {
   useEffect(() => {
     const fetchBags = async () => {
       try {
-        const response = await getBagsAPI(memberId); // API 호출
+        const response = await getBagsAPI(memberId);
         if (Array.isArray(response)) {
-          setBags(response); // bags 상태 업데이트
+          setBags(response);
         } else {
           console.error("Invalid bags response format:", response);
         }
@@ -29,13 +29,13 @@ const TravelBag = () => {
     };
 
     fetchBags();
-  }, [memberId, setBags]); // memberId가 변경될 때만 실행
+  }, [memberId, setBags]);
 
   // realBags 업데이트
   useEffect(() => {
-    const filteredBags = bags.filter((bag) => !bag.temporary); // temporary가 false인 가방만 필터링
+    const filteredBags = bags.filter((bag) => !bag.temporary);
     const sortedBags = filteredBags.sort((a, b) => b.id - a.id);
-    setRealBags(filteredBags); // realBags 상태 업데이트
+    setRealBags(filteredBags);
     setSortedRealBags(sortedBags);
   }, [bags, setRealBags]);
 
