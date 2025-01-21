@@ -48,7 +48,7 @@
 
 ### CSS
 
-[![TailwindCSS](https://img.shields.io/badge/-TailwindCSS-06B6D4?logo=TailwindCSS&logoColor=white&style=flat)](https://tailwindcss.com/)
+[![TailwindCSS](https://img.shields.io/badge/-TailwindCSS-06B6D4?logo=TailwindCSS&logoColor=white&style=flat)](https://tailwindcss.com/) [![shadcn/ui](https://img.shields.io/badge/-shadcn%2Fui-0EA5E9?logo=React&logoColor=white&style=flat)](https://github.com/shadcn/ui)
 
 ### 배포
 
