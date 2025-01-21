@@ -142,7 +142,6 @@ export function SideBar() {
   const onLogoutClick = async () => {
     if (window.confirm("정말 로그아웃하시겠습니까?")) {
       try {
-        await postLogoutAPI();
         setAuth({
           isAuthenticated: false,
           kakaoId: null,
@@ -151,6 +150,7 @@ export function SideBar() {
         });
         localStorage.clear();
         sessionStorage.clear();
+
         alert("로그아웃 성공!");
         nav("/login");
       } catch (error) {
