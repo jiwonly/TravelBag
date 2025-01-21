@@ -7,7 +7,7 @@ export const getAuthStatus = async () => {
     const response = await axios.get(`${API_BASE_URL}/api/auth/status`, {
       withCredentials: true, // 세션 쿠키 포함
     });
-    console.log("Auth Status Response:", response.data);
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Failed to fetch auth status:", error);
@@ -20,57 +20,61 @@ export const getAuthStatus = async () => {
   }
 };
 
-// Access Token 가져오기
-export const fetchAccessTokenAPI = async () => {
-  try {
-    const response = await axios.get(`${API_BASE_URL}/api/auth/token`, {
-      withCredentials: true, // 세션 쿠키 포함
-    });
-    const accessToken = response.data.accessToken;
+// export const fetchAccessTokenAPI = async () => {
+//   try {
+//     console.log("[fetchAccessTokenAPI] Attempting to fetch access token...");
 
-    if (!accessToken) {
-      throw new Error("Access token not found in response.");
-    }
+//     // 백엔드의 /api/auth/token 엔드포인트 호출
+//     const response = await axios.get(`${API_BASE_URL}/api/auth/token`, {
+//       withCredentials: true, // 세션 쿠키 포함
+//     });
 
-    // localStorage.setItem("token", accessToken); // 로컬 저장은 이 함수를 호출하는 쪽에서 처리
-    console.log("Access Token fetched and stored:", accessToken);
-    return accessToken;
-  } catch (error) {
-    console.error("Failed to fetch access token:", error);
-    return null; // 에러 발생 시 null 반환
-  }
-};
+//     // 응답 데이터 확인
+//     console.log("[fetchAccessTokenAPI] Access Token Response:", response.data);
 
-// 로그아웃 함수
+//     // 토큰 추출
+//     const accessToken = response.data?.accessToken;
+
+//     if (!accessToken) {
+//       // 토큰이 없을 경우 에러 던짐
+//       throw new Error("Access token not found in response.");
+//     }
+
+//     console.log("[fetchAccessTokenAPI] Access Token fetched:", accessToken);
+
+//     // 호출한 곳에서 토큰 저장하도록 반환
+//     return accessToken;
+//   } catch (error) {
+//     // 에러 디버깅 정보 출력
+//     console.error("[fetchAccessTokenAPI] Failed to fetch access token:", {
+//       message: error.message,
+//       status: error.response?.status || "No status", // HTTP 상태 코드
+//       data: error.response?.data || "No response data", // 응답 데이터
+//     });
+
+//     // 에러 발생 시 null 반환
+//     return null;
+//   }
+// };
+
+// 로그아웃 백엔드에게 알리기
 export const postLogoutAPI = async () => {
   try {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.warn("No token found in localStorage.");
-      throw new Error("Token not found in localStorage");
-    }
     const response = await axios.post(
       `${API_BASE_URL}/api/auth/logout`,
-      {},
+      { isAuthenticated: false }, // 로그아웃 요청의 body가 비어있는 경우
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        withCredentials: true, // 세션 쿠키 포함
+        withCredentials: true, // 세션 쿠키 포함 (쿠키 인증용)
       }
     );
-    console.log("Logout successful:", response.data);
 
-    localStorage.removeItem("token"); // 로그아웃 후 토큰 삭제
+    console.log("Logout successful:", response.data);
     return response.data;
   } catch (error) {
-    console.error("Failed to logout:", error);
-    return {
-          error: error.message || "Failed to logout",
-        };
+    console.error("Failed to logout:", error.response?.data || error.message);
+    throw error;
   }
 };
-
 
 // 로그인 안 쓸 때는 true로 변경
 export const authState = atom({

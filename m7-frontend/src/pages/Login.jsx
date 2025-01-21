@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAuthStatus, fetchAccessTokenAPI } from "@/api/auth.js";
+import { getAuthStatus } from "@/api/auth.js";
 import HalfTemplate from "@/components/LogIn/HalfTemplate.jsx";
 import { API_BASE_URL } from "@/api/api.js";
 
@@ -11,6 +11,7 @@ const Login = () => {
     // 백엔드의 카카오 인증 엔드포인트로 이동
     window.location.href = `${API_BASE_URL}/oauth2/authorization/kakao`;
   };
+
   useEffect(() => {
     // 새로고침 시 인증 상태 확인 및 복구
     const checkAuthStatus = async () => {
@@ -27,20 +28,24 @@ const Login = () => {
   }, [nav]);
 
   useEffect(() => {
-    // 카카오 로그인 후 리다이렉트 처리  
-    const fetchToken = async () => {
-      const token = await fetchAccessTokenAPI(); 
-      console.log("Token from API:", token);
+    // 카카오 로그인 후 리다이렉트 처리
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("token");
+
     if (token) {
+      // 로그인 상태 확인
       localStorage.setItem("authToken", token);
       console.log(
         "Token saved in localStorage:",
         localStorage.getItem("authToken")
       );
+
+      // URL에서 token 파라미터 제거
+      const cleanUrl = window.location.origin + window.location.pathname;
+      window.history.replaceState(null, "", cleanUrl);
+
       nav("/");
-      }
-    };
-    fetchToken();
+    }
   }, [nav]);
 
   return (

@@ -6,7 +6,12 @@ import {
 } from "react-router-dom";
 import { createContext, useRef, useState, useEffect } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { authState, getAuthStatus, postLogoutAPI } from "./api/auth.js";
+import {
+  authState,
+  fetchAccessTokenAPI,
+  getAuthStatus,
+  postLogoutAPI,
+} from "./api/auth.js";
 
 import Home from "./pages/Home.jsx";
 import Tip from "./pages/Tip.jsx";
@@ -96,24 +101,6 @@ function App() {
 
     fetchAuthStatus(); // 백엔드에서 인증 상태 가져오기
   }, []);
-
-  // 이미 SideBar.jsx에 있어서 필요 없을 것 같은데 일단 냅둠
-  // const handleLogout = async () => {
-  //   try {
-  //     await postLogoutAPI(); // 로그아웃 API 호출
-  //     setAuth({
-  //       isAuthenticated: false,
-  //       kakaoId: null,
-  //       email: null,
-  //       nickname: null,
-  //     });
-  //     alert("로그아웃 성공!");
-  //     nav("/login");
-  //   } catch (error) {
-  //     alert("로그아웃 실패!");
-  //     console.error("Logout error:", error);
-  //   }
-  // };
 
   return (
     <>

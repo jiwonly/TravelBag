@@ -3,7 +3,7 @@ import { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { EditStateContext } from "@/pages/Bag.jsx";
 import { createBagItemAPI, getBagItemsByCategoryAPI } from "@/api/api.js";
-import { bagItemsState, thisBagItemsState } from "@/api/atom.js";
+import { bagItemsState } from "@/api/atom.js";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { authState } from "@/api/auth.js";
 
