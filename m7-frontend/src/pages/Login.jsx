@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAuthStatus, fetchAccessTokenAPI } from "@/api/auth.js";
+import { getAuthStatus } from "@/api/auth.js";
 import HalfTemplate from "@/components/LogIn/HalfTemplate.jsx";
 import { API_BASE_URL } from "@/api/api.js";
 
@@ -13,23 +13,33 @@ const Login = () => {
   };
 
   useEffect(() => {
-    const authenticate = async () => {
+    // 새로고침 시 인증 상태 확인 및 복구
+    const checkAuthStatus = async () => {
       try {
-        const status = await getAuthStatus(); // 인증 상태 확인
-        console.log("Authentication status:", status);
+        const status = await getAuthStatus();
         if (status.isAuthenticated) {
-          const token = await fetchAccessTokenAPI(); // 토큰 가져오기
-          if (token) {
-            localStorage.setItem("authToken", token);
-            console.log("Token saved 으하하하:", token);
-            nav("/");
-          }
+          nav("/");
         }
       } catch (error) {
-        console.error("Error during authentication flow:", error);
+        console.error("인증 상태 확인 실패:", error);
       }
     };
-    authenticate();
+    checkAuthStatus();
+  }, [nav]);
+
+  useEffect(() => {
+    // 카카오 로그인 후 리다이렉트 처리
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("token");
+    console.log("Token from URL:", token);
+    if (token) {
+      localStorage.setItem("authToken", token);
+      console.log(
+        "Token saved in localStorage:",
+        localStorage.getItem("authToken")
+      );
+      nav("/");
+    }
   }, [nav]);
 
   return (

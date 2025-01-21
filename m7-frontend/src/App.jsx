@@ -72,38 +72,22 @@ function App() {
   };
 
   // 로그인 쓸 때 주석 풀기
-  // 로그인 시 주석을 풀고 실행
-  // 인증상태 확인까지는 잘 되니까 확인후에 바로 토큰 가져오기
   useEffect(() => {
-    const authenticateAndFetchToken = async () => {
+    const fetchAuthStatus = async () => {
       try {
-        // 인증 상태 확인
         const status = await getAuthStatus();
-        console.log("인증 상태 확인:", status);
+        // console.log("인증 상태 확인:", status);
+        // console.log("인증 상태 확인2:", status.isAuthenticated);
 
-        // 인증 상태 업데이트
+        //인증 상태 업데이트
         setAuth({
           isAuthenticated: status.isAuthenticated,
           kakaoId: status.kakaoId,
           email: status.email,
           nickname: status.nickname,
         });
-
-        // 인증 상태가 true일 때만 토큰 가져오기
-        if (status.isAuthenticated) {
-          const token = await fetchAccessTokenAPI();
-          if (token) {
-            // 토큰 저장
-            localStorage.setItem("authToken", token);
-            console.log("토큰 가져오기 성공:", token);
-          } else {
-            console.error("토큰 가져오기 실패");
-          }
-        } else {
-          console.warn("사용자가 인증되지 않았습니다.");
-        }
       } catch (error) {
-        console.error("인증 상태 확인 또는 토큰 가져오기 실패:", error);
+        console.error("인증 상태 확인 실패:", error);
 
         // 인증 실패 시 기본값 설정
         setAuth({
@@ -115,26 +99,8 @@ function App() {
       }
     };
 
-    authenticateAndFetchToken(); // 인증 상태 확인 및 토큰 가져오기 실행
-  }, []); // 컴포넌트 마운트 시 실행
-
-  // // 이미 SideBar.jsx에 있어서 필요 없을 것 같은데 일단 냅둠
-  // const handleLogout = async () => {
-  //   try {
-  //     await postLogoutAPI(); // 로그아웃 API 호출
-  //     setAuth({
-  //       isAuthenticated: false,
-  //       kakaoId: null,
-  //       email: null,
-  //       nickname: null,
-  //     });
-  //     alert("로그아웃 성공!");
-  //     nav("/login");
-  //   } catch (error) {
-  //     alert("로그아웃 실패!");
-  //     console.error("Logout error:", error);
-  //   }
-  // };
+    fetchAuthStatus(); // 백엔드에서 인증 상태 가져오기
+  }, []);
 
   return (
     <>
