@@ -5,8 +5,13 @@
 ## 🖥️ 프로젝트 소개
 2024 M7 team 여행가방 프로젝트 입니다.
 <br>
-
+![image](https://github.com/user-attachments/assets/6d97fd8b-448c-4b23-b3f3-c6d27164b656)
+<br>
+![image](https://github.com/user-attachments/assets/0da4f202-e94f-4ef2-afe2-79b6fb868618)
+<br>
 ![image](https://github.com/user-attachments/assets/724cb45d-576a-456b-98dc-1786be8b7599)
+<br>
+![image](https://github.com/user-attachments/assets/35d805f7-a69d-47c9-9cbd-55264159a264)
 
 <br>
 
