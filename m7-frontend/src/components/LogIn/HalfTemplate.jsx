@@ -18,7 +18,13 @@ const HalfTemplate = ({ type }) => {
               <p>여행 준비를 더 쉽게,</p>
               <p>효율적인 여행 준비의 시작!</p>
             </div>
-            <div className="mb-[20px] text-[#444444] text-[14px]">
+            <div
+              className="mb-[20px] text-center text-[#444444] text-[14px] cursor-pointer underline"
+              onClick={() => {
+                window.location.href =
+                  "https://www.notion.so/FE-b933e32cb3734514a904392437039f06";
+              }}
+            >
               사용 설명서 보러 가기
             </div>
           </div>
@@ -27,14 +33,8 @@ const HalfTemplate = ({ type }) => {
               window.location.href = `${API_BASE_URL}/oauth2/authorization/kakao`;
             }}
           />
-          <div
-            className="mb-[20px] text-[#444444] text-[14px] cursor-pointer"
-            onClick={() => {
-              window.location.href =
-                "https://www.notion.so/FE-b933e32cb3734514a904392437039f06";
-            }}
-          >
-            사용 설명서 보러 가기
+          <div className="text-center text-[#444444] text-[10px] text-opacity-40">
+            여행가방은 회원의 개인 정보를 안전하게 보호합니다.
           </div>
         </div>
       </div>
