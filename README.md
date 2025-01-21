@@ -13,11 +13,18 @@
 
 - 24.11.29 - 25.1.25
 
-## 개발스택
-- 프레임워크 : React
-- 사용언어: HTML, CSS, JavaScript
-- Css: Tailwindcss
-- 기타: vite, npm
+## 개발 스택
+- **프레임워크**: [![React](https://img.shields.io/badge/-React-61DAFB?logo=React&logoColor=white&style=flat)](https://reactjs.org/)
+- **사용 언어**:
+  - [![HTML](https://img.shields.io/badge/-HTML-E34F26?logo=HTML5&logoColor=white&style=flat)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+  - [![CSS](https://img.shields.io/badge/-CSS-1572B6?logo=CSS3&logoColor=white&style=flat)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+  - [![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?logo=JavaScript&logoColor=black&style=flat)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+- **CSS**: [![TailwindCSS](https://img.shields.io/badge/-TailwindCSS-06B6D4?logo=TailwindCSS&logoColor=white&style=flat)](https://tailwindcss.com/)
+- **배포**: [![AWS Amplify](https://img.shields.io/badge/-AWS_Amplify-FF9900?logo=AWS-Amplify&logoColor=white&style=flat)](https://aws.amazon.com/amplify/)
+- **기타**:
+  - [![Vite](https://img.shields.io/badge/-Vite-646CFF?logo=Vite&logoColor=white&style=flat)](https://vitejs.dev/)
+  - [![npm](https://img.shields.io/badge/-npm-CB3837?logo=npm&logoColor=white&style=flat)](https://www.npmjs.com/)
+
 
 ## 📝 규칙
 
