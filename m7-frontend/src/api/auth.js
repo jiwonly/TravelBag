@@ -62,14 +62,12 @@ export const postLogoutAPI = async () => {
   try {
     const response = await axios.post(
       `${API_BASE_URL}/api/auth/logout`,
-      {}, // 로그아웃 요청의 body가 비어있는 경우
+      { isAuthenticated: false, kakaoId: null, email: null, nickname: null }, // 로그아웃 요청의 body가 비어있는 경우
       {
         withCredentials: true, // 세션 쿠키 포함 (쿠키 인증용)
       }
     );
 
-    localStorage.clear();
-    sessionStorage.clear(); // 모든 세션 스토리지 데이터를 제거
     console.log("Logout successful:", response.data);
     return response.data;
   } catch (error) {

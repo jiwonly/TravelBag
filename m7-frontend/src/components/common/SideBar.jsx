@@ -149,6 +149,8 @@ export function SideBar() {
           email: null,
           nickname: null,
         });
+        localStorage.clear();
+        sessionStorage.clear();
         alert("로그아웃 성공!");
         nav("/login");
       } catch (error) {
