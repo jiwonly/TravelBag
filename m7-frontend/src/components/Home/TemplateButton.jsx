@@ -6,7 +6,7 @@ import { useRecoilValue } from "recoil";
 import { authState } from "@/api/auth.js";
 
 const TemplateButton = ({ templateId, style }) => {
-  const auth = useRecoilValue(authState); // Recoil 상태 읽기만 사용
+  const auth = useRecoilValue(authState);
   const memberId = auth.kakaoId;
   const bagIdRef = useContext(BagIdRefContext);
   const nav = useNavigate();

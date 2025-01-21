@@ -4,9 +4,7 @@ import KakaoButton from "./KakaoButton.jsx";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "@/api/api.js";
 
-const HalfTemplate = ({ type }) => {
-  const nav = useNavigate();
-
+const HalfTemplate = () => {
   return (
     <div className="flex justify-center items-center gap-[30px] p-[28px] h-screen bg-white">
       <div className="flex flex-col justify-center items-center w-[490px] h-[667px] px-20 py-6  border border-[color:var(--Gray-100,#E5E6E8)] [background:var(--Gradient---Off-White,linear-gradient(180deg,#F6F6F6_0%,#FFF_100%))] rounded-2xl border-solid">
@@ -18,8 +16,16 @@ const HalfTemplate = ({ type }) => {
               <p>여행 준비를 더 쉽게,</p>
               <p>효율적인 여행 준비의 시작!</p>
             </div>
-            <div className="mb-[20px] text-[#444444] text-[14px]">
-              간편 로그인으로 3초만에 시작!
+            <div
+              className="mb-[20px] text-center text-[#444444] text-[14px] cursor-pointer underline"
+              onClick={() => {
+                window.open(
+                  "https://www.notion.so/FE-b933e32cb3734514a904392437039f06",
+                  "_blank"
+                );
+              }}
+            >
+              ↖︎사용 설명서 보러 가기
             </div>
           </div>
           <KakaoButton

@@ -1,7 +1,5 @@
 import RecommendPlusItem from "./RecommendPlusItem.jsx";
 import { useEffect, useState } from "react";
-import { getRecommendItemsByCategoryAPI } from "@/api/api.js";
-import { useParams } from "react-router-dom";
 import { recommendItemsList } from "@/util/get-recomment-supplies-list.js";
 
 const RecommendPlusList = ({ categoryId }) => {

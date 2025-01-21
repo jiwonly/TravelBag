@@ -11,8 +11,8 @@ import { locationsState } from "@/api/atom.js";
 
 const Tipboard = () => {
   const [selectedDestination, setSelectedDestination] = useState(null);
-  const setLocations = useSetRecoilState(locationsState); // Recoil 상태 업데이트 함수 가져오기
-  const locations = useRecoilValue(locationsState); // Recoil 상태 가져오기
+  const setLocations = useSetRecoilState(locationsState);
+  const locations = useRecoilValue(locationsState);
 
   const handleSelectDestination = (id) => {
     setSelectedDestination((prev) => (prev === id ? null : id));

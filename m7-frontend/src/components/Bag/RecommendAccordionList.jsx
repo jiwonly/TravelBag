@@ -7,24 +7,6 @@ import { getRecommendItemsAPI } from "@/api/api.js";
 import { recommendItemsList } from "@/util/get-recomment-supplies-list.js";
 
 const RecommendAccordionList = () => {
-  // const memberId = 1;
-  // const params = useParams();
-  // const bagId = params.id;
-  // const [recommendItems, setRecommendItems] =
-  //   useRecoilState(recommendItemsState);
-
-  // useEffect(() => {
-  //   const fetchrecommendItems = async () => {
-  //     try {
-  //       const recommendResponse = await getRecommendItemsAPI(memberId, bagId);
-  //       setRecommendItems(recommendResponse);
-  //     } catch (error) {
-  //       console.error("Error fetching recommendItems:", error);
-  //     }
-  //   };
-  //   fetchrecommendItems();
-  // }, [memberId, bagId]);
-
   return (
     <div className="flex flex-col w-full">
       {recommendItemsList.map((category) => (

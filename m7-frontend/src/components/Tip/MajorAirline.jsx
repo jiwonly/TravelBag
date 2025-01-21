@@ -1,5 +1,5 @@
 import AirlineItem from "./AirlineItem.jsx";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import React, { useEffect } from "react";
 import { airlinesState } from "../../api/atom.js";
 import { fetchAirlinesAPI } from "../../api/api.js";
@@ -18,13 +18,11 @@ const MajorAirline = ({ location_id }) => {
         }
       } catch (error) {
         console.error("Error fetching airlines:", error);
-
       }
     };
 
     fetchAirlines();
   }, [location_id]);
-
 
   return (
     <div className="mt-[20px] mb-[50px] ">
