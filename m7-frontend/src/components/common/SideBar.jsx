@@ -139,6 +139,12 @@ export function SideBar() {
   const curId =
     realBags.length > 0 ? Math.max(...realBags.map((bag) => bag.id)) : 0;
 
+  const clearCookies = () => {
+    document.cookie.split(";").forEach((cookie) => {
+      const name = cookie.split("=")[0].trim();
+      document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    });
+  };
   const onLogoutClick = async () => {
     if (window.confirm("정말 로그아웃하시겠습니까?")) {
       try {
@@ -150,6 +156,7 @@ export function SideBar() {
         });
         localStorage.clear();
         sessionStorage.clear();
+        clearCookies();
 
         alert("로그아웃 성공!");
         nav("/login");

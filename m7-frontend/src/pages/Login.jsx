@@ -31,13 +31,19 @@ const Login = () => {
     // 카카오 로그인 후 리다이렉트 처리
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get("token");
-    console.log("Token from URL:", token);
+
     if (token) {
+      // 로그인 상태 확인
       localStorage.setItem("authToken", token);
       console.log(
         "Token saved in localStorage:",
         localStorage.getItem("authToken")
       );
+
+      // URL에서 token 파라미터 제거
+      const cleanUrl = window.location.origin + window.location.pathname;
+      window.history.replaceState(null, "", cleanUrl);
+
       nav("/");
     }
   }, [nav]);
