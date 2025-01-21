@@ -97,7 +97,7 @@ function App() {
     fetchAuthStatus(); // 백엔드에서 인증 상태 가져오기
   }, []);
 
-  // 이미 SideBar.jsx에 있어서 필요 없을 것 같은데 일단 냅둠
+  // // 이미 SideBar.jsx에 있어서 필요 없을 것 같은데 일단 냅둠
   // const handleLogout = async () => {
   //   try {
   //     await postLogoutAPI(); // 로그아웃 API 호출
