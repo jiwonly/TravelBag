@@ -3,7 +3,7 @@ import { CheckList } from "./CheckList.jsx";
 import { useParams } from "react-router-dom";
 import { createContext, useEffect, useState } from "react";
 import { getBagItemsAPI } from "@/api/api.js";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { authState } from "@/api/auth.js";
 import { bagItemsState } from "@/api/atom.js";
 

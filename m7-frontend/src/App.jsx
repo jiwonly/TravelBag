@@ -4,14 +4,9 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { createContext, useRef, useState, useEffect } from "react";
-import { useRecoilValue, useRecoilState } from "recoil";
-import {
-  authState,
-  fetchAccessTokenAPI,
-  getAuthStatus,
-  postLogoutAPI,
-} from "./api/auth.js";
+import { createContext, useRef, useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { authState, getAuthStatus } from "./api/auth.js";
 
 import Home from "./pages/Home.jsx";
 import Tip from "./pages/Tip.jsx";
@@ -29,11 +24,10 @@ function PrivateRoute({ isAuthenticated, children }) {
 export const BagIdRefContext = createContext();
 
 function App() {
-  // URL 끝의 / 제거하는 useEffect 추가
   useEffect(() => {
     if (window.location.pathname.endsWith("/")) {
-      const newPath = window.location.pathname.slice(0, -1); // 끝의 / 제거
-      window.history.replaceState(null, "", newPath); // URL 변경
+      const newPath = window.location.pathname.slice(0, -1);
+      window.history.replaceState(null, "", newPath);
     }
   }, []);
 
@@ -46,9 +40,9 @@ function App() {
   useEffect(() => {
     const fetchBags = async () => {
       try {
-        const response = await getBagsAPI(memberId); // API 호출
+        const response = await getBagsAPI(memberId);
         if (Array.isArray(response)) {
-          setBags(response); // bags 상태 업데이트
+          setBags(response);
         } else {
           console.error("Invalid bags response format:", response);
         }
@@ -58,7 +52,7 @@ function App() {
     };
 
     fetchBags();
-  }, [memberId, setBags]); // memberId가 변경될 때만 실행
+  }, [memberId, setBags]);
 
   const bagIdRef = useRef(
     bags.length > 0 ? Math.max(...bags.map((bag) => bag.id)) + 1 : 1
@@ -71,15 +65,11 @@ function App() {
     });
   };
 
-  // 로그인 쓸 때 주석 풀기
   useEffect(() => {
     const fetchAuthStatus = async () => {
       try {
         const status = await getAuthStatus();
-        // console.log("인증 상태 확인:", status);
-        // console.log("인증 상태 확인2:", status.isAuthenticated);
 
-        //인증 상태 업데이트
         setAuth({
           isAuthenticated: status.isAuthenticated,
           kakaoId: status.kakaoId,
@@ -89,7 +79,6 @@ function App() {
       } catch (error) {
         console.error("인증 상태 확인 실패:", error);
 
-        // 인증 실패 시 기본값 설정
         setAuth({
           isAuthenticated: false,
           kakaoId: null,
@@ -99,7 +88,7 @@ function App() {
       }
     };
 
-    fetchAuthStatus(); // 백엔드에서 인증 상태 가져오기
+    fetchAuthStatus();
   }, []);
 
   return (

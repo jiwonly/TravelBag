@@ -1,9 +1,33 @@
 # 여행 준비를 더 쉽게, 여행가방 - Frontend
 
 
+
+
 ## 🖥️ 프로젝트 소개
 2024 M7 team 여행가방 프로젝트 입니다.
 <br>
+![image](https://github.com/user-attachments/assets/6d97fd8b-448c-4b23-b3f3-c6d27164b656)
+<br>
+![image](https://github.com/user-attachments/assets/724cb45d-576a-456b-98dc-1786be8b7599)
+<br>
+![image](https://github.com/user-attachments/assets/0da4f202-e94f-4ef2-afe2-79b6fb868618)
+<br>
+![image](https://github.com/user-attachments/assets/35d805f7-a69d-47c9-9cbd-55264159a264)
+
+<br>
+
+
+
+## 👥 팀 멤버
+
+|  **전지원**  |  **이연서**  |
+| :----------: | :----------: |
+| <img src="https://github.com/user-attachments/assets/3fff8e3b-3e2c-4c00-9a1e-c92c25eb493e" width="150"/> | <img src="https://github.com/user-attachments/assets/1f35c4bb-b13a-41c5-ac87-e1eb7586d326" width="150"/> |
+| [@jiwon](https://github.com/jiwon) | [@lee-yeonseo](https://github.com/lee-yeonseo) |
+
+
+<br>
+
 
 
 ![image](https://github.com/user-attachments/assets/1313f40d-3cd0-4c02-9cf9-3fb97380bea7)
