@@ -19,8 +19,10 @@ const HalfTemplate = () => {
             <div
               className="mb-[20px] text-center text-[#444444] text-[14px] cursor-pointer underline"
               onClick={() => {
-                window.location.href =
-                  "https://www.notion.so/FE-b933e32cb3734514a904392437039f06";
+                window.open(
+                  "https://www.notion.so/FE-b933e32cb3734514a904392437039f06",
+                  "_blank"
+                );
               }}
             >
               ↖︎사용 설명서 보러 가기
