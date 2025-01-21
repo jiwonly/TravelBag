@@ -21,7 +21,7 @@ const Login = () => {
           const token = await fetchAccessTokenAPI(); // 토큰 가져오기
           if (token) {
             localStorage.setItem("authToken", token);
-            console.log("Token saved:", token);
+            console.log("Token saved 으하하하:", token);
             nav("/");
           }
         }
