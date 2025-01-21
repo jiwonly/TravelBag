@@ -145,15 +145,18 @@ export function SideBar() {
       document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
     });
   };
+  
   const onLogoutClick = async () => {
     if (window.confirm("정말 로그아웃하시겠습니까?")) {
       try {
+        await postLogoutAPI();
         setAuth({
           isAuthenticated: false,
           kakaoId: null,
           email: null,
           nickname: null,
         });
+
         localStorage.clear();
         sessionStorage.clear();
         clearCookies();
