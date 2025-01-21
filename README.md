@@ -16,7 +16,7 @@
 
 |  **전지원**  |  **이연서**  |
 | :----------: | :----------: |
-| ![전지원 사진](https://your-image-link-for-jiwon.png) | ![이연서 사진](https://your-image-link-for-yeonseo.png) |
+| | ![이연서 사진](https://your-image-link-for-yeonseo.png) |
 | [@jiwon](https://github.com/jiwon) | [@lee-yeonseo](https://github.com/lee-yeonseo) |
 
 <br>
