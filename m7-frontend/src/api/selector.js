@@ -7,7 +7,7 @@ import {
   attractionsState,
   souvenirsState,
   bagsState,
-} from "./atom";
+} from "./atom.js";
 
 export const selectLocations = selector({
   key: "selectLocations",

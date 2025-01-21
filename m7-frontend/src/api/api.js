@@ -150,6 +150,7 @@ export const toggleBagTemporaryAPI = async (memberId, bagId) => {
   try {
     const response = await axios.patch(
       `${API_BASE_URL}/api/member/${memberId}/bags/${bagId}/toggle-temporary`,
+      {},
       {
         withCredentials: true, // 세션 쿠키 포함
       }
@@ -283,6 +284,7 @@ export const toggleItemPackedAPI = async (memberId, bagId, itemId) => {
   try {
     const response = await axios.patch(
       `${API_BASE_URL}/api/member/${memberId}/bags/${bagId}/item/${itemId}/toggle-packed`,
+      {},
       {
         withCredentials: true, // 세션 쿠키 포함
       }

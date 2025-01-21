@@ -3,7 +3,7 @@ export const recommendItemsList = [
     categoryId: 1,
     items: [
       { id: 1, name: "여권", category: "ESSENTIAL" },
-      { id: 2, name: "유신", category: "ESSENTIAL" },
+      { id: 2, name: "유심", category: "ESSENTIAL" },
       { id: 3, name: "여행자 보험", category: "ESSENTIAL" },
       { id: 4, name: "신용카드", category: "ESSENTIAL" },
       { id: 5, name: "체크카드", category: "ESSENTIAL" },

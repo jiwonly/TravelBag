@@ -107,7 +107,7 @@ const BagHeader = ({ icon }) => {
   };
 
   const onSelected = (value) => {
-    const selectedBag = bags.find((bag) => bag.name === value); // 이름으로 가방 찾기
+    const selectedBag = realBags.find((bag) => bag.name === value); // 이름으로 가방 찾기
     if (selectedBag) {
       setSelectedBagName(value); // 선택된 이름 설정
       setEditedBagName(value); // 편집 이름 설정
@@ -184,8 +184,18 @@ const BagHeader = ({ icon }) => {
         return;
       } else if (!thisBag.temporary) {
         await handleBagUpdateName(editedBagName);
-        console.log("editedBagName", editedBagName);
+        setBags((prevBags) =>
+          prevBags.map((bag) =>
+            bag.id === thisBag.id ? { ...bag, name: editedBagName } : bag
+          )
+        );
         setSelectedBagName(editedBagName);
+        setSortedRealBags((prevBags) => {
+          const updatedBags = prevBags.map((bag) =>
+            bag.id === thisBag.id ? { ...bag, name: editedBagName } : bag
+          );
+          return updatedBags.sort((a, b) => b.id - a.id); // 정렬 유지
+        });
         onSetEditing(false);
         onSetEdit(false);
       }
@@ -205,6 +215,17 @@ const BagHeader = ({ icon }) => {
       } else {
         await handleBagUpdateTemporary();
         await handleBagUpdateName(editedBagName);
+        setBags((prevBags) =>
+          prevBags.map((bag) =>
+            bag.id === thisBag.id ? { ...bag, name: editedBagName } : bag
+          )
+        );
+        setSortedRealBags((prevBags) => {
+          const updatedBags = prevBags.map((bag) =>
+            bag.id === thisBag.id ? { ...bag, name: editedBagName } : bag
+          );
+          return updatedBags.sort((a, b) => b.id - a.id); // 정렬 유지
+        });
         nav("/");
       }
     }
@@ -239,7 +260,7 @@ const BagHeader = ({ icon }) => {
           />
         ) : (
           <Select onValueChange={(value) => onSelected(value)}>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-[220px]">
               <SelectValue placeholder={selectedBagName} />
             </SelectTrigger>
             <SelectContent>

@@ -67,14 +67,14 @@ export function getEnjoyImage(id) {
     case 20:
       return enjoy_BangKok_5;
     case 21:
-      return enjoy_ToKyo_1;
-    case 22:
-      return enjoy_ToKyo_2;
-    case 23:
-      return enjoy_ToKyo_3;
-    case 24:
-      return enjoy_ToKyo_4;
-    case 25:
       return enjoy_ToKyo_5;
+    case 22:
+      return enjoy_ToKyo_1;
+    case 23:
+      return enjoy_ToKyo_2;
+    case 24:
+      return enjoy_ToKyo_3;
+    case 25:
+      return enjoy_ToKyo_4;
   }
 }

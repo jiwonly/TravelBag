@@ -4,7 +4,7 @@ import CheckData_plus from "../../assets/CheckData_plus.svg";
 import {
   AddedItemStateContext,
   AddedItemDispatchContext,
-} from "./BagDashboard.jsx";
+} from "./BagDashboard";
 
 export function CheckInput({ onCreateItem }) {
   const added = useContext(AddedItemStateContext);

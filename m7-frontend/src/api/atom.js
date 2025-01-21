@@ -1,11 +1,5 @@
 import { atom } from "recoil";
 
-// 회원 카카오 ID 상태
-export const kakaoIdState = atom({
-  key: "kakaoIdState",
-  default: [],
-});
-
 export const membersState = atom({
   key: "membersState",
   default: [],
@@ -46,11 +40,6 @@ export const registersState = atom({
   default: [],
 });
 
-export const signupMessageState = atom({
-  key: "signupMessageState",
-  default: "",
-});
-
 export const bagsState = atom({
   key: "bagsState",
   default: [],
@@ -66,8 +55,8 @@ export const sortedRealBagsState = atom({
   default: [],
 });
 
-export const thisBagItemsState = atom({
-  key: "itemsByCategory",
+export const bagItemsState = atom({
+  key: "bagItemsState",
   default: [],
 });
 

@@ -26,6 +26,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { BagIdRefContext } from "@/App.jsx";
 import { createBagAPI, getBagDetailsAPI, getBagsAPI } from "@/api/api.js";
 import { bagsState, realBagsState } from "@/api/atom.js";
+import { postLogoutAPI } from "@/api/auth.js";
 
 function sidebarImage(id, isActive = false) {
   if (isActive) {
@@ -138,15 +139,34 @@ export function SideBar() {
   const curId =
     realBags.length > 0 ? Math.max(...realBags.map((bag) => bag.id)) : 0;
 
-  const onLogoutClick = () => {
+  const clearCookies = () => {
+    document.cookie.split(";").forEach((cookie) => {
+      const name = cookie.split("=")[0].trim();
+      document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    });
+  };
+  
+  const onLogoutClick = async () => {
     if (window.confirm("정말 로그아웃하시겠습니까?")) {
-      // setAuth({
-      //   isAuthenticated: undefined,
-      //   kakaoId: null,
-      //   email: null,
-      //   nickname: null,
-      // });
-      nav("/login");
+      try {
+        await postLogoutAPI();
+        setAuth({
+          isAuthenticated: false,
+          kakaoId: null,
+          email: null,
+          nickname: null,
+        });
+
+        localStorage.clear();
+        sessionStorage.clear();
+        clearCookies();
+
+        alert("로그아웃 성공!");
+        nav("/login");
+      } catch (error) {
+        alert("로그아웃 실패! 다시 시도해주세요.");
+        console.error("Logout error", error);
+      }
     }
   };
 

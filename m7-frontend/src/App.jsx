@@ -6,8 +6,12 @@ import {
 } from "react-router-dom";
 import { createContext, useRef, useState, useEffect } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { authState } from "./api/auth.js";
-import { getAuthStatus } from "./api/auth.js";
+import {
+  authState,
+  fetchAccessTokenAPI,
+  getAuthStatus,
+  postLogoutAPI,
+} from "./api/auth.js";
 
 import Home from "./pages/Home.jsx";
 import Tip from "./pages/Tip.jsx";
@@ -37,7 +41,6 @@ function App() {
   const memberId = auth.kakaoId;
 
   const [bags, setBags] = useRecoilState(bagsState);
-  console.log(auth);
 
   // 가방 데이터 가져옴
   useEffect(() => {
@@ -97,7 +100,7 @@ function App() {
     };
 
     fetchAuthStatus(); // 백엔드에서 인증 상태 가져오기
-  }, [setAuth]);
+  }, []);
 
   return (
     <>
